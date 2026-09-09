@@ -1,0 +1,8 @@
+# Shell script 必須是 LF —— CRLF 會讓 Linux/macOS 噴
+# "bad interpreter: /bin/sh^M" 而完全無法執行。
+*.sh        text eol=lf
+scripts/*   text eol=lf
+
+# 其餘文字檔交由 git 自動處理
+*.md        text
+*.html      text
