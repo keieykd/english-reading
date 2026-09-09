@@ -612,24 +612,65 @@ footer{margin-top:2.5rem;padding-top:1rem;border-top:1px solid var(--line);color
   <div class="tip">灰色那五個<b>不用背</b>。要精熟的只有上面六個——
   這就是為什麼我說「不加重生字」：<b>不是少讀字，是別把力氣花在錯的字上。</b></div>
 
-  <h2>⑥ 五題探測（回答給我，一句話就好）</h2>
-  <div class="tip">因為「列出不認識的字」對你失效，改用這種問法——
-  <b>我不問你認不認識，我問你這句話是什麼意思</b>。
-  全部取自你已經讀過的原文，不用重讀，用你現在的理解直接答。</div>
-  <div class="q"><b>P1.</b> <span class="en">Cancellations … are refunded in full,
-    <b>less</b> an administrative fee of EUR 45.</span><br>
-    <span class="zh">這裡的 <code>less</code> 是什麼意思？退的錢是「全額」還是「全額扣掉 45 歐」？</span></div>
-  <div class="q"><b>P2.</b> <span class="en">…otherwise the room may be
-    <b>released</b>.</span><br>
-    <span class="zh">誰會失去這個房間？</span></div>
-  <div class="q"><b>P3.</b> <span class="en"><b>Where</b> payment was made in cash…</span><br>
-    <span class="zh">這句話在講什麼情況？（提示：跟地點無關）</span></div>
-  <div class="q"><b>P4.</b> <span class="en">Passengers who <b>fail to</b> present themselves
-    at the gate…</span><br>
-    <span class="zh">這些乘客做了什麼、或沒做什麼？</span></div>
-  <div class="q"><b>P5.</b> <span class="en">Early check-in is <b>subject to</b> availability
-    and cannot be guaranteed.</span><br>
-    <span class="zh">所以你到底可不可以提早入住？</span></div>
+  <h2>⑥ 五題小測（點選項就好）</h2>
+  <div class="tip">不用寫字、不用回想原文，<b>句子就在題目裡</b>。
+  看那個粗體的小字，選一個中文意思。<br>
+  做完按最下面的按鈕，會自動產生答案讓你貼回對話。</div>
+
+  <div class="card">
+    <h3>先看一題示範</h3>
+    <p class="d them">Tickets may be changed once without charge,
+      <b>provided</b> the change is requested 24 hours before departure.</p>
+    <p><b>問</b>：<code>provided</code> 是什麼意思？</p>
+    <p class="zh">(a) 提供　(b) <b>條件是</b>　(c) 已經準備好</p>
+    <p class="d you">答案：(b)　→「機票可以免費改一次，<b>條件是</b>出發前 24 小時提出。」</p>
+    <p class="zh">就是這樣，下面五題照做。</p>
+  </div>
+
+  <div class="q" data-qid="P1"><b>P1.</b>
+    <span class="en">Cancellations are refunded in full, <b>less</b> an administrative fee of EUR 45.</span>
+    <div class="opts">
+      <label><input type="radio" name="P1" value="a"> (a) 退全額，另外再給你 45 歐</label>
+      <label><input type="radio" name="P1" value="b"> (b) 退全額，但要扣掉 45 歐</label>
+      <label><input type="radio" name="P1" value="c"> (c) 只退 45 歐</label>
+    </div></div>
+
+  <div class="q" data-qid="P2"><b>P2.</b>
+    <span class="en">If you expect to arrive after 18:00, please inform us in advance;
+    <b>otherwise</b> the room may be <b>released</b>.</span>
+    <div class="opts">
+      <label><input type="radio" name="P2" value="a"> (a) 飯店會幫你留著房間</label>
+      <label><input type="radio" name="P2" value="b"> (b) 你的房間可能被讓給別人</label>
+      <label><input type="radio" name="P2" value="c"> (c) 你要多付一晚的錢</label>
+    </div></div>
+
+  <div class="q" data-qid="P3"><b>P3.</b>
+    <span class="en"><b>Where</b> payment was made in cash, refunds may be issued by bank transfer.</span>
+    <div class="opts">
+      <label><input type="radio" name="P3" value="a"> (a) 在付現金的那個地點</label>
+      <label><input type="radio" name="P3" value="b"> (b) 當付款方式是現金的時候</label>
+      <label><input type="radio" name="P3" value="c"> (c) 現金被放在哪裡</label>
+    </div></div>
+
+  <div class="q" data-qid="P4"><b>P4.</b>
+    <span class="en">Passengers who <b>fail to</b> present themselves at the gate by the stated
+    boarding time…</span>
+    <div class="opts">
+      <label><input type="radio" name="P4" value="a"> (a) 準時到登機門的乘客</label>
+      <label><input type="radio" name="P4" value="b"> (b) 沒有在規定時間到登機門的乘客</label>
+      <label><input type="radio" name="P4" value="c"> (c) 在登機門提出問題的乘客</label>
+    </div></div>
+
+  <div class="q" data-qid="P5"><b>P5.</b>
+    <span class="en">Early check-in is <b>subject to</b> availability and cannot be guaranteed.</span>
+    <div class="opts">
+      <label><input type="radio" name="P5" value="a"> (a) 一定可以提早入住</label>
+      <label><input type="radio" name="P5" value="b"> (b) 提早入住要加錢</label>
+      <label><input type="radio" name="P5" value="c"> (c) 不一定可以，看有沒有空房</label>
+    </div></div>
+
+  <button class="markdone" id="genProbe">產生答案 → 複製，貼回 Claude</button>
+  <textarea id="probeOut" rows="4" style="display:none" readonly></textarea>
 
   <h2>⑦ 主旨題的方法（你 A1 說你是亂猜的）</h2>
   <div class="card">
@@ -1368,6 +1409,35 @@ footer{margin-top:2.5rem;padding-top:1rem;border-top:1px solid var(--line);color
       try { document.execCommand("copy"); } catch(e){}
       try { if (navigator.clipboard) navigator.clipboard.writeText(out.value); } catch(e){}
       out.scrollIntoView({block:"nearest"});
+    });
+  })();
+
+  // ---------- 邏輯字：五題探測 ----------
+  (function(){
+    var IDS = ["P1","P2","P3","P4","P5"], out = document.getElementById("probeOut");
+    if (!out) return;
+    IDS.forEach(function(id){
+      var saved = store("er.p." + id), rs = document.getElementsByName(id);
+      for (var i=0;i<rs.length;i++){
+        if (saved && rs[i].value === saved) rs[i].checked = true;
+        (function(r){ r.addEventListener("change", function(){ store("er.p." + id, r.value); }); })(rs[i]);
+      }
+    });
+    document.getElementById("genProbe").addEventListener("click", function(){
+      var row = [], missing = [];
+      IDS.forEach(function(id){
+        var v = null, rs = document.getElementsByName(id);
+        for (var j=0;j<rs.length;j++) if (rs[j].checked) v = rs[j].value;
+        if (!v) missing.push(id);
+        row.push(id + ": " + (v || "(未答)"));
+      });
+      var lines = ["【邏輯字五題探測】", row.join("　")];
+      if (missing.length) lines.push("（尚未作答：" + missing.join("、") + "）");
+      out.value = lines.join("\n");
+      out.style.display = "block";
+      out.focus(); out.select();
+      try { document.execCommand("copy"); } catch(e){}
+      try { if (navigator.clipboard) navigator.clipboard.writeText(out.value); } catch(e){}
     });
   })();
 
