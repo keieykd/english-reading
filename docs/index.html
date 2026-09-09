@@ -249,6 +249,57 @@ footer{margin-top:2.5rem;padding-top:1rem;border-top:1px solid var(--line);color
     ① <b>不要查字典、不要用翻譯</b>　② 讀不懂就猜，<b>猜錯比查到對更有價值</b>（猜錯才會暴露真正的弱點）
     ③ 三篇由易到難，別在第一篇耗太久。</div>
 
+  <h2>先做這個：速讀基準（2 分鐘）</h2>
+  <div class="tip"><b>這段跟後面的三篇分開算。</b>目的只有一個：量出你的<b>純閱讀速度</b>。
+  按「開始閱讀」文章才會出現，讀完立刻按「讀完了」——<b>不要回頭重讀</b>，
+  文章會收起來，然後才作答。這樣量到的才是速度，不是速度＋作答。</div>
+
+  <div class="card">
+    <button class="markdone" id="spStart">▶ 開始閱讀（194 字）</button>
+    <div id="spText" hidden>
+      <p style="text-align:right;font-weight:700;font-size:1.3rem;font-variant-numeric:tabular-nums"
+         id="spClock">00:00</p>
+      <p>Every year, thousands of people take part in a survey that asks a simple question:
+      how many books did you finish last year? The answers are almost always wrong.
+      Researchers have found that people tend to overstate the number, sometimes by a factor
+      of two, and that the gap is widest among those who believe reading is something they
+      ought to do.</p>
+      <p>What interests the researchers is not the dishonesty, which is mild and probably
+      unconscious, but the reason behind it. Reading is one of the few activities that people
+      treat as a measure of character rather than a use of time. Nobody exaggerates how many
+      films they watched.</p>
+      <p>The same study found something more useful. Among people who did read regularly,
+      almost none described reading as a goal. They described it as a slot: the twenty minutes
+      before sleep, the train journey to work, the quiet half hour before the office fills up.
+      The habit was attached to a place and a time rather than to an intention.</p>
+      <p>That distinction may explain why reading targets so often fail. A target asks you to
+      want something. A slot only asks you to show up.</p>
+      <button class="markdone" id="spDone">■ 讀完了，停錶</button>
+    </div>
+    <p id="spResult" hidden style="font-weight:700;color:var(--accent-ink)"></p>
+    <button class="go" id="spRedo" hidden style="margin-top:.3rem">⟳ 重測一次</button>
+  </div>
+
+  <div id="spQ" hidden>
+    <div class="q" data-qid="S1"><b>S1.</b> Why does the gap between reported and actual
+      reading interest the researchers?
+      <div class="opts">
+        <label><input type="radio" name="S1" value="a"> (a) Because it proves most people are dishonest</label>
+        <label><input type="radio" name="S1" value="b"> (b) Because reading is judged as a sign of character, not just a use of time</label>
+        <label><input type="radio" name="S1" value="c"> (c) Because surveys about books are poorly designed</label>
+        <label><input type="radio" name="S1" value="d"> (d) Because people watch more films than they admit</label>
+      </div></div>
+    <div class="q" data-qid="S2"><b>S2.</b> According to the passage, regular readers describe
+      reading as
+      <div class="opts">
+        <label><input type="radio" name="S2" value="a"> (a) a goal they set each year</label>
+        <label><input type="radio" name="S2" value="b"> (b) a duty they feel guilty about</label>
+        <label><input type="radio" name="S2" value="c"> (c) a slot attached to a time and place</label>
+        <label><input type="radio" name="S2" value="d"> (d) a way of measuring their character</label>
+      </div></div>
+  </div>
+
+  <h2>接著做這個：三篇短文（15 分鐘）</h2>
   <div class="card" style="display:flex;align-items:center;gap:.8rem;flex-wrap:wrap">
     <button class="go" id="tStart" style="margin:0">▶ 開始計時</button>
     <span id="tClock" style="font-size:1.5rem;font-weight:700;font-variant-numeric:tabular-nums">00:00</span>
@@ -960,6 +1011,75 @@ footer{margin-top:2.5rem;padding-top:1rem;border-top:1px solid var(--line);color
     })(boxes[m]);
   }
 
+  // ---------- 速讀基準：純閱讀計時（讀完收起文章才作答） ----------
+  (function(){
+    var WORDS = 194;
+    var bStart = document.getElementById("spStart");
+    if (!bStart) return;
+    var bDone  = document.getElementById("spDone"),
+        text   = document.getElementById("spText"),
+        clock  = document.getElementById("spClock"),
+        result = document.getElementById("spResult"),
+        redo   = document.getElementById("spRedo"),
+        qs     = document.getElementById("spQ");
+    var t0 = 0, tick = null;
+
+    function paint(){
+      var s = Math.floor((Date.now() - t0)/1000);
+      clock.textContent = ("0"+Math.floor(s/60)).slice(-2) + ":" + ("0"+(s%60)).slice(-2);
+    }
+    function showResult(wpm, secs){
+      // 400 wpm 以上在陌生文本上不可能是真的讀完 → 多半是誤觸
+      if (wpm > 400) {
+        result.innerHTML = "⚠ " + secs + " 秒（" + wpm + " wpm）<b>這個數字不合理</b>，"
+          + "多半是誤觸。請按下面重測一次。";
+        result.hidden = false; redo.hidden = false;
+        store("er.wpm", ""); store("er.wpmSec", "");
+        return;
+      }
+      // EFL 流暢閱讀門檻約 150 wpm；母語者一般 200-300
+      var band = wpm < 100 ? "偏慢 — 多半是逐字讀或頻繁回頭"
+               : wpm < 150 ? "一般 — 有進步空間"
+               : wpm < 200 ? "流暢 — 已達 EFL 流暢門檻"
+               : "很快 — 要確認理解沒有被犧牲";
+      result.textContent = "⏱ " + secs + " 秒　→　約 " + wpm + " wpm（" + band + "）";
+      result.hidden = false; redo.hidden = false;
+      store("er.wpm", String(wpm)); store("er.wpmSec", String(secs));
+    }
+
+    bStart.addEventListener("click", function(){
+      t0 = Date.now(); bStart.hidden = true; text.hidden = false;
+      tick = setInterval(paint, 1000); paint();
+      text.scrollIntoView({block:"start"});
+    });
+    bDone.addEventListener("click", function(){
+      if (tick) clearInterval(tick);
+      var secs = Math.max(1, Math.round((Date.now() - t0)/1000));
+      var wpm = Math.round(WORDS / (secs/60));
+      text.hidden = true;              // 收起文章，避免作答時回頭看
+      qs.hidden = false;
+      showResult(wpm, secs);
+      qs.scrollIntoView({block:"start"});
+    });
+
+    ["S1","S2"].forEach(function(id){
+      var saved = store("er.d." + id), rs = document.getElementsByName(id);
+      for (var i=0;i<rs.length;i++){
+        if (saved && rs[i].value === saved) rs[i].checked = true;
+        (function(r){ r.addEventListener("change", function(){ store("er.d." + id, r.value); }); })(rs[i]);
+      }
+    });
+    redo.addEventListener("click", function(){
+      if (tick) clearInterval(tick);
+      result.hidden = true; redo.hidden = true; qs.hidden = true;
+      text.hidden = true; bStart.hidden = false;
+      store("er.wpm", ""); store("er.wpmSec", "");
+      bStart.scrollIntoView({block:"center"});
+    });
+    var prev = store("er.wpm");
+    if (prev) { showResult(parseInt(prev,10), parseInt(store("er.wpmSec")||"0",10)); qs.hidden = false; }
+  })();
+
   // ---------- 診斷卷：計時器 ----------
   (function(){
     var btn = document.getElementById("tStart"), clock = document.getElementById("tClock");
@@ -1002,7 +1122,20 @@ footer{margin-top:2.5rem;padding-top:1rem;border-top:1px solid var(--line);color
       var t0 = parseInt(store("er.diagT0") || "0", 10);
       var mins = t0 ? Math.round((Date.now() - t0)/60000) : null;
       var lines = ["【診斷卷 diagnostic-01 作答】"];
-      if (mins !== null) lines.push("計時：約 " + mins + " 分鐘");
+      var wpm = store("er.wpm");
+      if (wpm) {
+        lines.push("速讀基準：194 字 / " + store("er.wpmSec") + " 秒 → 約 " + wpm + " wpm");
+        var sv = [];
+        ["S1","S2"].forEach(function(id){
+          var v = null, rs = document.getElementsByName(id);
+          for (var j=0;j<rs.length;j++) if (rs[j].checked) v = rs[j].value;
+          sv.push(id + ": " + (v || "(未作答)"));
+        });
+        lines.push("　速讀理解 " + sv.join("　"));
+      } else {
+        lines.push("速讀基準：(未進行)");
+      }
+      if (mins !== null) lines.push("三篇短文計時：約 " + mins + " 分鐘");
       lines.push("");
       var missing = [];
       ["A","B","C"].forEach(function(g){
