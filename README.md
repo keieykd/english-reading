@@ -9,12 +9,15 @@ Eason 的英文閱讀加強計畫 — 2026/09/10 ~ 2026/10/08
 > 🛠 **接手開發者／AI agent 請先讀 [HANDOVER.md](HANDOVER.md)**，
 > 並在 clone 後執行 `sh scripts/install-hooks.sh`（pre-commit 語法檢查，
 > 防止一個會讓全站腳本靜默死亡的 bug）。
+>
+> 📋 要把工作交給 AI agent？直接用 [CODEX_KICKOFF.md](CODEX_KICKOFF.md) 裡的起手訊息。
 
 ## 檔案
 
 | 檔案 | 用途 |
 |---|---|
-| [HANDOVER.md](HANDOVER.md) | **交接文件** — 學習者剖面、設計理由、已知地雷、待辦 |
+| [HANDOVER.md](HANDOVER.md) | **交接文件** — 學習者剖面、設計理由、已知地雷、**§9 前人犯過的 20 個錯** |
+| [CODEX_KICKOFF.md](CODEX_KICKOFF.md) | 給接手 AI agent 的起手訊息（可直接複製貼上） |
 | [errors.md](errors.md) | 逐題錯誤診斷（Day 0 完整記錄） |
 | [PLAN.md](PLAN.md) | 4 週完整計畫（目標、時間結構、行事曆、出席規則、驗收） |
 | [progress.md](progress.md) | 出席表與每週檢討 |
