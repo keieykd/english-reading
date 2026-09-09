@@ -218,6 +218,7 @@ footer{margin-top:2.5rem;padding-top:1rem;border-top:1px solid var(--line);color
 <nav role="tablist">
   <button role="tab" aria-selected="true" data-p="now">今天</button>
   <button role="tab" aria-selected="false" data-p="diag">診斷卷</button>
+  <button role="tab" aria-selected="false" data-p="glue">邏輯字</button>
   <button role="tab" aria-selected="false" data-p="cheat">隨身卡</button>
   <button role="tab" aria-selected="false" data-p="d1">Day 1</button>
   <button role="tab" aria-selected="false" data-p="d2">Day 2</button>
@@ -436,6 +437,147 @@ footer{margin-top:2.5rem;padding-top:1rem;border-top:1px solid var(--line);color
   <button class="markdone" id="genAns">產生作答 → 複製，貼回 Claude 對話</button>
   <textarea id="ansOut" rows="10" style="display:none" readonly></textarea>
   <p class="zh" id="copyNote" style="display:none">已全選，按 Ctrl+C（手機長按 → 複製）貼回對話即可。</p>
+</section>
+
+<!-- ============ 邏輯字 ============ -->
+<section class="panel" id="glue">
+  <div class="tip"><b>這一頁是為你的診斷結果做的。</b>
+  你 C3 答錯時說「有看到 unless，但不知道可以幹嘛」——問題不在認不認識，
+  在於<b>不知道它對句子做了什麼</b>。<br><br>
+  這些字<b>不帶內容，只帶邏輯</b>。它們決定「誰要付錢、什麼時候失效、誰是例外」。
+  數量是<b>封閉的</b>，大約 25 個，學得完——學完之後，訂房條款、機票規則、
+  退換貨政策、保險條款、公司規章，你會突然全部讀得動。</div>
+
+  <h2>⚠️ 六個會騙你的字</h2>
+  <div class="tip"><b>這六個的日常意思是錯的。</b>先修這六個，投報率最高。</div>
+  <table>
+    <tr><th>字</th><th>你以為</th><th>條款裡其實是</th></tr>
+    <tr><td><code>provided</code></td><td>提供</td><td><b>條件是…</b></td></tr>
+    <tr><td><code>where</code></td><td>哪裡</td><td><b>當…的情況下</b></td></tr>
+    <tr><td><code>shall</code></td><td>將要</td><td><b>應／必須</b>（義務）</td></tr>
+    <tr><td><code>subject to</code></td><td>主題</td><td><b>取決於＝不保證</b></td></tr>
+    <tr><td><code>may</code></td><td>可能</td><td><b>得以</b>（可以，非義務）</td></tr>
+    <tr><td><code>present</code></td><td>禮物／現在</td><td><b>present oneself＝現身、報到</b></td></tr>
+  </table>
+
+  <h2>① 條件 — 什麼情況下才成立</h2>
+  <div class="card">
+    <h3><code>unless</code> ＝ if not</h3>
+    <p><b>它做什麼</b>：把前面那句的效力<b>翻轉掉</b>。先讀前半（預設結果），
+    再讀 unless（唯一的逃生門）。</p>
+    <p class="d you">…all remaining sectors are cancelled automatically,
+    <b>unless</b> the airline is notified…</p>
+    <p class="zh">預設 → 後續航段全部取消。逃生門 → 除非你通知航空公司。
+    <b>你沒通知 → 逃生門關閉 → 取消。</b>（這就是 C3）</p>
+    <div class="tip"><b>下次怎麼判讀：</b>看到 unless，先問「<b>預設結果是什麼</b>」，
+    再問「<b>做了什麼才能逃掉</b>」。題目幾乎都考「他有沒有做到那件事」。</div>
+  </div>
+  <div class="card">
+    <h3><code>provided (that)</code> ＝ 條件是</h3>
+    <p><b>它做什麼</b>：前面是好處，後面是<b>你必須先做到的事</b>。沒做到 → 好處消失。</p>
+    <p class="d you">A deposit will be returned on departure, <b>provided</b> the room is left in good condition.</p>
+    <p class="zh">押金會退 —— <b>條件是</b>房間狀況良好。</p>
+    <div class="tip"><b>下次怎麼判讀：</b>把 provided 後面那句畫起來，那是<b>檢查清單</b>。</div>
+  </div>
+  <div class="card">
+    <h3><code>subject to</code> ＝ 取決於，<b>不保證</b></h3>
+    <p class="d you">Early check-in is <b>subject to</b> availability.</p>
+    <p class="zh">提早入住 <b>看有沒有空房</b> —— 講白了就是「不一定可以」。</p>
+    <div class="tip"><b>下次怎麼判讀：</b>看到 subject to，心裡直接翻成「<b>不保證</b>」。</div>
+  </div>
+  <div class="card">
+    <h3><code>where</code> ＝ 當…的情況下（<b>不是「哪裡」</b>）</h3>
+    <p class="d you"><b>Where</b> payment was made in cash, refunds over 2,000 baht may be issued by bank transfer.</p>
+    <p class="zh"><b>當</b>付款方式是現金<b>時</b>…（跟地點完全無關）</p>
+  </div>
+  <div class="card">
+    <h3>其他條件字</h3>
+    <ul>
+      <li><span class="en">in the event that / should</span> → 若發生…</li>
+      <li><span class="en">failing that</span> → 若做不到的話</li>
+      <li><span class="en">at the discretion of</span> → 由…自行決定（＝<b>還是不保證</b>）</li>
+    </ul>
+  </div>
+
+  <h2>② 時間 — 分界線在哪</h2>
+  <div class="card">
+    <h3><code>thereafter</code> ＝ 此後（<b>一條分界線</b>）</h3>
+    <p><b>它做什麼</b>：把時間<b>切成兩段，兩段的規則不一樣</b>。
+    看到它就要問「分界點是哪一天？前面怎麼算？後面怎麼算？」</p>
+    <p class="d you">Cancellations made <b>more than seven days</b> before departure are refunded in full, less EUR 45.
+    <b>Thereafter</b>, only government taxes are refundable.</p>
+    <table>
+      <tr><th>時間</th><th>退多少</th></tr>
+      <tr><td>&gt; 7 天前取消</td><td>全額 − €45</td></tr>
+      <tr><td>≤ 7 天內（thereafter）</td><td><b>只退稅金與機場費</b></td></tr>
+    </table>
+    <p class="zh">你 C2 答對了，就是因為你抓到了這條線。同一招用在 C3 就沒抓到。</p>
+  </div>
+  <div class="card">
+    <h3>其他時間字</h3>
+    <ul>
+      <li><span class="en">prior to</span> → 在…之前（＝ before，但條款愛用這個）</li>
+      <li><span class="en">no later than</span> → <b>最晚</b>不得遲於</li>
+      <li><span class="en">within</span> → 在…之內</li>
+      <li><span class="en">with effect from</span> → 自…起生效</li>
+    </ul>
+  </div>
+
+  <h2>③ 例外 — 誰不受這條規定管</h2>
+  <div class="card">
+    <ul>
+      <li><span class="en">notwithstanding</span> → <b>儘管有…（前面的規定作廢）</b>，條款裡的大魔王</li>
+      <li><span class="en">except (for) / save for</span> → 除…之外</li>
+      <li><span class="en">otherwise</span> → 否則／另有規定時</li>
+      <li><span class="en">sold as seen</span> → 買了就是這樣，<b>不接受退換</b></li>
+    </ul>
+    <div class="tip"><b>下次怎麼判讀：</b>例外字後面接的<b>永遠是對你比較不利的那一半</b>。
+    讀條款時先找例外字，你會直接跳到重點。</div>
+  </div>
+
+  <h2>④ 效力 — 這是「必須」還是「可以」</h2>
+  <div class="card">
+    <table>
+      <tr><th>字</th><th>力道</th><th>意思</th></tr>
+      <tr><td><code>shall</code> / <code>must</code></td><td>強制</td><td>應、必須</td></tr>
+      <tr><td><code>is required to</code></td><td>強制</td><td>被要求</td></tr>
+      <tr><td><code>is entitled to</code></td><td>權利</td><td>有權（可主張）</td></tr>
+      <tr><td><code>may</code></td><td>許可</td><td>得以（可以，但不強制）</td></tr>
+      <tr><td><code>is treated as</code></td><td>視為</td><td>被當作…處理</td></tr>
+    </table>
+    <p class="zh"><code>treated as</code> 就是你列的那個字。
+    <span class="en">…are <b>treated as</b> no-shows</span> → 被<b>視為</b>未報到。</p>
+  </div>
+
+  <h2>⑤ 你列的 11 個字，歸位</h2>
+  <table>
+    <tr><th>字</th><th>類別</th><th>怎麼處理</th></tr>
+    <tr><td>thereafter</td><td>邏輯骨架</td><td><b>要精熟</b> — 分界線</td></tr>
+    <tr><td>prior (to)</td><td>邏輯骨架</td><td><b>要精熟</b> — 在…之前</td></tr>
+    <tr><td>stated</td><td>邏輯骨架</td><td><b>要精熟</b> — 所述的、規定的</td></tr>
+    <tr><td>intended</td><td>邏輯骨架</td><td><b>要精熟</b> — 預定的、有意的</td></tr>
+    <tr><td>present (oneself)</td><td>用法</td><td><b>記用法</b> — 現身、報到</td></tr>
+    <tr><td>treated (as)</td><td>用法</td><td><b>記用法</b> — 被視為</td></tr>
+    <tr class="off"><td>sectors</td><td>術語</td><td>寫中文：航段</td></tr>
+    <tr class="off"><td>itinerary</td><td>術語</td><td>寫中文：行程</td></tr>
+    <tr class="off"><td>administrative</td><td>一般</td><td>行政的，遇到就好</td></tr>
+    <tr class="off"><td>remaining</td><td>一般</td><td>剩餘的，遇到就好</td></tr>
+    <tr class="off"><td>interruption</td><td>一般</td><td>中斷，遇到就好</td></tr>
+  </table>
+  <div class="tip">灰色那五個<b>不用背</b>。要精熟的只有上面六個——
+  這就是為什麼我說「不加重生字」：<b>不是少讀字，是別把力氣花在錯的字上。</b></div>
+
+  <h2>⑥ 主旨題的方法（你 A1 說你是亂猜的）</h2>
+  <div class="card">
+    <p>亂猜是因為沒方法。三步，照做就好：</p>
+    <ol>
+      <li><b>找重複出現的名詞</b> — Passage A 裡 buses / fares / scheme 一直出現</li>
+      <li><b>主旨句通常在第一段末或第二段初</b>，不會在最後一段</li>
+      <li><b>刪去法：只出現在其中一段的東西，不可能是全文主旨</b></li>
+    </ol>
+    <div class="tip">第 3 步單獨一條就能救你 A1 —— 你選的「走路與騎車」<b>只出現在第三段</b>，
+    直接排除。</div>
+  </div>
 </section>
 
 <!-- ============ 隨身卡 ============ -->
