@@ -62,6 +62,10 @@ body{margin:0;background:var(--bg);color:var(--ink);
   padding:.25rem .7rem;border-radius:99px;font-size:.82rem}
 #runDots{letter-spacing:.28em;font-size:.9rem;color:var(--line)}
 #runDots b{color:var(--accent)}
+#runTitle{font-size:.9rem;color:var(--muted);margin-bottom:.2rem}
+#runNote{font-size:.85rem;color:var(--warn);background:var(--warn-soft);
+  padding:.4rem .7rem;border-radius:8px;margin-bottom:.8rem}
+#runNote[hidden]{display:none}
 #runBody .chunk,#runBody .card{margin-top:0}
 #runBody h2:first-child{margin-top:0}
 #runBody .done{display:none}          /* 步驟本身就是進度，不需要再打勾 */
@@ -266,6 +270,8 @@ footer{margin-top:2.5rem;padding-top:1rem;border-top:1px solid var(--line);color
       <span id="runPhase"></span>
       <span id="runDots"></span>
     </div>
+    <div id="runTitle"></div>
+    <div id="runNote" hidden></div>
     <div id="runBody"></div>
     <div class="runnav">
       <button id="runPrev" class="go">← 上一步</button>
@@ -1374,9 +1380,10 @@ footer{margin-top:2.5rem;padding-top:1rem;border-top:1px solid var(--line);color
   };
   var TOTAL = 17, WD = ["日","一","二","三","四","五","六"];
 
-  // 接續式流程：一次只做一件事。src 指向頁面既有內容，複製過來顯示。
-  var FLOW = {
-    "2026-09-10": [
+  // 課程佇列：不卡日期。永遠顯示「還沒做完的下一課」，有空就做。
+  // 日期只用來顯示提示（假日、排休）與計算出席，不當門檻。
+  var LESSONS = [
+    { id:"d1", title:"泰國實戰 D1 — 抵達與移動", steps:[
       {p:"通勤 · 約 4 分鐘", src:'[data-k="d1c1"]', chunk:true},
       {p:"通勤 · 約 5 分鐘", src:'[data-k="d1c2"]', chunk:true},
       {p:"通勤 · 約 4 分鐘", src:'[data-k="d1c3"]', chunk:true},
@@ -1389,8 +1396,8 @@ footer{margin-top:2.5rem;padding-top:1rem;border-top:1px solid var(--line);color
         + '<li><b>D2</b> 四段實際讀了幾分鐘？哪一段最吃力？</li></ul>'
         + '<p class="zh">我會批改，並針對每題追問「你怎麼判斷的」。'
         + '<b>答錯不是問題，靠猜對才是。</b></p>'}
-    ],
-    "2026-09-11": [
+    ]},
+    { id:"d2", title:"泰國實戰 D2 — 吃、買、出狀況", steps:[
       {p:"通勤 · 約 4 分鐘", src:'[data-k="d2c1"]', chunk:true},
       {p:"通勤 · 約 4 分鐘", src:'[data-k="d2c2"]', chunk:true},
       {p:"通勤 · 約 4 分鐘", src:'[data-k="d2c3"]', chunk:true},
@@ -1403,8 +1410,8 @@ footer{margin-top:2.5rem;padding-top:1rem;border-top:1px solid var(--line);color
         + '<li><b>蒐集任務</b>：拍 3–5 個看不懂的英文（告示、菜單、藥品說明）</li>'
         + '<li><b>一個心態</b>：句型卡不是拿來背的，是拿來用錯的</li></ol>'
         + '<p class="zh">玩得開心 🇹🇭</p>'}
-    ]
-  };
+    ]}
+  ];
 
   function key(d){
     return d.getFullYear()+"-"+("0"+(d.getMonth()+1)).slice(-2)+"-"+("0"+d.getDate()).slice(-2);
@@ -1465,9 +1472,21 @@ footer{margin-top:2.5rem;padding-top:1rem;border-top:1px solid var(--line);color
               : (need > 0 ? "再 " + need + " 天達標（門檻 14）" : "已達標 🎉");
   }
 
-  // ---------- 接續式流程 ----------
+  // ---------- 課程佇列（不卡日期） ----------
   var RUN = document.getElementById("runner");
-  function stepIdx(kk){ return parseInt(store("er.step." + kk) || "0", 10); }
+  function lessonIdx(){ return parseInt(store("er.lesson") || "0", 10); }
+  function stepIdx(id){ return parseInt(store("er.step." + id) || "0", 10); }
+
+  // 今天的情境提示：只提示，不擋。做不做都可以。
+  function contextNote(){
+    var d = new Date(), kk = key(d), info = SCHED[kk], dow = d.getDay();
+    if (info && info.t === "holiday") return "今天是" + info.why + "，做不做都不算缺席";
+    if (info && info.t === "trip")    return "你人在泰國，做了算 bonus";
+    if (info && info.t === "day0")    return "Day 0 加碼日 · 不計入分母";
+    if (!info && (dow === 0 || dow === 6)) return "週末 · 做了算 bonus，不計入分母";
+    if (!info) return "計畫窗口外 · 做了算 bonus";
+    return null;
+  }
   function nodeFor(st){
     if (st.html) {
       var d = document.createElement("div");
@@ -1478,29 +1497,39 @@ footer{margin-top:2.5rem;padding-top:1rem;border-top:1px solid var(--line);color
     if (st.chunk) el = el.closest(".chunk");
     return el ? el.cloneNode(true) : null;
   }
-  function runFlow(kk){
-    var steps = FLOW[kk], i = stepIdx(kk);
-    document.getElementById("todayCard").innerHTML = "";
-    document.getElementById("todaySteps").innerHTML = "";
-    RUN.hidden = false;
+  function runFlow(){
+    var li = lessonIdx(), card = document.getElementById("todayCard"),
+        sub = document.getElementById("todaySteps"), note = contextNote();
+    card.innerHTML = ""; sub.innerHTML = "";
 
-    if (i >= steps.length) {          // 全部做完
+    if (li >= LESSONS.length) {            // 已發布的教材全部做完
       RUN.hidden = true;
-      document.getElementById("todayCard").innerHTML =
-        '<div class="today"><span class="badge done">今天完成 ✓</span>'
-        + '<h2>做完了</h2><div class="theme">答案記得貼回 Claude 對話</div></div>';
-      document.getElementById("todaySteps").innerHTML =
-        '<button class="go" id="runAgain">重看今天的內容</button>';
+      card.innerHTML =
+        '<div class="today"><span class="badge done">目前進度已追上</span>'
+        + '<h2>已發布的教材都做完了</h2>'
+        + '<div class="theme">下一批教材週一生成</div></div>';
+      sub.innerHTML = '<button class="go" id="runAgain">從第一課重看</button>';
       document.getElementById("runAgain").addEventListener("click", function(){
-        store("er.step." + kk, "0"); render();
+        store("er.lesson", "0");
+        for (var x = 0; x < LESSONS.length; x++) store("er.step." + LESSONS[x].id, "0");
+        render();
       });
       return;
     }
+
+    var L = LESSONS[li], steps = L.steps, i = stepIdx(L.id);
+    if (i >= steps.length) i = steps.length - 1;
+    RUN.hidden = false;
+
     var st = steps[i];
     document.getElementById("runPhase").textContent = st.p;
     var dots = "";
     for (var d = 0; d < steps.length; d++) dots += (d === i ? "<b>●</b>" : "○");
     document.getElementById("runDots").innerHTML = dots;
+    document.getElementById("runTitle").textContent = L.title;
+    var nEl = document.getElementById("runNote");
+    if (note) { nEl.textContent = note; nEl.hidden = false; } else { nEl.hidden = true; }
+
     var body = document.getElementById("runBody");
     body.innerHTML = "";
     var n = nodeFor(st);
@@ -1511,28 +1540,38 @@ footer{margin-top:2.5rem;padding-top:1rem;border-top:1px solid var(--line);color
     document.getElementById("runPrev").hidden = (i === 0);
     window.scrollTo(0, 0);
   }
+
   document.getElementById("runNext").addEventListener("click", function(){
-    var kk = key(new Date());
-    if (!FLOW[kk]) return;
-    var i = stepIdx(kk) + 1;
-    store("er.step." + kk, String(i));
-    if (i >= FLOW[kk].length) {       // 最後一步 → 記一筆出席
-      var arr = doneSet();
+    var li = lessonIdx();
+    if (li >= LESSONS.length) return;
+    var L = LESSONS[li], i = stepIdx(L.id) + 1;
+    if (i >= L.steps.length) {              // 這一課做完了
+      var kk = key(new Date()), arr = doneSet();
       if (arr.indexOf(kk) < 0) { arr.push(kk); store("er.done", arr.join(",")); }
+      store("er.lesson", String(li + 1));
+      store("er.step." + L.id, "0");
       paintProgress();
+    } else {
+      store("er.step." + L.id, String(i));
     }
     render();
   });
   document.getElementById("runPrev").addEventListener("click", function(){
-    var kk = key(new Date());
-    store("er.step." + kk, String(Math.max(0, stepIdx(kk) - 1)));
+    var li = lessonIdx();
+    if (li >= LESSONS.length) return;
+    var L = LESSONS[li];
+    store("er.step." + L.id, String(Math.max(0, stepIdx(L.id) - 1)));
     render();
   });
 
-  // ---------- today ----------
-  function render(){
+  // ---------- 主畫面 ----------
+  // 不再依日期分支：永遠顯示「還沒做完的下一課」。
+  // 日期只透過 contextNote() 顯示提示，不擋任何東西。
+  function render(){ runFlow(); }
+
+  // 以下為舊的依日期分支卡片，已不再使用（保留供參考，待確認穩定後刪除）
+  function renderLegacy(){
     var now = new Date(), kk = key(now), info = SCHED[kk];
-    if (FLOW[kk]) { runFlow(kk); return; }
     RUN.hidden = true;
     var dow = now.getDay(), isDone = doneSet().indexOf(kk) >= 0;
     var dateLine = (now.getMonth()+1) + "月" + now.getDate() + "日（" + WD[dow] + "）";
