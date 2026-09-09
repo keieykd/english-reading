@@ -1,0 +1,425 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>English Reading — 泰國實戰包</title>
+<style>
+:root{
+  --bg:#fbfbf9; --surface:#ffffff; --line:#e3e1dc; --ink:#1c1b19; --muted:#6b6862;
+  --accent:#2f5d50; --accent-soft:#e8f0ec;
+  --warn:#8a5a1b; --warn-soft:#fdf3e3;
+  --you:#1f4a63; --you-soft:#eaf2f7;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#161614; --surface:#1e1e1c; --line:#33322e; --ink:#e9e7e2; --muted:#9a968e;
+    --accent:#84c2ad; --accent-soft:#1d2b26;
+    --warn:#dfae6a; --warn-soft:#2a2318;
+    --you:#8fc0dc; --you-soft:#182630;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#161614; --surface:#1e1e1c; --line:#33322e; --ink:#e9e7e2; --muted:#9a968e;
+  --accent:#84c2ad; --accent-soft:#1d2b26;
+  --warn:#dfae6a; --warn-soft:#2a2318;
+  --you:#8fc0dc; --you-soft:#182630;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font:16px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;
+  -webkit-text-size-adjust:100%}
+.wrap{max-width:44rem;margin:0 auto;padding:0 1rem 5rem}
+header{padding:1.5rem 0 .75rem;border-bottom:1px solid var(--line)}
+h1{font-size:1.15rem;margin:0 0 .25rem;letter-spacing:.01em}
+.sub{color:var(--muted);font-size:.8rem;margin:0}
+nav{position:sticky;top:0;z-index:10;background:var(--bg);
+  border-bottom:1px solid var(--line);display:flex;gap:.25rem;padding:.5rem 0;margin-bottom:1rem}
+nav button{flex:1;min-height:44px;border:1px solid var(--line);background:var(--surface);
+  color:var(--muted);border-radius:8px;font-size:.85rem;font-family:inherit;cursor:pointer}
+nav button[aria-selected="true"]{background:var(--accent-soft);color:var(--accent);
+  border-color:var(--accent);font-weight:600}
+h2{font-size:1rem;margin:2rem 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+h3{font-size:.9rem;margin:1.5rem 0 .5rem;color:var(--accent)}
+.chunk{background:var(--surface);border:1px solid var(--line);border-radius:10px;
+  padding:.9rem 1rem;margin:1rem 0}
+.chunk>.meta{display:flex;justify-content:space-between;align-items:center;
+  font-size:.72rem;color:var(--muted);margin-bottom:.6rem;letter-spacing:.04em}
+.chunk h3{margin-top:0}
+.d{margin:.15rem 0;padding-left:.9rem;border-left:2px solid var(--line)}
+.d.you{border-left-color:var(--you);background:var(--you-soft);color:var(--ink);
+  font-weight:600;padding:.2rem .5rem .2rem .9rem;border-radius:0 6px 6px 0;margin:.3rem 0}
+.d.them{color:var(--muted)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;
+  padding:.75rem .9rem;margin:.6rem 0}
+.card h3{margin:0 0 .4rem}
+ol,ul{margin:.4rem 0;padding-left:1.3rem}
+li{margin:.3rem 0}
+.en{font-weight:600}
+.zh{color:var(--muted);font-size:.85rem}
+.tip{background:var(--warn-soft);border-left:3px solid var(--warn);
+  padding:.6rem .8rem;border-radius:0 8px 8px 0;margin:.8rem 0;font-size:.88rem}
+.tip b{color:var(--warn)}
+.q{background:var(--surface);border:1px solid var(--line);border-radius:8px;
+  padding:.6rem .8rem;margin:.5rem 0;font-size:.92rem}
+.q b{color:var(--accent)}
+blockquote{margin:.6rem 0;padding:.6rem .9rem;background:var(--surface);
+  border:1px solid var(--line);border-radius:8px;font-size:.92rem}
+code{background:var(--accent-soft);color:var(--accent);padding:.1em .35em;
+  border-radius:4px;font-size:.9em}
+.panel{display:none}
+.panel.on{display:block}
+.done{display:flex;align-items:center;gap:.4rem;font-size:.72rem;color:var(--muted);
+  cursor:pointer;user-select:none;min-height:32px}
+.done input{width:18px;height:18px;accent-color:var(--accent)}
+footer{margin-top:3rem;padding-top:1rem;border-top:1px solid var(--line);
+  color:var(--muted);font-size:.78rem}
+table{width:100%;border-collapse:collapse;font-size:.85rem;margin:.6rem 0}
+th,td{border:1px solid var(--line);padding:.35rem .5rem;text-align:left}
+th{background:var(--accent-soft);color:var(--accent);font-weight:600}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>English Reading — 泰國實戰包</h1>
+  <p class="sub">2026/09/10 – 09/11 · 離線可讀 · 站著也能看</p>
+</header>
+
+<nav role="tablist">
+  <button role="tab" aria-selected="true" data-p="cheat">隨身卡</button>
+  <button role="tab" aria-selected="false" data-p="d1">Day 1</button>
+  <button role="tab" aria-selected="false" data-p="d2">Day 2</button>
+</nav>
+
+<section class="panel on" id="cheat">
+  <div class="tip"><b>用法：</b>在泰國現場直接翻這頁。句子短、加粗的直接唸。
+  不確定怎麼說的時候，一律用 <code>Could I …?</code> 或 <code>Could you …?</code></div>
+
+  <h2>① 入境</h2>
+  <div class="card">
+    <p class="d them">Purpose of visit?</p>
+    <p class="d you">Tourism.</p>
+    <p class="d them">How long will you be staying?</p>
+    <p class="d you">Four nights.</p>
+    <p class="d them">Where are you staying?</p>
+    <p class="d you">At the Ibis Bangkok Riverside. I have the booking here.</p>
+    <p class="d them">Do you have a return ticket?</p>
+    <p class="d you">Yes, I fly back on Tuesday.</p>
+  </div>
+  <p class="zh">指標：Passport Control／Immigration（查驗）· Baggage Claim（領行李）·
+  Nothing to Declare 綠線／Goods to Declare 紅線（海關）</p>
+
+  <h2>② 計程車 / Grab</h2>
+  <div class="card">
+    <p class="d you">Could you use the meter, please?</p>
+    <p class="d you">How much to Sukhumvit, roughly?</p>
+    <p class="d you">Could you drop me off at the corner?</p>
+    <p class="d you">Sorry, I think we&rsquo;ve missed the turning.</p>
+  </div>
+  <div class="tip">Grab 事先顯示車資，直接省掉整場議價。</div>
+
+  <h2>③ 飯店</h2>
+  <div class="card">
+    <p class="d you">I have a reservation under Chen.</p>
+    <p class="d you">Here you go. <span class="zh">（遞護照）</span></p>
+    <p class="d you">Is breakfast included?</p>
+    <p class="d you">Could I have a late check-out?</p>
+    <p class="d you">Could I leave my bags here until five?</p>
+  </div>
+
+  <h2>④ 餐廳</h2>
+  <div class="card">
+    <p class="d you">Table for two, please.</p>
+    <p class="d you">Could we have a menu in English, please?</p>
+    <p class="d you">What would you recommend?</p>
+    <p class="d you">Is this spicy?</p>
+    <p class="d you">No chilli at all, please.</p>
+    <p class="d you">Does this contain peanuts?</p>
+    <p class="d you">Could we get the bill, please?</p>
+    <p class="d you">Can I pay by card?</p>
+  </div>
+  <div class="tip"><b>陷阱：</b>泰國餐廳的 <code>mild</code> 跟你的 mild 不是同一件事。
+  真的不吃辣就說 <b>No chilli at all, please.</b></div>
+
+  <h2>⑤ 夜市殺價</h2>
+  <div class="card">
+    <p class="d you">How much is this?</p>
+    <p class="d you">That&rsquo;s a bit more than I wanted to spend.</p>
+    <p class="d you">Would you take three hundred?</p>
+    <p class="d you">What&rsquo;s your best price?</p>
+    <p class="d you">I&rsquo;ll take two. Any discount?</p>
+    <p class="d you">Could you throw in one of those?</p>
+    <p class="d you">I&rsquo;ll think about it, thanks. <span class="zh">（走人，常會被叫回來）</span></p>
+  </div>
+  <div class="tip">市集可以殺，百貨與便利商店不行。<b>語氣比用字重要</b>：笑著說，願意走。</div>
+
+  <h2>⑥ 商店 / 藥局</h2>
+  <div class="card">
+    <p class="d you">Do you have a plug adapter?</p>
+    <p class="d you">Could I get a bag, please? <span class="zh">（泰國塑膠袋要另外要）</span></p>
+    <p class="d you">Do you take card?</p>
+    <p class="d you">I&rsquo;ve got an upset stomach. <span class="zh">（腸胃不適）</span></p>
+    <p class="d you">Do you have anything for motion sickness?</p>
+    <p class="d you">Do you have something for the itching?</p>
+    <p class="d you">Is this drowsy or non-drowsy?</p>
+    <p class="d you">How many times a day should I take it?</p>
+  </div>
+  <table>
+    <tr><th>標示</th><th>意思</th></tr>
+    <tr><td>twice daily</td><td>一天兩次</td></tr>
+    <tr><td>after meals</td><td>飯後</td></tr>
+    <tr><td>do not exceed the stated dose</td><td>不可超過建議劑量</td></tr>
+    <tr><td>may cause drowsiness</td><td>可能想睡</td></tr>
+  </table>
+  <div class="tip">藥師看<b>寫的</b>比聽的準。打在手機上給他看最快。</div>
+
+  <h2>⑦ 出狀況</h2>
+  <div class="card">
+    <p class="d you">Sorry, I think there&rsquo;s a mistake on the bill.</p>
+    <p class="d you">I was charged twice for this.</p>
+    <p class="d you">We didn&rsquo;t order this.</p>
+    <p class="d you">I think I left my bag in the taxi.</p>
+    <p class="d you">I&rsquo;ve lost my phone. Is there a lost and found here?</p>
+    <p class="d you">Sorry, I don&rsquo;t understand. Could you say that again, more slowly?</p>
+    <p class="d you">Could you write it down?</p>
+    <p class="d you">Could you help me, please?</p>
+    <p class="d you">I need to get to a hospital.</p>
+    <p class="d you">Does anyone here speak English?</p>
+  </div>
+  <div class="tip"><b>原則：出狀況時句子要短。</b>慌的時候長句一定垮，短句才說得出口。</div>
+
+  <h2>🎒 蒐集任務</h2>
+  <div class="card">
+    <p>拍下 <b>3–5 個看不懂或要想一下的英文</b>：告示、菜單、機場指示、飯店規則、藥品說明。</p>
+    <p class="zh">不計出席、不計缺席。回來一起拆，直接變成第 2 週教材。</p>
+  </div>
+</section>
+
+<section class="panel" id="d1">
+  <h2>Day 1 — 9/10（四）抵達與移動</h2>
+  <div class="tip">通勤泛讀規則：<b>不查字典、不求全懂</b>。看不懂就跳過，把整塊讀完。</div>
+
+  <div class="chunk">
+    <div class="meta"><span>CHUNK 1 · 約 4 分鐘</span>
+      <label class="done"><input type="checkbox" data-k="d1c1">讀過</label></div>
+    <h3>入境卡與海關</h3>
+    <p>Thailand no longer requires most visitors to complete a paper arrival card, but you
+    should still be ready to answer the same questions at the counter. Officers ask them
+    quickly and they rarely repeat themselves.</p>
+    <p class="d them">Purpose of visit?</p><p class="d you">Tourism.</p>
+    <p class="d them">How long will you be staying?</p><p class="d you">Four nights.</p>
+    <p class="d them">Where are you staying?</p>
+    <p class="d you">At the Ibis Bangkok Riverside. I have the booking here.</p>
+    <ul>
+      <li><span class="en">Passport Control / Immigration</span> — <span class="zh">查驗護照</span></li>
+      <li><span class="en">Thai Nationals</span> vs <span class="en">Foreign Passports</span> — <span class="zh">站錯排會被請回去</span></li>
+      <li><span class="en">Baggage Claim</span> — <span class="zh">領行李</span></li>
+      <li><span class="en">Nothing to Declare</span>（綠）vs <span class="en">Goods to Declare</span>（紅）</li>
+    </ul>
+    <div class="tip"><i>&ldquo;Please have your passport and boarding pass ready.&rdquo;</i><br>
+    <b>have something ready</b> = 先拿在手上，不是「擁有」。</div>
+  </div>
+
+  <div class="chunk">
+    <div class="meta"><span>CHUNK 2 · 約 5 分鐘</span>
+      <label class="done"><input type="checkbox" data-k="d1c2">讀過</label></div>
+    <h3>訂房確認信 <span class="zh">（細節都藏在中段）</span></h3>
+    <blockquote>
+      Dear Mr Chen,<br><br>
+      Thank you for choosing Ibis Bangkok Riverside. Your reservation is confirmed.<br><br>
+      <b>Check-in:</b> from 14:00 on Saturday 12 September<br>
+      <b>Check-out:</b> by 12:00 on Tuesday 15 September<br>
+      <b>Room:</b> 1 Standard Twin, non-smoking, breakfast included<br><br>
+      Early check-in is subject to availability and cannot be guaranteed. If you expect to
+      arrive after 18:00, please inform us in advance; otherwise the room may be released.
+      A refundable deposit of THB 1,000 will be taken at check-in and returned on
+      departure, provided the room is left in good condition.<br><br>
+      Free cancellation until 23:59 on 10 September. After that, the first night will be
+      charged.
+    </blockquote>
+    <ul>
+      <li><span class="en">subject to availability</span> — <span class="zh">看有沒有空房 ＝ 不保證</span></li>
+      <li><span class="en">released</span> — <span class="zh">房間被釋出給別人，你的訂房沒了</span></li>
+      <li><span class="en">refundable deposit</span> — <span class="zh">押金，會退</span></li>
+    </ul>
+  </div>
+
+  <div class="chunk">
+    <div class="meta"><span>CHUNK 3 · 約 4 分鐘</span>
+      <label class="done"><input type="checkbox" data-k="d1c3">讀過</label></div>
+    <h3>從機場到市區</h3>
+    <p>Bangkok has two airports. <b>Suvarnabhumi (BKK)</b> is the main international one;
+    <b>Don Mueang (DMK)</b> mostly handles low-cost carriers. They are an hour apart, so
+    check which one you are landing at before you book anything.</p>
+    <p>From Suvarnabhumi, the <b>Airport Rail Link</b> runs to Phaya Thai station and
+    connects to the BTS Skytrain. It is cheap and avoids traffic, but it stops running
+    around midnight.</p>
+    <p class="d you">Could you use the meter, please?</p>
+    <p class="d you">How much to Sukhumvit, roughly?</p>
+    <p class="d you">I&rsquo;d rather take the meter, thanks.</p>
+  </div>
+
+  <div class="chunk">
+    <div class="meta"><span>CHUNK 4 · 約 4 分鐘</span>
+      <label class="done"><input type="checkbox" data-k="d1c4">讀過</label></div>
+    <h3>飯店櫃檯</h3>
+    <p class="d you">Hi, I have a reservation under the name Chen.</p>
+    <p class="d them">Certainly. May I see your passport, please?</p>
+    <p class="d you">Here you go.</p>
+    <p class="d them">Thank you. We have you in a twin room for three nights, checking out on Tuesday.</p>
+    <p class="d you">That&rsquo;s right. Is breakfast included?</p>
+    <p class="d them">Yes, from 6:30 to 10:00 on the second floor.</p>
+    <p class="d you">Great. And what time do I need to check out?</p>
+    <p class="d them">By midday. If you need a late check-out, let us know the night before.</p>
+    <p class="d you">One more thing — could I leave my bags here after check-out?</p>
+    <p class="d them">Of course. The luggage room is just behind you.</p>
+    <div class="tip"><b>Here you go.</b> — 遞東西給對方最自然的一句，比 &ldquo;Give you.&rdquo; 自然一百倍。</div>
+  </div>
+
+  <h2>💻 公司電腦精讀（30 分鐘）</h2>
+  <div class="q"><b>Q1.</b> 班機延誤，預計 20:30 才到飯店。根據信件，你<b>必須</b>做什麼？不做會怎樣？</div>
+  <div class="q"><b>Q2.</b> 你 9/11 下午取消訂房。要付錢嗎？付多少？</div>
+  <div class="q"><b>Q3.</b> &ldquo;A refundable deposit … provided the room is left in good condition.&rdquo;
+    主要子句是哪一段？<code>provided</code> 在這裡什麼意思？</div>
+  <div class="q"><b>Q4.</b> &ldquo;Early check-in is subject to availability and cannot be guaranteed.&rdquo; 等於：<br>
+    (a) 提早入住要加錢　(b) 不一定可以，看有沒有空房　(c) 需要事先申請　(d) 只限特定房型</div>
+  <div class="q"><b>D1.</b> 不認識或不確定的字，全部列出（沒有寫「無」）<br>
+    <b>D2.</b> 四個 chunk 實際讀了幾分鐘？哪一塊最吃力？</div>
+  <div class="tip">貼回對話我會批改，並針對每題追問「你怎麼判斷的」。<b>答錯不是問題，靠猜對才是。</b></div>
+</section>
+
+<section class="panel" id="d2">
+  <h2>Day 2 — 9/11（五）吃、買、出狀況</h2>
+  <div class="tip">明天出發。今天讀的東西，<b>48 小時內驗收</b>。</div>
+
+  <div class="chunk">
+    <div class="meta"><span>CHUNK 1 · 約 4 分鐘</span>
+      <label class="done"><input type="checkbox" data-k="d2c1">讀過</label></div>
+    <h3>餐廳</h3>
+    <p class="d you">Table for two, please.</p>
+    <p class="d them">Do you have a reservation?</p>
+    <p class="d you">No, we don&rsquo;t. Is that all right?</p>
+    <p class="d them">That&rsquo;s fine, it&rsquo;ll be about ten minutes. Would you like to wait at the bar?</p>
+    <p class="d you">Sure, thanks.</p>
+    <p>菜單常見字：<span class="en">stir-fried</span>（快炒）·
+    <span class="en">grilled</span>（燒烤）· <span class="en">steamed</span>（清蒸）·
+    <span class="en">deep-fried</span>（油炸）· <span class="en">minced</span>（絞碎）·
+    <span class="en">served with</span>（附上）</p>
+    <div class="tip">泰國餐廳的 <code>mild</code> 跟你的標準不一樣。
+    真的不吃辣：<b>No chilli at all, please.</b></div>
+  </div>
+
+  <div class="chunk">
+    <div class="meta"><span>CHUNK 2 · 約 4 分鐘</span>
+      <label class="done"><input type="checkbox" data-k="d2c2">讀過</label></div>
+    <h3>夜市與殺價</h3>
+    <p>Bargaining is expected at markets like Chatuchak or the night markets, but not in
+    malls or convenience stores. The tone matters more than the words — stay friendly,
+    smile, and be willing to walk away.</p>
+    <p class="d you">How much is this?</p>
+    <p class="d them">Five hundred baht.</p>
+    <p class="d you">Hmm, that&rsquo;s a bit more than I wanted to spend.</p>
+    <p class="d them">How much do you want?</p>
+    <p class="d you">Would you take three hundred?</p>
+    <p class="d them">Three fifty, and that&rsquo;s my best price.</p>
+    <p class="d you">Okay, I&rsquo;ll take it. Could you throw in one of those?</p>
+    <ul>
+      <li><span class="en">That&rsquo;s a bit more than I wanted to spend.</span> <span class="zh">比 &ldquo;Too expensive!&rdquo; 有禮貌得多</span></li>
+      <li><span class="en">Would you take 300?</span> <span class="zh">出價的標準說法</span></li>
+      <li><span class="en">I&rsquo;ll think about it, thanks.</span> <span class="zh">走人，常被叫回來</span></li>
+      <li><span class="en">Could you throw in …?</span> <span class="zh">能不能再送我一個…</span></li>
+    </ul>
+  </div>
+
+  <div class="chunk">
+    <div class="meta"><span>CHUNK 3 · 約 4 分鐘</span>
+      <label class="done"><input type="checkbox" data-k="d2c3">讀過</label></div>
+    <h3>便利商店與藥局</h3>
+    <p>7-Eleven is everywhere in Bangkok, and staff usually speak enough English for the
+    basics. Pharmacies are a different matter: the pharmacist will often understand written
+    words better than spoken ones, so <b>showing them the word on your phone works well.</b></p>
+    <p class="d you">Do you have a plug adapter?</p>
+    <p class="d you">Could I get a bag, please?</p>
+    <p class="d you">Can I top up my SIM card here?</p>
+    <p class="d you">I&rsquo;ve got an upset stomach.</p>
+    <p class="d you">I&rsquo;ve been bitten by mosquitoes. Do you have something for the itching?</p>
+    <p class="d you">Is this drowsy or non-drowsy?</p>
+  </div>
+
+  <div class="chunk">
+    <div class="meta"><span>CHUNK 4 · 約 4 分鐘</span>
+      <label class="done"><input type="checkbox" data-k="d2c4">讀過</label></div>
+    <h3>出狀況 <span class="zh">（最不想用到，但最重要）</span></h3>
+    <p class="d you">Sorry, I think there&rsquo;s a mistake on the bill.</p>
+    <p class="d you">I was charged twice for this.</p>
+    <p class="d you">We didn&rsquo;t order this.</p>
+    <p class="d you">I think I left my bag in the taxi.</p>
+    <p class="d you">Excuse me, am I going the right way for the BTS station?</p>
+    <p class="d you">Sorry, I don&rsquo;t understand. Could you say that again, more slowly?</p>
+    <p class="d you">Could you write it down?</p>
+    <p class="d you">Does anyone here speak English?</p>
+    <div class="tip"><b>出狀況時句子要短。</b>慌張時長句一定垮，短句才說得出口，對方也更聽得懂。</div>
+  </div>
+
+  <h2>💻 公司電腦精讀（30 分鐘）</h2>
+  <blockquote>
+    <b>Refund and Exchange Policy</b><br><br>
+    Goods purchased at our stalls may be exchanged within seven days of purchase,
+    provided that the item is unused, in its original packaging, and accompanied by the
+    receipt. Items reduced in a sale are sold as seen and cannot be exchanged unless
+    they are found to be faulty.<br><br>
+    Refunds are issued in the original form of payment. Where payment was made in cash,
+    refunds over 2,000 baht may be issued by bank transfer instead, and may take up to
+    five working days to reach your account. We are unable to refund the cost of
+    alterations under any circumstances.
+  </blockquote>
+  <div class="q"><b>Q1.</b> 買了<b>特價</b>襯衫，三天後不喜歡想換。可以嗎？為什麼？</div>
+  <div class="q"><b>Q2.</b> 同一件特價襯衫，回飯店發現有破洞。這次可以換嗎？哪一句支持你的判斷？</div>
+  <div class="q"><b>Q3.</b> 用現金買 3,000 泰銖的東西要退款，會發生什麼事？多久拿得到？</div>
+  <div class="q"><b>Q4.</b> <code>sold as seen</code> 依上下文推測是：<br>
+    (a) 只賣展示品　(b) 買了就是這樣，不接受退換　(c) 需當場檢查　(d) 現貨供應</div>
+  <div class="q"><b>Q5.</b> 第一句 <code>provided that …</code> 後面接了三個條件，分別列出來。</div>
+  <div class="q"><b>D1.</b> 不認識的字全部列出<br>
+    <b>D2.</b> 兩天共 24 句，<b>哪幾句你真的說得出口？哪幾句看得懂但一定卡住？</b></div>
+  <div class="tip">D2 特別重要 — 那是驗證「輸入端句型」策略有沒有效的唯一依據。</div>
+</section>
+
+<footer>
+  出席門檻 14 / 17　·　缺席不補課　·　站著讀不完不算缺席<br>
+  下一個目標：🇯🇵 日本 2026/11/20
+</footer>
+</div>
+
+<script>
+(function(){
+  var tabs = document.querySelectorAll('nav button');
+  function show(id){
+    var panels = document.querySelectorAll('.panel');
+    for (var i=0;i<panels.length;i++){ panels[i].classList.toggle('on', panels[i].id === id); }
+    for (var j=0;j<tabs.length;j++){ tabs[j].setAttribute('aria-selected', String(tabs[j].dataset.p === id)); }
+    window.scrollTo(0,0);
+    try { localStorage.setItem('er.tab', id); } catch(e){}
+  }
+  for (var k=0;k<tabs.length;k++){
+    (function(b){ b.addEventListener('click', function(){ show(b.dataset.p); }); })(tabs[k]);
+  }
+  try {
+    var t = localStorage.getItem('er.tab');
+    if (t && document.getElementById(t)) show(t);
+  } catch(e){}
+
+  var boxes = document.querySelectorAll('.done input');
+  for (var m=0;m<boxes.length;m++){
+    (function(cb){
+      var key = 'er.' + cb.dataset.k;
+      try { if (localStorage.getItem(key) === '1') cb.checked = true; } catch(e){}
+      cb.addEventListener('change', function(){
+        try { localStorage.setItem(key, cb.checked ? '1' : '0'); } catch(e){}
+      });
+    })(boxes[m]);
+  }
+})();
+</script>
+</body>
+</html>
