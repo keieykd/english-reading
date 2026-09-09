@@ -50,6 +50,28 @@ body{margin:0;background:var(--bg);color:var(--ink);
 .bar{height:6px;background:var(--line);border-radius:99px;margin-top:.4rem;overflow:hidden}
 .bar > i{display:block;height:100%;background:var(--accent);border-radius:99px;width:0;transition:width .4s}
 
+/* ---------- 接續式步驟介面 ---------- */
+#menuBtn{margin-left:.6rem;min-width:38px;min-height:32px;border:1px solid var(--line);
+  background:var(--surface);color:var(--muted);border-radius:8px;font-size:1rem;
+  font-family:inherit;cursor:pointer;vertical-align:middle}
+#menuBtn[aria-expanded="true"]{background:var(--accent-soft);color:var(--accent-ink);
+  border-color:var(--accent)}
+.runbar{display:flex;justify-content:space-between;align-items:center;
+  margin:.4rem 0 .8rem;font-size:.85rem;color:var(--muted)}
+#runPhase{font-weight:700;color:var(--accent-ink);background:var(--accent-soft);
+  padding:.25rem .7rem;border-radius:99px;font-size:.82rem}
+#runDots{letter-spacing:.28em;font-size:.9rem;color:var(--line)}
+#runDots b{color:var(--accent)}
+#runBody .chunk,#runBody .card{margin-top:0}
+#runBody h2:first-child{margin-top:0}
+#runBody .done{display:none}          /* 步驟本身就是進度，不需要再打勾 */
+.runnav{margin-top:1.2rem;display:flex;flex-direction:column;gap:.5rem}
+.runnav #runNext{margin-top:0;min-height:54px;font-size:1.1rem}
+.runnav #runPrev{align-self:center;background:none;border:0;color:var(--muted);
+  font-size:.85rem;min-height:40px;text-decoration:underline}
+.runwrap{background:var(--surface);border:1px solid var(--line);border-radius:14px;
+  padding:1rem}
+
 /* ---------- nav ---------- */
 nav{position:sticky;top:0;z-index:10;background:var(--bg);border-bottom:1px solid var(--line);
   display:flex;gap:.25rem;padding:.5rem 0;margin-bottom:1rem;overflow-x:auto;-webkit-overflow-scrolling:touch}
@@ -215,11 +237,15 @@ footer{margin-top:2.5rem;padding-top:1rem;border-top:1px solid var(--line);color
 <div class="wrap">
 
 <div class="top">
-  <div class="row"><span id="pgLabel">計畫進度</span><span id="pgCount">0 / 17</span></div>
+  <div class="row">
+    <span id="pgLabel">計畫進度</span>
+    <span><span id="pgCount">0 / 17</span>
+      <button id="menuBtn" aria-label="其他頁面" aria-expanded="false">☰</button></span>
+  </div>
   <div class="bar"><i id="pgBar"></i></div>
 </div>
 
-<nav role="tablist">
+<nav role="tablist" hidden>
   <button role="tab" aria-selected="true" data-p="now">今天</button>
   <button role="tab" aria-selected="false" data-p="diag">診斷卷</button>
   <button role="tab" aria-selected="false" data-p="glue">邏輯字</button>
@@ -231,6 +257,17 @@ footer{margin-top:2.5rem;padding-top:1rem;border-top:1px solid var(--line);color
 
 <!-- ============ 今天 ============ -->
 <section class="panel on" id="now">
+  <div id="runner" hidden>
+    <div class="runbar">
+      <span id="runPhase"></span>
+      <span id="runDots"></span>
+    </div>
+    <div id="runBody"></div>
+    <div class="runnav">
+      <button id="runPrev" class="go">← 上一步</button>
+      <button id="runNext" class="markdone">讀完了，下一段 →</button>
+    </div>
+  </div>
   <div id="todayCard"></div>
   <div id="todaySteps"></div>
 
@@ -1117,7 +1154,9 @@ footer{margin-top:2.5rem;padding-top:1rem;border-top:1px solid var(--line);color
     <div class="tip"><b>Here you go.</b> — 遞東西給對方最自然的一句，比 &ldquo;Give you.&rdquo; 自然一百倍。</div>
   </div>
 
+  <div id="d1desk">
   <h2>💻 公司電腦精讀（30 分鐘）</h2>
+  <div class="tip">先把 <b>Chunk 2 的訂房確認信</b>再讀一次，這次慢慢讀、拆句子。<br>今天學過的 <code>provided</code>（只要…就）和 <code>subject to</code>（不保證）就在裡面。</div>
   <div class="q"><b>Q1.</b> 班機延誤，預計 20:30 才到飯店。根據信件，你<b>必須</b>做什麼？不做會怎樣？</div>
   <div class="q"><b>Q2.</b> 你 9/11 下午取消訂房。要付錢嗎？付多少？</div>
   <div class="q"><b>Q3.</b> &ldquo;A refundable deposit … provided the room is left in good condition.&rdquo;
@@ -1127,6 +1166,7 @@ footer{margin-top:2.5rem;padding-top:1rem;border-top:1px solid var(--line);color
   <div class="q"><b>D1.</b> 不認識或不確定的字，全部列出（沒有寫「無」）<br>
     <b>D2.</b> 四個 chunk 實際讀了幾分鐘？哪一塊最吃力？</div>
   <div class="tip">貼回對話我會批改，並針對每題追問「你怎麼判斷的」。<b>答錯不是問題，靠猜對才是。</b></div>
+  </div>
 </section>
 
 <!-- ============ DAY 2 ============ -->
@@ -1203,6 +1243,7 @@ footer{margin-top:2.5rem;padding-top:1rem;border-top:1px solid var(--line);color
     <div class="tip"><b>出狀況時句子要短。</b>慌張時長句一定垮，短句才說得出口，對方也更聽得懂。</div>
   </div>
 
+  <div id="d2desk">
   <h2>💻 公司電腦精讀（30 分鐘）</h2>
   <blockquote>
     <b>Refund and Exchange Policy</b><br><br>
@@ -1224,6 +1265,7 @@ footer{margin-top:2.5rem;padding-top:1rem;border-top:1px solid var(--line);color
   <div class="q"><b>D1.</b> 不認識的字全部列出<br>
     <b>D2.</b> 兩天共 24 句，<b>哪幾句你真的說得出口？哪幾句看得懂但一定卡住？</b></div>
   <div class="tip">D2 特別重要 — 那是驗證「輸入端句型」策略有沒有效的唯一依據。</div>
+  </div>
 </section>
 
 <!-- ============ 計畫 ============ -->
@@ -1328,6 +1370,38 @@ footer{margin-top:2.5rem;padding-top:1rem;border-top:1px solid var(--line);color
   };
   var TOTAL = 17, WD = ["日","一","二","三","四","五","六"];
 
+  // 接續式流程：一次只做一件事。src 指向頁面既有內容，複製過來顯示。
+  var FLOW = {
+    "2026-09-10": [
+      {p:"通勤 · 約 4 分鐘", src:'[data-k="d1c1"]', chunk:true},
+      {p:"通勤 · 約 5 分鐘", src:'[data-k="d1c2"]', chunk:true},
+      {p:"通勤 · 約 4 分鐘", src:'[data-k="d1c3"]', chunk:true},
+      {p:"通勤 · 約 4 分鐘", src:'[data-k="d1c4"]', chunk:true, next:"通勤讀完了 ✓"},
+      {p:"公司 · 25 分鐘", src:'#d1desk', next:"寫完了 →"},
+      {p:"最後一步", next:"今天完成 ✓", html:
+        '<h3>把答案貼回 Claude 對話</h3>'
+        + '<p>Q1–Q4，加上：</p><ul>'
+        + '<li><b>D1</b> 不認識或不確定的字，全部列出（沒有寫「無」）</li>'
+        + '<li><b>D2</b> 四段實際讀了幾分鐘？哪一段最吃力？</li></ul>'
+        + '<p class="zh">我會批改，並針對每題追問「你怎麼判斷的」。'
+        + '<b>答錯不是問題，靠猜對才是。</b></p>'}
+    ],
+    "2026-09-11": [
+      {p:"通勤 · 約 4 分鐘", src:'[data-k="d2c1"]', chunk:true},
+      {p:"通勤 · 約 4 分鐘", src:'[data-k="d2c2"]', chunk:true},
+      {p:"通勤 · 約 4 分鐘", src:'[data-k="d2c3"]', chunk:true},
+      {p:"通勤 · 約 4 分鐘", src:'[data-k="d2c4"]', chunk:true, next:"通勤讀完了 ✓"},
+      {p:"公司 · 25 分鐘", src:'#d2desk', next:"寫完了 →"},
+      {p:"出發前", next:"今天完成 ✓", html:
+        '<h3>貼回答案，然後帶走三樣東西</h3>'
+        + '<p>Q1–Q5，加上 <b>D1</b> 生字、<b>D2</b> 哪幾句你真的說得出口。</p>'
+        + '<ol><li><b>手機加到主畫面</b> — 隨身卡離線可讀</li>'
+        + '<li><b>蒐集任務</b>：拍 3–5 個看不懂的英文（告示、菜單、藥品說明）</li>'
+        + '<li><b>一個心態</b>：句型卡不是拿來背的，是拿來用錯的</li></ol>'
+        + '<p class="zh">玩得開心 🇹🇭</p>'}
+    ]
+  };
+
   function key(d){
     return d.getFullYear()+"-"+("0"+(d.getMonth()+1)).slice(-2)+"-"+("0"+d.getDate()).slice(-2);
   }
@@ -1357,7 +1431,18 @@ footer{margin-top:2.5rem;padding-top:1rem;border-top:1px solid var(--line);color
     window.scrollTo(0,0);
   }
   for (var k=0;k<tabs.length;k++)
-    (function(b){ b.addEventListener("click", function(){ show(b.dataset.p); }); })(tabs[k]);
+    (function(b){ b.addEventListener("click", function(){
+      show(b.dataset.p);
+      // 選完就把選單收起來，畫面永遠只有一件事
+      var nv = document.querySelector("nav"), mb = document.getElementById("menuBtn");
+      nv.hidden = true; mb.setAttribute("aria-expanded","false");
+    }); })(tabs[k]);
+
+  document.getElementById("menuBtn").addEventListener("click", function(){
+    var nv = document.querySelector("nav"), open = nv.hidden;
+    nv.hidden = !open;
+    this.setAttribute("aria-expanded", String(open));
+  });
 
   // ---------- progress ----------
   function paintProgress(){
@@ -1376,9 +1461,75 @@ footer{margin-top:2.5rem;padding-top:1rem;border-top:1px solid var(--line);color
               : (need > 0 ? "再 " + need + " 天達標（門檻 14）" : "已達標 🎉");
   }
 
+  // ---------- 接續式流程 ----------
+  var RUN = document.getElementById("runner");
+  function stepIdx(kk){ return parseInt(store("er.step." + kk) || "0", 10); }
+  function nodeFor(st){
+    if (st.html) {
+      var d = document.createElement("div");
+      d.className = "runwrap"; d.innerHTML = st.html; return d;
+    }
+    var el = document.querySelector(st.src);
+    if (!el) return null;
+    if (st.chunk) el = el.closest(".chunk");
+    return el ? el.cloneNode(true) : null;
+  }
+  function runFlow(kk){
+    var steps = FLOW[kk], i = stepIdx(kk);
+    document.getElementById("todayCard").innerHTML = "";
+    document.getElementById("todaySteps").innerHTML = "";
+    RUN.hidden = false;
+
+    if (i >= steps.length) {          // 全部做完
+      RUN.hidden = true;
+      document.getElementById("todayCard").innerHTML =
+        '<div class="today"><span class="badge done">今天完成 ✓</span>'
+        + '<h2>做完了</h2><div class="theme">答案記得貼回 Claude 對話</div></div>';
+      document.getElementById("todaySteps").innerHTML =
+        '<button class="go" id="runAgain">重看今天的內容</button>';
+      document.getElementById("runAgain").addEventListener("click", function(){
+        store("er.step." + kk, "0"); render();
+      });
+      return;
+    }
+    var st = steps[i];
+    document.getElementById("runPhase").textContent = st.p;
+    var dots = "";
+    for (var d = 0; d < steps.length; d++) dots += (d === i ? "<b>●</b>" : "○");
+    document.getElementById("runDots").innerHTML = dots;
+    var body = document.getElementById("runBody");
+    body.innerHTML = "";
+    var n = nodeFor(st);
+    if (n) body.appendChild(n);
+    else body.innerHTML = '<div class="tip">這一段的內容還沒放進來。'
+       + '請按 ☰ 從其他頁面查看。</div>';
+    document.getElementById("runNext").textContent = st.next || "讀完了，下一段 →";
+    document.getElementById("runPrev").hidden = (i === 0);
+    window.scrollTo(0, 0);
+  }
+  document.getElementById("runNext").addEventListener("click", function(){
+    var kk = key(new Date());
+    if (!FLOW[kk]) return;
+    var i = stepIdx(kk) + 1;
+    store("er.step." + kk, String(i));
+    if (i >= FLOW[kk].length) {       // 最後一步 → 記一筆出席
+      var arr = doneSet();
+      if (arr.indexOf(kk) < 0) { arr.push(kk); store("er.done", arr.join(",")); }
+      paintProgress();
+    }
+    render();
+  });
+  document.getElementById("runPrev").addEventListener("click", function(){
+    var kk = key(new Date());
+    store("er.step." + kk, String(Math.max(0, stepIdx(kk) - 1)));
+    render();
+  });
+
   // ---------- today ----------
   function render(){
     var now = new Date(), kk = key(now), info = SCHED[kk];
+    if (FLOW[kk]) { runFlow(kk); return; }
+    RUN.hidden = true;
     var dow = now.getDay(), isDone = doneSet().indexOf(kk) >= 0;
     var dateLine = (now.getMonth()+1) + "月" + now.getDate() + "日（" + WD[dow] + "）";
     var card = document.getElementById("todayCard"), steps = document.getElementById("todaySteps");
