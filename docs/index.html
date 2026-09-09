@@ -612,6 +612,49 @@ footer{margin-top:2.5rem;padding-top:1rem;border-top:1px solid var(--line);color
       <label><input type="radio" name="Z5c" value="guess"> 用猜的</label>
     </div></div>
 
+  <div class="card">
+    <h3>🎯 <code>provided</code> — 唯一還沒學會的那個</h3>
+    <p><b>它不是警告，是「門票」。</b>前面是好處，
+    <code>provided</code> 後面是<b>你必須做到、才能保住那個好處</b>的事。</p>
+    <p class="d them">The warranty remains valid, <b>provided</b> the device has been repaired
+      by an authorised centre.</p>
+    <ol>
+      <li>好處：保固有效</li>
+      <li>門票：<b>由授權中心維修</b></li>
+      <li>代入：你是授權中心修的嗎？→ <b>是</b></li>
+      <li>門票有了 → <b>保固有效</b></li>
+    </ol>
+    <div class="tip"><b>你中的陷阱：</b>看到「修過」就想到「保固失效」。
+    但句子說的是<b>「只要是授權中心修的，保固就還在」</b>——
+    <code>provided</code> 後面是<b>好消息的條件</b>，不是壞消息。<br><br>
+    <b>下次怎麼判讀：</b>把 <code>provided</code> 讀成「<b>只要…就</b>」，
+    然後問「<b>他有沒有做到</b>」。做到 → 好處保留。</div>
+  </div>
+
+  <div class="q" data-qid="Z6"><b>Z6.</b>
+    <span class="en">The discount still applies, <b>provided</b> you have used the code before.</span><br>
+    <span class="zh">你<b>以前用過</b>這個折扣碼。這次還有折扣嗎？</span>
+    <div class="opts">
+      <label><input type="radio" name="Z6" value="a"> (a) 有折扣</label>
+      <label><input type="radio" name="Z6" value="b"> (b) 沒有折扣</label>
+    </div>
+    <div class="opts conf">
+      <label><input type="radio" name="Z6c" value="sure"> 有把握</label>
+      <label><input type="radio" name="Z6c" value="guess"> 用猜的</label>
+    </div></div>
+
+  <div class="q" data-qid="Z7"><b>Z7.</b>
+    <span class="en">The room remains reserved, <b>provided</b> you arrive after 10 p.m.</span><br>
+    <span class="zh">你<b>晚上 11 點</b>才到飯店。房間還幫你留著嗎？</span>
+    <div class="opts">
+      <label><input type="radio" name="Z7" value="a"> (a) 還留著</label>
+      <label><input type="radio" name="Z7" value="b"> (b) 已經被取消</label>
+    </div>
+    <div class="opts conf">
+      <label><input type="radio" name="Z7c" value="sure"> 有把握</label>
+      <label><input type="radio" name="Z7c" value="guess"> 用猜的</label>
+    </div></div>
+
   <button class="markdone" id="genRound4">產生答案 → 複製，貼回 Claude</button>
   <textarea id="round4Out" rows="6" style="display:none" readonly></textarea>
 
@@ -1687,7 +1730,7 @@ footer{margin-top:2.5rem;padding-top:1rem;border-top:1px solid var(--line);color
 
   // ---------- 邏輯字：第四輪（常識反向誘導） ----------
   (function(){
-    var IDS = ["Z1","Z2","Z3","Z4","Z5"], out = document.getElementById("round4Out");
+    var IDS = ["Z1","Z2","Z3","Z4","Z5","Z6","Z7"], out = document.getElementById("round4Out");
     if (!out) return;
     var ALL = [];
     IDS.forEach(function(id){ ALL.push(id); ALL.push(id + "c"); });
