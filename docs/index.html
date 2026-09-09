@@ -113,6 +113,17 @@ li{margin:.3rem 0}
 .q{background:var(--surface);border:1px solid var(--line);border-radius:8px;
   padding:.6rem .8rem;margin:.5rem 0;font-size:.92rem}
 .q b{color:var(--accent-ink)}
+.opts{margin-top:.45rem}
+.opts label{display:flex;gap:.5rem;align-items:flex-start;padding:.4rem .5rem;
+  border-radius:8px;cursor:pointer;min-height:40px;font-size:.88rem;line-height:1.5}
+.opts label:hover{background:var(--accent-soft)}
+.opts input{margin-top:.35rem;width:17px;height:17px;accent-color:var(--accent);flex:0 0 auto}
+.opts label:has(input:checked){background:var(--accent-soft);font-weight:600}
+textarea{width:100%;margin-top:.45rem;padding:.55rem .65rem;border:1px solid var(--line);
+  border-radius:8px;background:var(--bg);color:var(--ink);font-family:inherit;
+  font-size:.9rem;line-height:1.7;resize:vertical}
+textarea:focus{outline:2px solid var(--accent);outline-offset:1px}
+#ansOut{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.8rem;margin-top:.6rem}
 blockquote{margin:.6rem 0;padding:.6rem .9rem;background:var(--surface);border:1px solid var(--line);
   border-radius:8px;font-size:.92rem}
 code{background:var(--accent-soft);color:var(--accent-ink);padding:.1em .35em;border-radius:4px;font-size:.9em}
@@ -206,6 +217,7 @@ footer{margin-top:2.5rem;padding-top:1rem;border-top:1px solid var(--line);color
 
 <nav role="tablist">
   <button role="tab" aria-selected="true" data-p="now">今天</button>
+  <button role="tab" aria-selected="false" data-p="diag">診斷卷</button>
   <button role="tab" aria-selected="false" data-p="cheat">隨身卡</button>
   <button role="tab" aria-selected="false" data-p="d1">Day 1</button>
   <button role="tab" aria-selected="false" data-p="d2">Day 2</button>
@@ -229,6 +241,150 @@ footer{margin-top:2.5rem;padding-top:1rem;border-top:1px solid var(--line);color
     <p style="font-size:.88rem;margin:.5rem 0">沒讀完不用有罪惡感：<b>站著讀不完不算缺席、缺席不補課</b>。
     17 天裡你可以缺 3 天。</p>
   </details>
+</section>
+
+<!-- ============ 診斷卷 ============ -->
+<section class="panel" id="diag">
+  <div class="tip"><b>15 分鐘，三個規則：</b>
+    ① <b>不要查字典、不要用翻譯</b>　② 讀不懂就猜，<b>猜錯比查到對更有價值</b>（猜錯才會暴露真正的弱點）
+    ③ 三篇由易到難，別在第一篇耗太久。</div>
+
+  <div class="card" style="display:flex;align-items:center;gap:.8rem;flex-wrap:wrap">
+    <button class="go" id="tStart" style="margin:0">▶ 開始計時</button>
+    <span id="tClock" style="font-size:1.5rem;font-weight:700;font-variant-numeric:tabular-nums">00:00</span>
+    <span class="zh">超時不用停，記下實際花幾分鐘就好</span>
+  </div>
+
+  <h2>Passage A — 新聞</h2>
+  <div class="card">
+    <p>Starting next month, the city of Lindfield will make all municipal buses free to
+    ride. The three-year trial, approved by the city council in a narrow 6-5 vote, is
+    intended to reduce traffic in the historic centre, where car journeys have risen by
+    nearly a fifth since 2019.</p>
+    <p>Supporters argue that the scheme will pay for itself. Fares currently cover only 14
+    per cent of the network&rsquo;s operating costs, and the council expects savings from
+    removing ticket machines and fare inspectors to offset much of the lost revenue.
+    Critics counter that the money would be better spent on the routes themselves, several
+    of which run only once an hour after seven in the evening.</p>
+    <p>Similar experiments elsewhere have produced mixed results. Ridership almost always
+    increases, but studies suggest that most new passengers are people who would otherwise
+    have walked or cycled, rather than drivers persuaded to leave their cars at home.</p>
+  </div>
+  <div class="q" data-qid="A1"><b>A1.</b> What is the passage mainly about?
+    <div class="opts">
+      <label><input type="radio" name="A1" value="a"> (a) Why buses in Lindfield are unreliable in the evening</label>
+      <label><input type="radio" name="A1" value="b"> (b) A city&rsquo;s plan to abolish bus fares, and the arguments on both sides</label>
+      <label><input type="radio" name="A1" value="c"> (c) How removing ticket machines reduces operating costs</label>
+      <label><input type="radio" name="A1" value="d"> (d) A study comparing walking, cycling and driving</label>
+    </div></div>
+  <div class="q" data-qid="A2"><b>A2.</b> Fares currently cover what share of operating costs?
+    <div class="opts">
+      <label><input type="radio" name="A2" value="a"> (a) 6 per cent</label>
+      <label><input type="radio" name="A2" value="b"> (b) 14 per cent</label>
+      <label><input type="radio" name="A2" value="c"> (c) 19 per cent</label>
+      <label><input type="radio" name="A2" value="d"> (d) 20 per cent</label>
+    </div></div>
+  <div class="q" data-qid="A3"><b>A3.</b> What does the final paragraph imply about schemes of this kind?
+    <div class="opts">
+      <label><input type="radio" name="A3" value="a"> (a) They rarely attract more passengers</label>
+      <label><input type="radio" name="A3" value="b"> (b) They may fail to achieve their main purpose</label>
+      <label><input type="radio" name="A3" value="c"> (c) They are usually cheaper to run than expected</label>
+      <label><input type="radio" name="A3" value="d"> (d) They are opposed by most transport researchers</label>
+    </div></div>
+
+  <h2>Passage B — 職場通知</h2>
+  <div class="card">
+    <p><b>MEMORANDUM</b><br>
+    To: All Wilmot Tower staff<br>
+    From: Facilities Management<br>
+    Re: Parking arrangements during resurfacing work</p>
+    <p>Resurfacing of the underground car park will begin on Monday, 14 October, and is
+    expected to take four weeks. During this period Levels B2 and B3 will be closed.
+    Level B1 will remain open but is reserved for visitors and for staff holding
+    accessible-parking permits.</p>
+    <p>All other permit holders should use the Eastgate public car park on Renner Street.
+    The company has arranged a discounted rate of $4 per day, which is applied
+    automatically when you scan your staff badge at the exit barrier. Please note that the
+    discount cannot be claimed retroactively, so badges must be scanned at the time of
+    departure.</p>
+    <p>Staff who normally arrive before 7:30 a.m. may find the Renner Street entrance still
+    closed; in that case, please use the Halliday Avenue entrance, which operates
+    twenty-four hours.</p>
+  </div>
+  <div class="q" data-qid="B1"><b>B1.</b> Who may park on Level B1 during the works?
+    <div class="opts">
+      <label><input type="radio" name="B1" value="a"> (a) Any member of staff</label>
+      <label><input type="radio" name="B1" value="b"> (b) Visitors and staff with accessible-parking permits</label>
+      <label><input type="radio" name="B1" value="c"> (c) Only the facilities team</label>
+      <label><input type="radio" name="B1" value="d"> (d) Nobody; all levels are closed</label>
+    </div></div>
+  <div class="q" data-qid="B2"><b>B2.</b> A staff member with a standard permit parks at Eastgate
+    but leaves without scanning their badge. Most likely result?
+    <div class="opts">
+      <label><input type="radio" name="B2" value="a"> (a) They pay the full rate and cannot recover the difference later</label>
+      <label><input type="radio" name="B2" value="b"> (b) The discount is emailed to them the following day</label>
+      <label><input type="radio" name="B2" value="c"> (c) They are charged a penalty in addition to the fee</label>
+      <label><input type="radio" name="B2" value="d"> (d) The fee is deducted from their salary</label>
+    </div></div>
+  <div class="q" data-qid="B3"><b>B3.</b> Why is the Halliday Avenue entrance mentioned?
+    <div class="opts">
+      <label><input type="radio" name="B3" value="a"> (a) It is closer to Wilmot Tower</label>
+      <label><input type="radio" name="B3" value="b"> (b) It offers a larger discount</label>
+      <label><input type="radio" name="B3" value="c"> (c) It is available to staff who arrive very early</label>
+      <label><input type="radio" name="B3" value="d"> (d) It will be resurfaced at the same time</label>
+    </div></div>
+
+  <h2>Passage C — 機票條款</h2>
+  <div class="card">
+    <p><b>Fare Conditions — &ldquo;Saver Flex&rdquo;</b></p>
+    <p>Tickets purchased under the Saver Flex fare may be changed once without charge,
+    provided the change is requested no later than 24 hours before the scheduled departure
+    of the first flight in the itinerary, and the new travel date falls within twelve
+    months of the original date of issue. Where the new booking is in a higher fare class,
+    the difference must be paid at the time of the change; no refund is given where the new
+    booking is in a lower class.</p>
+    <p>Cancellations made more than seven days before departure are refunded in full, less
+    an administrative fee of EUR 45. Thereafter, only government taxes and airport charges
+    are refundable. Passengers who fail to present themselves at the gate by the stated
+    boarding time are treated as no-shows, and all remaining sectors of the itinerary are
+    cancelled automatically, unless the airline is notified of the intended interruption at
+    least two hours prior to the missed departure.</p>
+  </div>
+  <div class="q" data-qid="C1"><b>C1.</b> Three days before departure, a passenger moves to a
+    cheaper flight two months later. What happens?
+    <div class="opts">
+      <label><input type="radio" name="C1" value="a"> (a) Free change, and the fare difference is refunded</label>
+      <label><input type="radio" name="C1" value="b"> (b) Free change, but the fare difference is not refunded</label>
+      <label><input type="radio" name="C1" value="c"> (c) A change fee applies because it is under seven days</label>
+      <label><input type="radio" name="C1" value="d"> (d) The change is not permitted at all</label>
+    </div></div>
+  <div class="q" data-qid="C2"><b>C2.</b> A passenger cancels five days before departure. What is refunded?
+    <div class="opts">
+      <label><input type="radio" name="C2" value="a"> (a) The full fare, minus EUR 45</label>
+      <label><input type="radio" name="C2" value="b"> (b) Half the fare</label>
+      <label><input type="radio" name="C2" value="c"> (c) Only government taxes and airport charges</label>
+      <label><input type="radio" name="C2" value="d"> (d) Nothing at all</label>
+    </div></div>
+  <div class="q" data-qid="C3"><b>C3.</b> A passenger misses the outbound flight and says nothing.
+    What happens to the return flight?
+    <div class="opts">
+      <label><input type="radio" name="C3" value="a"> (a) It is unaffected</label>
+      <label><input type="radio" name="C3" value="b"> (b) It is cancelled automatically</label>
+      <label><input type="radio" name="C3" value="c"> (c) It is rebooked for the next available date</label>
+      <label><input type="radio" name="C3" value="d"> (d) It is held for 24 hours, then released</label>
+    </div></div>
+
+  <h2>最後三題（比選擇題更重要）</h2>
+  <div class="q"><b>D1.</b> 用中文，兩句以內，寫出 <b>Passage C 第二段</b>在講什麼。用你自己的話，不要逐句翻譯。
+    <textarea id="D1" rows="3" placeholder="……"></textarea></div>
+  <div class="q"><b>D2.</b> 三篇中「不認識或不確定」的英文字，全部列出來。一個都沒有請寫「無」。
+    <textarea id="D2" rows="3" placeholder="……"></textarea></div>
+  <div class="q"><b>D3.</b> 哪一篇最吃力？卡在 (a) 單字不夠 (b) 句子太長解不開 (c) 字都懂但抓不到重點 (d) 背景知識不足？實際花幾分鐘？
+    <textarea id="D3" rows="3" placeholder="……"></textarea></div>
+
+  <button class="markdone" id="genAns">產生作答 → 複製，貼回 Claude 對話</button>
+  <textarea id="ansOut" rows="10" style="display:none" readonly></textarea>
+  <p class="zh" id="copyNote" style="display:none">已全選，按 Ctrl+C（手機長按 → 複製）貼回對話即可。</p>
 </section>
 
 <!-- ============ 隨身卡 ============ -->
@@ -563,6 +719,7 @@ footer{margin-top:2.5rem;padding-top:1rem;border-top:1px solid var(--line);color
   "use strict";
 
   var SCHED = {
+    "2026-09-09":{t:"day0",theme:"診斷卷 — 校準整個 4 週的難度",tab:"diag"},
     "2026-09-10":{t:"study",n:1,theme:"泰國實戰 D1 — 抵達與移動",tab:"d1"},
     "2026-09-11":{t:"study",n:2,theme:"泰國實戰 D2 — 吃、買、出狀況",tab:"d2"},
     "2026-09-12":{t:"trip"},"2026-09-13":{t:"trip"},
@@ -591,7 +748,17 @@ footer{margin-top:2.5rem;padding-top:1rem;border-top:1px solid var(--line);color
   function key(d){
     return d.getFullYear()+"-"+("0"+(d.getMonth()+1)).slice(-2)+"-"+("0"+d.getDate()).slice(-2);
   }
-  function store(k,v){ try{ if(v===undefined) return localStorage.getItem(k); localStorage.setItem(k,v);}catch(e){return null;} }
+  // localStorage 可能被擋（無痕視窗、瀏覽器封鎖網站資料）→ 退回記憶體，
+  // 至少單次開啟期間計時與作答不會遺失。
+  var mem = {};
+  function store(k,v){
+    if (v === undefined) {
+      try { var r = localStorage.getItem(k); return r === null ? (k in mem ? mem[k] : null) : r; }
+      catch(e){ return k in mem ? mem[k] : null; }
+    }
+    mem[k] = v;
+    try { localStorage.setItem(k,v); } catch(e){}
+  }
   function doneSet(){
     var raw = store("er.done") || "";
     return raw ? raw.split(",").filter(Boolean) : [];
@@ -611,12 +778,18 @@ footer{margin-top:2.5rem;padding-top:1rem;border-top:1px solid var(--line);color
 
   // ---------- progress ----------
   function paintProgress(){
-    var n = doneSet().length;
-    document.getElementById("pgCount").textContent = n + " / " + TOTAL;
+    // 只有正式上課日計入分母；Day 0 與排休/假日不算
+    var all = doneSet(), n = 0, bonus = 0;
+    for (var i=0;i<all.length;i++){
+      var s = SCHED[all[i]];
+      if (s && s.t === "study") n++; else if (s && s.t === "day0") bonus++;
+    }
+    document.getElementById("pgCount").textContent =
+      n + " / " + TOTAL + (bonus ? "　加碼 +" + bonus : "");
     document.getElementById("pgBar").style.width = Math.min(100, n/TOTAL*100) + "%";
-    var left = TOTAL - n, need = 14 - n;
+    var need = 14 - n;
     document.getElementById("pgLabel").textContent =
-      n === 0 ? "計畫進度 · 還沒開始"
+      n === 0 ? (bonus ? "已開跑 · 加碼日完成" : "計畫進度 · 還沒開始")
               : (need > 0 ? "再 " + need + " 天達標（門檻 14）" : "已達標 🎉");
   }
 
@@ -647,6 +820,28 @@ footer{margin-top:2.5rem;padding-top:1rem;border-top:1px solid var(--line);color
     } else if (info.t === "holiday") {
       badge = '<span class="badge rest">國定假日</span>';
       title = "今天放假 — " + info.why; sub = "不計入分母，不算缺席";
+    } else if (info.t === "day0") {
+      badge = '<span class="badge ' + (isDone ? "done" : "trip") + '">'
+            + (isDone ? "Day 0 已完成 ✓" : "Day 0 · 加碼") + '</span>';
+      title = "今天就可以開始"; sub = info.theme;
+      body =
+        '<div class="step"><div class="n">1</div><div class="body">'
+        + '<span class="when">現在 · 15 分鐘</span><h4>做診斷卷</h4>'
+        + '<p><b>不查字典、不用翻譯。讀不懂就猜</b>——猜錯比查到對更有價值，'
+        + '因為猜錯才會暴露你真正卡在哪。</p>'
+        + '<button class="go" data-go="diag">打開診斷卷 →</button></div></div>'
+        + '<div class="step"><div class="n">2</div><div class="body">'
+        + '<h4>按「產生作答」，貼回 Claude 對話</h4>'
+        + '<p>我會判讀你是卡在<b>單字</b>、卡在<b>長句結構</b>、還是卡在<b>抓重點</b>'
+        + '——這三種的處方完全不同。</p></div></div>'
+        + '<div class="step"><div class="n">3</div><div class="body">'
+        + '<h4>明天正式開跑</h4>'
+        + '<p>9/10 起是泰國實戰週，週六出發前剛好練完。</p></div></div>'
+        + '<div class="tip">今天是<b>加碼日，不計入 17 天分母</b>，做了是賺到，'
+        + '沒做也不算缺席。但做完的價值很高：我能直接用結果校準整整 4 週的教材難度，'
+        + '不必等到 9/16。</div>'
+        + '<button class="markdone' + (isDone ? " is-done" : "") + '" id="mk">'
+        + (isDone ? "Day 0 已完成 ✓（再按一次取消）" : "診斷卷做完了，記一筆") + '</button>';
     } else if (info.t === "trip") {
       badge = '<span class="badge trip">🇹🇭 泰國</span>';
       title = "旅行中，不用讀書"; sub = "排休，不計入分母";
@@ -712,6 +907,7 @@ footer{margin-top:2.5rem;padding-top:1rem;border-top:1px solid var(--line);color
       var label = (d.getMonth()+1) + "/" + d.getDate() + "（" + WD[d.getDay()] + "）";
       var txt = v.t === "study" ? v.n + ". " + v.theme
               : v.t === "holiday" ? "🚫 " + v.why
+              : v.t === "day0" ? "★ Day 0 加碼 — 診斷卷（不計入分母）"
               : "🇹🇭 泰國（排休）";
       var tr = document.createElement("tr");
       if (v.t !== "study") tr.className = "off";
@@ -729,6 +925,78 @@ footer{margin-top:2.5rem;padding-top:1rem;border-top:1px solid var(--line);color
       cb.addEventListener("change", function(){ store(kk2, cb.checked ? "1" : "0"); });
     })(boxes[m]);
   }
+
+  // ---------- 診斷卷：計時器 ----------
+  (function(){
+    var btn = document.getElementById("tStart"), clock = document.getElementById("tClock");
+    if (!btn) return;
+    var t0 = parseInt(store("er.diagT0") || "0", 10), tick = null;
+    function paint(){
+      var s = t0 ? Math.floor((Date.now() - t0)/1000) : 0;
+      clock.textContent = ("0"+Math.floor(s/60)).slice(-2) + ":" + ("0"+(s%60)).slice(-2);
+      if (s >= 900) clock.style.color = "var(--warn)";
+    }
+    function run(){ if (tick) clearInterval(tick); tick = setInterval(paint, 1000); paint(); }
+    if (t0) { btn.textContent = "⟳ 重新計時"; run(); }
+    btn.addEventListener("click", function(){
+      t0 = Date.now(); store("er.diagT0", String(t0));
+      btn.textContent = "⟳ 重新計時"; clock.style.color = ""; run();
+    });
+  })();
+
+  // ---------- 診斷卷：自動存檔 + 產生作答 ----------
+  (function(){
+    var IDS = ["A1","A2","A3","B1","B2","B3","C1","C2","C3"];
+    var out = document.getElementById("ansOut");
+    if (!out) return;
+
+    IDS.forEach(function(id){
+      var saved = store("er.d." + id);
+      var rs = document.getElementsByName(id);
+      for (var i=0;i<rs.length;i++){
+        if (saved && rs[i].value === saved) rs[i].checked = true;
+        (function(r){ r.addEventListener("change", function(){ store("er.d." + id, r.value); }); })(rs[i]);
+      }
+    });
+    ["D1","D2","D3"].forEach(function(id){
+      var el = document.getElementById(id), saved = store("er.d." + id);
+      if (saved) el.value = saved;
+      el.addEventListener("input", function(){ store("er.d." + id, el.value); });
+    });
+
+    document.getElementById("genAns").addEventListener("click", function(){
+      var t0 = parseInt(store("er.diagT0") || "0", 10);
+      var mins = t0 ? Math.round((Date.now() - t0)/60000) : null;
+      var lines = ["【診斷卷 diagnostic-01 作答】"];
+      if (mins !== null) lines.push("計時：約 " + mins + " 分鐘");
+      lines.push("");
+      var missing = [];
+      ["A","B","C"].forEach(function(g){
+        var row = [];
+        for (var i=1;i<=3;i++){
+          var id = g + i, v = null, rs = document.getElementsByName(id);
+          for (var j=0;j<rs.length;j++) if (rs[j].checked) v = rs[j].value;
+          if (!v) missing.push(id);
+          row.push(id + ": " + (v || "(未作答)"));
+        }
+        lines.push(row.join("　"));
+      });
+      lines.push("");
+      ["D1","D2","D3"].forEach(function(id){
+        var v = document.getElementById(id).value.trim();
+        if (!v) missing.push(id);
+        lines.push(id + ": " + (v || "(未作答)"));
+      });
+      if (missing.length) lines.push("", "（尚未作答：" + missing.join("、") + "）");
+      out.value = lines.join("\n");
+      out.style.display = "block";
+      document.getElementById("copyNote").style.display = "block";
+      out.focus(); out.select();
+      try { document.execCommand("copy"); } catch(e){}
+      try { if (navigator.clipboard) navigator.clipboard.writeText(out.value); } catch(e){}
+      out.scrollIntoView({block:"nearest"});
+    });
+  })();
 
   if (!store("er.seen")) { document.getElementById("howto").open = true; store("er.seen","1"); }
   paintProgress();

@@ -13,7 +13,7 @@ Eason 的英文閱讀加強計畫 — 2026/09/10 ~ 2026/10/08
 | [PLAN.md](PLAN.md) | 4 週完整計畫（目標、時間結構、行事曆、出席規則、驗收） |
 | [progress.md](progress.md) | 出席表與每週檢討 |
 | [vocab.md](vocab.md) | 生字本 ＋ 泰國蒐集任務 |
-| [diagnostic-01.md](diagnostic-01.md) | 入門診斷卷（**9/16 早上交**） |
+| [diagnostic-01.md](diagnostic-01.md) | 入門診斷卷 — **網頁「診斷卷」分頁可直接作答**（含計時器，作答一鍵產生） |
 | `days/` | 每日教材 |
 | `docs/index.html` | 手機版單頁，離線可讀 |
 
