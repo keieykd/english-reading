@@ -3,97 +3,237 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>English Reading — 泰國實戰包</title>
+<title>英文閱讀 · 今天做什麼</title>
 <style>
+/* ── 莫蘭迪色系 Morandi palette ──
+   低飽和、帶灰調的溫潤色。淺色為米灰底 + 灰綠主色，
+   深色為暖灰底，避免高對比刺眼。 */
 :root{
-  --bg:#fbfbf9; --surface:#ffffff; --line:#e3e1dc; --ink:#1c1b19; --muted:#6b6862;
-  --accent:#2f5d50; --accent-soft:#e8f0ec;
-  --warn:#8a5a1b; --warn-soft:#fdf3e3;
-  --you:#1f4a63; --you-soft:#eaf2f7;
+  --bg:#F2F0EB; --surface:#FAF8F4; --line:#DDD8D0; --ink:#3E3A35; --muted:#8B857C;
+  --accent:#7E9A8C; --accent-soft:#E4EAE5; --accent-ink:#54705F;
+  --warn:#9A7A5C; --warn-soft:#F0E8DE;
+  --you:#7C93A3; --you-soft:#E6EBEF;
+  --ok:#7D9A86; --ok-soft:#E5EDE6;
+  --rest:#A39C92; --rest-soft:#EBE8E2;
+  --on-accent:#FAF8F4;
 }
 @media (prefers-color-scheme:dark){
   :root:not([data-theme="light"]){
-    --bg:#161614; --surface:#1e1e1c; --line:#33322e; --ink:#e9e7e2; --muted:#9a968e;
-    --accent:#84c2ad; --accent-soft:#1d2b26;
-    --warn:#dfae6a; --warn-soft:#2a2318;
-    --you:#8fc0dc; --you-soft:#182630;
+    --bg:#2A2724; --surface:#33302B; --line:#474138; --ink:#E4DFD6; --muted:#A29B90;
+    --accent:#9DB8AB; --accent-soft:#333E38; --accent-ink:#B4CCC0;
+    --warn:#C4A47F; --warn-soft:#3C352B;
+    --you:#9CB2C0; --you-soft:#303A40;
+    --ok:#9CBCA5; --ok-soft:#2F3A33;
+    --rest:#A29B90; --rest-soft:#35322D;
+    --on-accent:#26231F;
   }
 }
 :root[data-theme="dark"]{
-  --bg:#161614; --surface:#1e1e1c; --line:#33322e; --ink:#e9e7e2; --muted:#9a968e;
-  --accent:#84c2ad; --accent-soft:#1d2b26;
-  --warn:#dfae6a; --warn-soft:#2a2318;
-  --you:#8fc0dc; --you-soft:#182630;
+  --bg:#2A2724; --surface:#33302B; --line:#474138; --ink:#E4DFD6; --muted:#A29B90;
+  --accent:#9DB8AB; --accent-soft:#333E38; --accent-ink:#B4CCC0;
+  --warn:#C4A47F; --warn-soft:#3C352B;
+  --you:#9CB2C0; --you-soft:#303A40;
+  --ok:#9CBCA5; --ok-soft:#2F3A33;
+  --rest:#A29B90; --rest-soft:#35322D;
+  --on-accent:#26231F;
 }
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);
-  font:16px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;
+  font:16px/1.8 "Microsoft JhengHei","微軟正黑體","Microsoft JhengHei UI",
+    "PingFang TC","Noto Sans TC",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
   -webkit-text-size-adjust:100%}
-.wrap{max-width:44rem;margin:0 auto;padding:0 1rem 5rem}
-header{padding:1.5rem 0 .75rem;border-bottom:1px solid var(--line)}
-h1{font-size:1.15rem;margin:0 0 .25rem;letter-spacing:.01em}
-.sub{color:var(--muted);font-size:.8rem;margin:0}
-nav{position:sticky;top:0;z-index:10;background:var(--bg);
-  border-bottom:1px solid var(--line);display:flex;gap:.25rem;padding:.5rem 0;margin-bottom:1rem}
-nav button{flex:1;min-height:44px;border:1px solid var(--line);background:var(--surface);
-  color:var(--muted);border-radius:8px;font-size:.85rem;font-family:inherit;cursor:pointer}
-nav button[aria-selected="true"]{background:var(--accent-soft);color:var(--accent);
-  border-color:var(--accent);font-weight:600}
+.wrap{max-width:44rem;margin:0 auto;padding:0 1rem 4rem}
+
+/* ---------- progress header ---------- */
+.top{padding:1rem 0 .6rem}
+.top .row{display:flex;justify-content:space-between;align-items:baseline;font-size:.75rem;color:var(--muted)}
+.bar{height:6px;background:var(--line);border-radius:99px;margin-top:.4rem;overflow:hidden}
+.bar > i{display:block;height:100%;background:var(--accent);border-radius:99px;width:0;transition:width .4s}
+
+/* ---------- nav ---------- */
+nav{position:sticky;top:0;z-index:10;background:var(--bg);border-bottom:1px solid var(--line);
+  display:flex;gap:.25rem;padding:.5rem 0;margin-bottom:1rem;overflow-x:auto;-webkit-overflow-scrolling:touch}
+nav button{flex:1 0 auto;min-width:4.2rem;min-height:44px;border:1px solid var(--line);
+  background:var(--surface);color:var(--muted);border-radius:8px;font-size:.82rem;
+  font-family:inherit;cursor:pointer;white-space:nowrap;padding:0 .6rem}
+nav button[aria-selected="true"]{background:var(--accent-soft);color:var(--accent-ink);
+  border-color:var(--accent);font-weight:700}
+
+/* ---------- today card ---------- */
+.today{background:var(--surface);border:1px solid var(--line);border-radius:14px;
+  padding:1.1rem 1rem;margin-bottom:1rem}
+.today .date{font-size:.78rem;color:var(--muted);letter-spacing:.04em}
+.today h2{font-size:1.35rem;margin:.2rem 0 .1rem;border:0;padding:0;line-height:1.35}
+.today .theme{font-size:.9rem;color:var(--accent-ink);font-weight:600}
+.badge{display:inline-block;font-size:.7rem;font-weight:700;letter-spacing:.05em;
+  padding:.18rem .55rem;border-radius:99px;margin-bottom:.5rem}
+.badge.study{background:var(--accent-soft);color:var(--accent-ink)}
+.badge.trip{background:var(--warn-soft);color:var(--warn)}
+.badge.rest{background:var(--rest-soft);color:var(--rest)}
+.badge.done{background:var(--ok-soft);color:var(--ok)}
+
+/* ---------- steps ---------- */
+.step{display:flex;gap:.7rem;align-items:flex-start;background:var(--surface);
+  border:1px solid var(--line);border-radius:12px;padding:.8rem .9rem;margin:.6rem 0}
+.step .n{flex:0 0 1.6rem;height:1.6rem;border-radius:50%;background:var(--accent);
+  color:var(--on-accent);font-size:.8rem;font-weight:700;display:flex;align-items:center;
+  justify-content:center;margin-top:.15rem}
+.step .body{flex:1;min-width:0}
+.step h4{margin:0 0 .15rem;font-size:.95rem}
+.step p{margin:.1rem 0;font-size:.85rem;color:var(--muted)}
+.step .when{font-size:.72rem;color:var(--muted);letter-spacing:.03em}
+.go{display:inline-block;margin-top:.45rem;padding:.45rem .9rem;background:var(--accent-soft);
+  color:var(--accent-ink);border:1px solid var(--accent);border-radius:8px;font-size:.82rem;
+  font-weight:700;cursor:pointer;font-family:inherit;min-height:38px}
+.markdone{width:100%;min-height:48px;margin-top:.4rem;border-radius:10px;border:1px solid var(--accent);
+  background:var(--accent);color:var(--on-accent);font-size:.95rem;font-weight:700;
+  font-family:inherit;cursor:pointer}
+.markdone.is-done{background:var(--ok-soft);color:var(--ok);border-color:var(--ok)}
+
+/* ---------- generic ---------- */
 h2{font-size:1rem;margin:2rem 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
-h3{font-size:.9rem;margin:1.5rem 0 .5rem;color:var(--accent)}
-.chunk{background:var(--surface);border:1px solid var(--line);border-radius:10px;
-  padding:.9rem 1rem;margin:1rem 0}
+h3{font-size:.9rem;margin:1.5rem 0 .5rem;color:var(--accent-ink)}
+.chunk{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:.9rem 1rem;margin:1rem 0}
 .chunk>.meta{display:flex;justify-content:space-between;align-items:center;
   font-size:.72rem;color:var(--muted);margin-bottom:.6rem;letter-spacing:.04em}
 .chunk h3{margin-top:0}
 .d{margin:.15rem 0;padding-left:.9rem;border-left:2px solid var(--line)}
-.d.you{border-left-color:var(--you);background:var(--you-soft);color:var(--ink);
-  font-weight:600;padding:.2rem .5rem .2rem .9rem;border-radius:0 6px 6px 0;margin:.3rem 0}
+.d.you{border-left-color:var(--you);background:var(--you-soft);color:var(--ink);font-weight:600;
+  padding:.2rem .5rem .2rem .9rem;border-radius:0 6px 6px 0;margin:.3rem 0}
 .d.them{color:var(--muted)}
-.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;
-  padding:.75rem .9rem;margin:.6rem 0}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:.75rem .9rem;margin:.6rem 0}
 .card h3{margin:0 0 .4rem}
 ol,ul{margin:.4rem 0;padding-left:1.3rem}
 li{margin:.3rem 0}
 .en{font-weight:600}
 .zh{color:var(--muted);font-size:.85rem}
-.tip{background:var(--warn-soft);border-left:3px solid var(--warn);
-  padding:.6rem .8rem;border-radius:0 8px 8px 0;margin:.8rem 0;font-size:.88rem}
+.tip{background:var(--warn-soft);border-left:3px solid var(--warn);padding:.6rem .8rem;
+  border-radius:0 8px 8px 0;margin:.8rem 0;font-size:.88rem}
 .tip b{color:var(--warn)}
 .q{background:var(--surface);border:1px solid var(--line);border-radius:8px;
   padding:.6rem .8rem;margin:.5rem 0;font-size:.92rem}
-.q b{color:var(--accent)}
-blockquote{margin:.6rem 0;padding:.6rem .9rem;background:var(--surface);
-  border:1px solid var(--line);border-radius:8px;font-size:.92rem}
-code{background:var(--accent-soft);color:var(--accent);padding:.1em .35em;
-  border-radius:4px;font-size:.9em}
+.q b{color:var(--accent-ink)}
+blockquote{margin:.6rem 0;padding:.6rem .9rem;background:var(--surface);border:1px solid var(--line);
+  border-radius:8px;font-size:.92rem}
+code{background:var(--accent-soft);color:var(--accent-ink);padding:.1em .35em;border-radius:4px;font-size:.9em}
 .panel{display:none}
 .panel.on{display:block}
 .done{display:flex;align-items:center;gap:.4rem;font-size:.72rem;color:var(--muted);
   cursor:pointer;user-select:none;min-height:32px}
 .done input{width:18px;height:18px;accent-color:var(--accent)}
-footer{margin-top:3rem;padding-top:1rem;border-top:1px solid var(--line);
-  color:var(--muted);font-size:.78rem}
+details{background:var(--surface);border:1px solid var(--line);border-radius:10px;
+  padding:.6rem .9rem;margin:.8rem 0}
+summary{cursor:pointer;font-weight:700;font-size:.9rem;min-height:32px;display:flex;align-items:center}
 table{width:100%;border-collapse:collapse;font-size:.85rem;margin:.6rem 0}
 th,td{border:1px solid var(--line);padding:.35rem .5rem;text-align:left}
-th{background:var(--accent-soft);color:var(--accent);font-weight:600}
+th{background:var(--accent-soft);color:var(--accent-ink);font-weight:600}
+tr.off td{color:var(--muted)}
+footer{margin-top:2.5rem;padding-top:1rem;border-top:1px solid var(--line);color:var(--muted);font-size:.78rem}
+
+/* ══════════ RWD ══════════
+   手機優先。以上為 <600px 的基準樣式，以下逐級加寬。 */
+
+/* ── 大手機 / 直立平板 ── */
+@media (min-width:600px){
+  body{font-size:16.5px}
+  .wrap{padding:0 1.5rem 4rem;max-width:46rem}
+  nav button{flex:0 0 auto;min-width:5rem}
+  .today{padding:1.4rem 1.3rem}
+  .today h2{font-size:1.5rem}
+  /* 隨身卡的對話框兩欄排 */
+  #cheat .card{columns:2;column-gap:1.2rem}
+  #cheat .card > p{break-inside:avoid;margin:.25rem 0}
+}
+
+/* ── 橫向平板 ── */
+@media (min-width:820px){
+  .wrap{max-width:56rem}
+  /* 今天：卡片與步驟並排 */
+  #now{display:grid;grid-template-columns:minmax(17rem,1fr) 1.35fr;
+       gap:1.2rem;align-items:start}
+  #todayCard{position:sticky;top:5rem}
+  #todayCard .today{margin-bottom:0}
+  #howto{grid-column:1 / -1}
+  /* 題目兩欄 */
+  #d1 .q,#d2 .q{display:inline-block;width:calc(50% - .35rem);vertical-align:top;margin:.25rem 0}
+}
+
+/* ── 桌機 ── */
+@media (min-width:1080px){
+  body{font-size:17px}
+  .wrap{max-width:64rem;padding:0 2rem 5rem}
+  nav{gap:.4rem}
+  nav button{min-width:6rem;font-size:.88rem}
+  /* 教材 chunk 兩欄瀑布 */
+  #d1 .chunk,#d2 .chunk{break-inside:avoid}
+  .chunks-2{columns:2;column-gap:1.4rem}
+  #cheat .card{columns:2}
+  .today h2{font-size:1.7rem}
+}
+
+/* ── 超寬螢幕：不再無限拉寬，維持易讀行長 ── */
+@media (min-width:1400px){ .wrap{max-width:70rem} }
+
+/* ── 橫躺的矮螢幕：縮掉多餘留白 ── */
+@media (max-height:520px) and (orientation:landscape){
+  .top{padding:.5rem 0 .3rem}
+  nav{padding:.3rem 0;margin-bottom:.6rem}
+  .today{padding:.8rem .9rem}
+  .today h2{font-size:1.15rem}
+}
+
+/* ── 尊重使用者的減少動態偏好 ── */
+@media (prefers-reduced-motion:reduce){
+  *{transition:none !important;scroll-behavior:auto !important}
+}
+
+/* ── 列印（想印隨身卡帶去泰國） ── */
+@media print{
+  nav,.top,footer,.markdone,.go,details{display:none !important}
+  .panel{display:block !important}
+  body{background:#fff;color:#000;font-size:11pt}
+  .card,.chunk,.today{border:1px solid #999;break-inside:avoid}
+}
 </style>
 </head>
 <body>
 <div class="wrap">
-<header>
-  <h1>English Reading — 泰國實戰包</h1>
-  <p class="sub">2026/09/10 – 09/11 · 離線可讀 · 站著也能看</p>
-</header>
+
+<div class="top">
+  <div class="row"><span id="pgLabel">計畫進度</span><span id="pgCount">0 / 17</span></div>
+  <div class="bar"><i id="pgBar"></i></div>
+</div>
 
 <nav role="tablist">
-  <button role="tab" aria-selected="true" data-p="cheat">隨身卡</button>
+  <button role="tab" aria-selected="true" data-p="now">今天</button>
+  <button role="tab" aria-selected="false" data-p="cheat">隨身卡</button>
   <button role="tab" aria-selected="false" data-p="d1">Day 1</button>
   <button role="tab" aria-selected="false" data-p="d2">Day 2</button>
+  <button role="tab" aria-selected="false" data-p="plan">計畫</button>
 </nav>
 
-<section class="panel on" id="cheat">
-  <div class="tip"><b>用法：</b>在泰國現場直接翻這頁。句子短、加粗的直接唸。
+<!-- ============ 今天 ============ -->
+<section class="panel on" id="now">
+  <div id="todayCard"></div>
+  <div id="todaySteps"></div>
+
+  <details id="howto">
+    <summary>❓ 第一次打開？看這裡（30 秒）</summary>
+    <p style="font-size:.88rem;margin:.5rem 0">這個網頁只有一個用途：<b>告訴你此刻該做什麼</b>。你不需要記任何規則。</p>
+    <ol style="font-size:.88rem">
+      <li><b>早上出門</b> — 打開「今天」，照著步驟 1 讀。捷運上讀，<b>不要查字典</b>。</li>
+      <li><b>到公司</b> — 照步驟 2 做精讀和題目。</li>
+      <li><b>把答案貼給 Claude</b> — 步驟 3。我會批改並追問你怎麼判斷的。</li>
+      <li><b>按下「今天完成」</b> — 上面的進度條就會動。</li>
+    </ol>
+    <p style="font-size:.88rem;margin:.5rem 0">沒讀完不用有罪惡感：<b>站著讀不完不算缺席、缺席不補課</b>。
+    17 天裡你可以缺 3 天。</p>
+  </details>
+</section>
+
+<!-- ============ 隨身卡 ============ -->
+<section class="panel" id="cheat">
+  <div class="tip"><b>用法：</b>在泰國現場直接翻這頁。加粗的直接唸。
   不確定怎麼說的時候，一律用 <code>Could I …?</code> 或 <code>Could you …?</code></div>
 
   <h2>① 入境</h2>
@@ -188,14 +328,9 @@ th{background:var(--accent-soft);color:var(--accent);font-weight:600}
     <p class="d you">Does anyone here speak English?</p>
   </div>
   <div class="tip"><b>原則：出狀況時句子要短。</b>慌的時候長句一定垮，短句才說得出口。</div>
-
-  <h2>🎒 蒐集任務</h2>
-  <div class="card">
-    <p>拍下 <b>3–5 個看不懂或要想一下的英文</b>：告示、菜單、機場指示、飯店規則、藥品說明。</p>
-    <p class="zh">不計出席、不計缺席。回來一起拆，直接變成第 2 週教材。</p>
-  </div>
 </section>
 
+<!-- ============ DAY 1 ============ -->
 <section class="panel" id="d1">
   <h2>Day 1 — 9/10（四）抵達與移動</h2>
   <div class="tip">通勤泛讀規則：<b>不查字典、不求全懂</b>。看不懂就跳過，把整塊讀完。</div>
@@ -289,6 +424,7 @@ th{background:var(--accent-soft);color:var(--accent);font-weight:600}
   <div class="tip">貼回對話我會批改，並針對每題追問「你怎麼判斷的」。<b>答錯不是問題，靠猜對才是。</b></div>
 </section>
 
+<!-- ============ DAY 2 ============ -->
 <section class="panel" id="d2">
   <h2>Day 2 — 9/11（五）吃、買、出狀況</h2>
   <div class="tip">明天出發。今天讀的東西，<b>48 小時內驗收</b>。</div>
@@ -385,40 +521,218 @@ th{background:var(--accent-soft);color:var(--accent);font-weight:600}
   <div class="tip">D2 特別重要 — 那是驗證「輸入端句型」策略有沒有效的唯一依據。</div>
 </section>
 
+<!-- ============ 計畫 ============ -->
+<section class="panel" id="plan">
+  <h2>規則（只有四條）</h2>
+  <div class="card">
+    <ol>
+      <li><b>平日限定</b>。通勤 30 分泛讀 ＋ 公司 30 分精讀。</li>
+      <li><b>通勤不查字典</b>。讀完比讀懂重要。站著讀不完不算缺席。</li>
+      <li><b>缺席不補課</b>。隔天照原排程繼續，17 天裡可以缺 3 天。</li>
+      <li><b>答案要貼回對話</b>。沒人批改的作答等於沒做。</li>
+    </ol>
+  </div>
+
+  <h2>目標</h2>
+  <table>
+    <tr><th>項目</th><th>權重</th></tr>
+    <tr><td>泛用閱讀（主幹）</td><td>3/5</td></tr>
+    <tr><td>旅遊 → 🇯🇵 11/20 日本</td><td>2/5</td></tr>
+    <tr><td>多益</td><td>本期不排考題</td></tr>
+    <tr><td>口說</td><td>只做輸入端句型</td></tr>
+  </table>
+
+  <h2>17 個上課日</h2>
+  <table id="schedTable"><tr><th>日期</th><th>主題</th></tr></table>
+  <p class="zh">灰色 = 放假或排休，不計入分母。國定假日依人事行政總處 115 年辦公日曆表。</p>
+
+  <h2>驗收（10/8）</h2>
+  <div class="card">
+    <p>① 出席 ≥ <b>14 / 17</b>（依 git commit 時間戳）<br>
+       ② 重測診斷，與 9/16 的第一次對比</p>
+  </div>
+</section>
+
 <footer>
-  出席門檻 14 / 17　·　缺席不補課　·　站著讀不完不算缺席<br>
-  下一個目標：🇯🇵 日本 2026/11/20
+  下一個目標：🇯🇵 日本 2026/11/20　·　離線可讀，加到主畫面就能用
 </footer>
 </div>
 
 <script>
 (function(){
-  var tabs = document.querySelectorAll('nav button');
-  function show(id){
-    var panels = document.querySelectorAll('.panel');
-    for (var i=0;i<panels.length;i++){ panels[i].classList.toggle('on', panels[i].id === id); }
-    for (var j=0;j<tabs.length;j++){ tabs[j].setAttribute('aria-selected', String(tabs[j].dataset.p === id)); }
-    window.scrollTo(0,0);
-    try { localStorage.setItem('er.tab', id); } catch(e){}
-  }
-  for (var k=0;k<tabs.length;k++){
-    (function(b){ b.addEventListener('click', function(){ show(b.dataset.p); }); })(tabs[k]);
-  }
-  try {
-    var t = localStorage.getItem('er.tab');
-    if (t && document.getElementById(t)) show(t);
-  } catch(e){}
+  "use strict";
 
-  var boxes = document.querySelectorAll('.done input');
+  var SCHED = {
+    "2026-09-10":{t:"study",n:1,theme:"泰國實戰 D1 — 抵達與移動",tab:"d1"},
+    "2026-09-11":{t:"study",n:2,theme:"泰國實戰 D2 — 吃、買、出狀況",tab:"d2"},
+    "2026-09-12":{t:"trip"},"2026-09-13":{t:"trip"},
+    "2026-09-14":{t:"trip"},"2026-09-15":{t:"trip"},
+    "2026-09-16":{t:"study",n:3,theme:"交診斷卷 → 泛用閱讀開課",diag:true},
+    "2026-09-17":{t:"study",n:4,theme:"泛用閱讀"},
+    "2026-09-18":{t:"study",n:5,theme:"旅遊 ＋ 週檢討"},
+    "2026-09-21":{t:"study",n:6,theme:"泛用閱讀"},
+    "2026-09-22":{t:"study",n:7,theme:"泛用閱讀"},
+    "2026-09-23":{t:"study",n:8,theme:"旅遊"},
+    "2026-09-24":{t:"study",n:9,theme:"泛用 ＋ 週檢討（提前）"},
+    "2026-09-25":{t:"holiday",why:"中秋節"},
+    "2026-09-28":{t:"holiday",why:"教師節"},
+    "2026-09-29":{t:"study",n:10,theme:"泛用閱讀"},
+    "2026-09-30":{t:"study",n:11,theme:"旅遊"},
+    "2026-10-01":{t:"study",n:12,theme:"泛用閱讀"},
+    "2026-10-02":{t:"study",n:13,theme:"旅遊 ＋ 週檢討"},
+    "2026-10-05":{t:"study",n:14,theme:"泛用閱讀"},
+    "2026-10-06":{t:"study",n:15,theme:"泛用閱讀"},
+    "2026-10-07":{t:"study",n:16,theme:"旅遊"},
+    "2026-10-08":{t:"study",n:17,theme:"重測診斷 ＋ 驗收",diag:true},
+    "2026-10-09":{t:"holiday",why:"補假"}
+  };
+  var TOTAL = 17, WD = ["日","一","二","三","四","五","六"];
+
+  function key(d){
+    return d.getFullYear()+"-"+("0"+(d.getMonth()+1)).slice(-2)+"-"+("0"+d.getDate()).slice(-2);
+  }
+  function store(k,v){ try{ if(v===undefined) return localStorage.getItem(k); localStorage.setItem(k,v);}catch(e){return null;} }
+  function doneSet(){
+    var raw = store("er.done") || "";
+    return raw ? raw.split(",").filter(Boolean) : [];
+  }
+  function h(s){ return String(s).replace(/[&<>]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;"}[c];}); }
+
+  // ---------- tabs ----------
+  var tabs = document.querySelectorAll("nav button");
+  function show(id){
+    var ps = document.querySelectorAll(".panel");
+    for (var i=0;i<ps.length;i++) ps[i].classList.toggle("on", ps[i].id===id);
+    for (var j=0;j<tabs.length;j++) tabs[j].setAttribute("aria-selected", String(tabs[j].dataset.p===id));
+    window.scrollTo(0,0);
+  }
+  for (var k=0;k<tabs.length;k++)
+    (function(b){ b.addEventListener("click", function(){ show(b.dataset.p); }); })(tabs[k]);
+
+  // ---------- progress ----------
+  function paintProgress(){
+    var n = doneSet().length;
+    document.getElementById("pgCount").textContent = n + " / " + TOTAL;
+    document.getElementById("pgBar").style.width = Math.min(100, n/TOTAL*100) + "%";
+    var left = TOTAL - n, need = 14 - n;
+    document.getElementById("pgLabel").textContent =
+      n === 0 ? "計畫進度 · 還沒開始"
+              : (need > 0 ? "再 " + need + " 天達標（門檻 14）" : "已達標 🎉");
+  }
+
+  // ---------- today ----------
+  function render(){
+    var now = new Date(), kk = key(now), info = SCHED[kk];
+    var dow = now.getDay(), isDone = doneSet().indexOf(kk) >= 0;
+    var dateLine = (now.getMonth()+1) + "月" + now.getDate() + "日（" + WD[dow] + "）";
+    var card = document.getElementById("todayCard"), steps = document.getElementById("todaySteps");
+    var badge, title, sub, body = "";
+
+    if (!info && kk < "2026-09-10") {
+      var days = Math.ceil((new Date(2026,8,10) - new Date(now.getFullYear(),now.getMonth(),now.getDate()))/864e5);
+      badge = '<span class="badge rest">尚未開始</span>';
+      title = days === 1 ? "明天開跑" : days + " 天後開跑";
+      sub = "第一天是 9/10（四）泰國實戰 D1";
+      body = '<div class="step"><div class="n">→</div><div class="body">'
+           + '<h4>現在可以先做一件事</h4>'
+           + '<p>把這個網頁<b>加到手機主畫面</b>，明天早上一點就開。</p>'
+           + '<p class="zh">iPhone：分享 → 加入主畫面／Android：選單 → 加到主畫面</p>'
+           + '<button class="go" data-go="d1">先看看 Day 1 長什麼樣 →</button></div></div>';
+    } else if (!info && (dow === 0 || dow === 6)) {
+      badge = '<span class="badge rest">週末</span>';
+      title = "今天休息"; sub = "這個計畫平日限定，週末不排課";
+    } else if (!info) {
+      badge = '<span class="badge rest">計畫外</span>';
+      title = "今天沒有排課"; sub = "4 週計畫已於 10/8 結束";
+    } else if (info.t === "holiday") {
+      badge = '<span class="badge rest">國定假日</span>';
+      title = "今天放假 — " + info.why; sub = "不計入分母，不算缺席";
+    } else if (info.t === "trip") {
+      badge = '<span class="badge trip">🇹🇭 泰國</span>';
+      title = "旅行中，不用讀書"; sub = "排休，不計入分母";
+      body = '<div class="step"><div class="n">1</div><div class="body">'
+           + '<h4>需要講英文的時候，翻隨身卡</h4>'
+           + '<p>入境、Grab、飯店、點餐、殺價、藥局、出狀況，七類都在裡面。</p>'
+           + '<button class="go" data-go="cheat">打開隨身卡 →</button></div></div>'
+           + '<div class="step"><div class="n">2</div><div class="body">'
+           + '<h4>順手拍 3–5 張照片</h4>'
+           + '<p>看不懂或要想一下的英文：告示、菜單、機場指示、飯店規則、藥品說明。</p>'
+           + '<p class="zh">不計出席也不算缺席。回來一起拆，會直接變成第 2 週的教材。</p>'
+           + '</div></div>';
+    } else {
+      badge = '<span class="badge ' + (isDone ? "done" : "study") + '">'
+            + (isDone ? "今天已完成 ✓" : "第 " + info.n + " / 17 天") + '</span>';
+      title = "今天要做的事"; sub = info.theme;
+      var hasContent = !!info.tab;
+      body =
+        '<div class="step"><div class="n">1</div><div class="body">'
+        + '<span class="when">早上通勤 · 30 分鐘</span><h4>泛讀</h4>'
+        + '<p><b>不查字典、不求全懂</b>，讀完就好。站著讀不完沒關係。</p>'
+        + (hasContent
+            ? '<button class="go" data-go="' + info.tab + '">打開今天的閱讀 →</button>'
+            : '<p class="zh">本週教材週一生成，若還沒出現就是我還沒推上來。</p>')
+        + '</div></div>'
+        + '<div class="step"><div class="n">2</div><div class="body">'
+        + '<span class="when">公司電腦 · 30 分鐘</span><h4>精讀 ＋ 作答</h4>'
+        + (info.diag
+            ? '<p><b>今天要交 diagnostic-01 診斷卷</b>。15 分鐘，不查字典，猜錯比查對有價值。</p>'
+            : '<p>慢慢讀、拆句子，把題目寫完。</p>')
+        + '</div></div>'
+        + '<div class="step"><div class="n">3</div><div class="body">'
+        + '<h4>把答案貼回 Claude 對話</h4>'
+        + '<p>我會批改，並針對每題追問「你怎麼判斷的」。<b>沒人批改的作答等於沒做。</b></p>'
+        + '</div></div>'
+        + '<button class="markdone' + (isDone ? " is-done" : "") + '" id="mk">'
+        + (isDone ? "今天已完成 ✓（再按一次取消）" : "今天完成，記一筆") + '</button>';
+    }
+
+    card.innerHTML = '<div class="today">' + badge
+      + '<div class="date">' + h(dateLine) + '</div>'
+      + '<h2>' + h(title) + '</h2>'
+      + '<div class="theme">' + h(sub) + '</div></div>';
+    steps.innerHTML = body;
+
+    var mk = document.getElementById("mk");
+    if (mk) mk.addEventListener("click", function(){
+      var arr = doneSet(), i = arr.indexOf(kk);
+      if (i >= 0) arr.splice(i,1); else arr.push(kk);
+      store("er.done", arr.join(","));
+      paintProgress(); render();
+    });
+    var gos = steps.querySelectorAll("[data-go]");
+    for (var g=0; g<gos.length; g++)
+      (function(btn){ btn.addEventListener("click", function(){ show(btn.dataset.go); }); })(gos[g]);
+  }
+
+  // ---------- schedule table ----------
+  (function(){
+    var t = document.getElementById("schedTable"), keys = Object.keys(SCHED).sort();
+    for (var i=0;i<keys.length;i++){
+      var kx = keys[i], v = SCHED[kx], d = new Date(kx + "T00:00:00");
+      var label = (d.getMonth()+1) + "/" + d.getDate() + "（" + WD[d.getDay()] + "）";
+      var txt = v.t === "study" ? v.n + ". " + v.theme
+              : v.t === "holiday" ? "🚫 " + v.why
+              : "🇹🇭 泰國（排休）";
+      var tr = document.createElement("tr");
+      if (v.t !== "study") tr.className = "off";
+      tr.innerHTML = "<td>" + label + "</td><td>" + txt + "</td>";
+      t.appendChild(tr);
+    }
+  })();
+
+  // ---------- chunk checkboxes ----------
+  var boxes = document.querySelectorAll(".done input");
   for (var m=0;m<boxes.length;m++){
     (function(cb){
-      var key = 'er.' + cb.dataset.k;
-      try { if (localStorage.getItem(key) === '1') cb.checked = true; } catch(e){}
-      cb.addEventListener('change', function(){
-        try { localStorage.setItem(key, cb.checked ? '1' : '0'); } catch(e){}
-      });
+      var kk2 = "er." + cb.dataset.k;
+      if (store(kk2) === "1") cb.checked = true;
+      cb.addEventListener("change", function(){ store(kk2, cb.checked ? "1" : "0"); });
     })(boxes[m]);
   }
+
+  if (!store("er.seen")) { document.getElementById("howto").open = true; store("er.seen","1"); }
+  paintProgress();
+  render();
 })();
 </script>
 </body>
