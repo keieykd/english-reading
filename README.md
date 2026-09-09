@@ -6,10 +6,16 @@ Eason 的英文閱讀加強計畫 — 2026/09/10 ~ 2026/10/08
 
 手機加到主畫面，點開就告訴你今天該做什麼。離線可讀。
 
+> 🛠 **接手開發者／AI agent 請先讀 [HANDOVER.md](HANDOVER.md)**，
+> 並在 clone 後執行 `sh scripts/install-hooks.sh`（pre-commit 語法檢查，
+> 防止一個會讓全站腳本靜默死亡的 bug）。
+
 ## 檔案
 
 | 檔案 | 用途 |
 |---|---|
+| [HANDOVER.md](HANDOVER.md) | **交接文件** — 學習者剖面、設計理由、已知地雷、待辦 |
+| [errors.md](errors.md) | 逐題錯誤診斷（Day 0 完整記錄） |
 | [PLAN.md](PLAN.md) | 4 週完整計畫（目標、時間結構、行事曆、出席規則、驗收） |
 | [progress.md](progress.md) | 出席表與每週檢討 |
 | [vocab.md](vocab.md) | 生字本 ＋ 泰國蒐集任務 |

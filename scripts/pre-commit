@@ -1,0 +1,20 @@
+#!/bin/sh
+# 抽出 docs/index.html 的 inline script 做語法檢查。
+# 起因：2026-09-09 一個字串literal 被真實換行切斷，整份 JS 語法錯誤、
+# 全站腳本死掉（連首頁卡片都不渲染），而 HTML 外觀完全正常。
+f="docs/index.html"
+[ -f "$f" ] || exit 0
+out=".git/precommit_app.js"
+python -c "
+import io
+t=io.open('$f',encoding='utf-8').read()
+i=t.rindex('<script>')+len('<script>'); j=t.rindex('</script>')
+io.open('$out','w',encoding='utf-8').write(t[i:j])
+" || { echo 'pre-commit: 無法抽出 script'; exit 1; }
+if ! node --check "$out"; then
+  echo ""
+  echo "❌ pre-commit 擋下：docs/index.html 的 JavaScript 語法錯誤"
+  echo "   常見原因：字串literal 裡出現真實換行"
+  exit 1
+fi
+echo "✓ pre-commit: JavaScript 語法正確"
