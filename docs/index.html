@@ -119,6 +119,10 @@ li{margin:.3rem 0}
 .opts label:hover{background:var(--accent-soft)}
 .opts input{margin-top:.4rem;width:19px;height:19px;accent-color:var(--accent);flex:0 0 auto}
 .opts label:has(input:checked){background:var(--accent-soft);font-weight:600}
+.opts.conf{display:flex;gap:.5rem;margin-top:.5rem;padding-top:.5rem;
+  border-top:1px dashed var(--line)}
+.opts.conf label{flex:1;justify-content:center;font-size:.9rem;color:var(--muted)}
+.opts.conf label:has(input:checked){color:var(--accent-ink)}
 textarea{width:100%;margin-top:.45rem;padding:.55rem .65rem;border:1px solid var(--line);
   border-radius:8px;background:var(--bg);color:var(--ink);font-family:inherit;
   font-size:1rem;line-height:1.75;resize:vertical}
@@ -671,6 +675,77 @@ footer{margin-top:2.5rem;padding-top:1rem;border-top:1px solid var(--line);color
 
   <button class="markdone" id="genProbe">產生答案 → 複製，貼回 Claude</button>
   <textarea id="probeOut" rows="4" style="display:none" readonly></textarea>
+
+  <h2>⑦ 第二輪：拿掉拐杖</h2>
+  <div class="tip"><b>第一輪五題你全對，但我出壞了三題</b>——那三題的句子自己把答案講了出來，
+  你不認識目標字也答得對。你標「猜的」的，正好就是那三題。<br><br>
+  這一輪每一句<b>只剩一個線索，就是那個粗體字</b>。不認識它就一定答不出來。<br>
+  <b>每題請順便標「有把握」或「用猜的」</b> —— 答對但用猜的，跟答對且有把握，
+  對我來說是完全不同的兩件事。</div>
+
+  <div class="q" data-qid="R1"><b>R1.</b>
+    <span class="en">You may bring one bag, <b>provided</b> it weighs under 7 kg.</span><br>
+    <span class="zh">你的包 8 公斤。可以帶嗎？</span>
+    <div class="opts">
+      <label><input type="radio" name="R1" value="a"> (a) 可以</label>
+      <label><input type="radio" name="R1" value="b"> (b) 不可以</label>
+    </div>
+    <div class="opts conf">
+      <label><input type="radio" name="R1c" value="sure"> 有把握</label>
+      <label><input type="radio" name="R1c" value="guess"> 用猜的</label>
+    </div></div>
+
+  <div class="q" data-qid="R2"><b>R2.</b>
+    <span class="en">Entry is free <b>unless</b> you book a guided tour.</span><br>
+    <span class="zh">你訂了導覽。要付錢嗎？</span>
+    <div class="opts">
+      <label><input type="radio" name="R2" value="a"> (a) 要付錢</label>
+      <label><input type="radio" name="R2" value="b"> (b) 不用付錢</label>
+    </div>
+    <div class="opts conf">
+      <label><input type="radio" name="R2c" value="sure"> 有把握</label>
+      <label><input type="radio" name="R2c" value="guess"> 用猜的</label>
+    </div></div>
+
+  <div class="q" data-qid="R3"><b>R3.</b>
+    <span class="en"><b>Where</b> a guest arrives after midnight, an extra fee applies.</span><br>
+    <span class="zh">客人下午三點到。要加錢嗎？</span>
+    <div class="opts">
+      <label><input type="radio" name="R3" value="a"> (a) 要加錢</label>
+      <label><input type="radio" name="R3" value="b"> (b) 不用加錢</label>
+    </div>
+    <div class="opts conf">
+      <label><input type="radio" name="R3c" value="sure"> 有把握</label>
+      <label><input type="radio" name="R3c" value="guess"> 用猜的</label>
+    </div></div>
+
+  <div class="q" data-qid="R4"><b>R4.</b>
+    <span class="en">Payment is due within 14 days. <b>Thereafter</b>, interest is charged.</span><br>
+    <span class="zh">你第 20 天才付款。要付利息嗎？</span>
+    <div class="opts">
+      <label><input type="radio" name="R4" value="a"> (a) 要付利息</label>
+      <label><input type="radio" name="R4" value="b"> (b) 不用付利息</label>
+    </div>
+    <div class="opts conf">
+      <label><input type="radio" name="R4c" value="sure"> 有把握</label>
+      <label><input type="radio" name="R4c" value="guess"> 用猜的</label>
+    </div></div>
+
+  <div class="q" data-qid="R5"><b>R5.</b>
+    <span class="en">We refund the deposit, <b>less</b> a 10% handling charge.</span><br>
+    <span class="zh">押金是 1000 元。你拿回多少？</span>
+    <div class="opts">
+      <label><input type="radio" name="R5" value="a"> (a) 1000 元</label>
+      <label><input type="radio" name="R5" value="b"> (b) 900 元</label>
+      <label><input type="radio" name="R5" value="c"> (c) 100 元</label>
+    </div>
+    <div class="opts conf">
+      <label><input type="radio" name="R5c" value="sure"> 有把握</label>
+      <label><input type="radio" name="R5c" value="guess"> 用猜的</label>
+    </div></div>
+
+  <button class="markdone" id="genRound2">產生答案 → 複製，貼回 Claude</button>
+  <textarea id="round2Out" rows="5" style="display:none" readonly></textarea>
 
   <h2>⑦ 主旨題的方法（你 A1 說你是亂猜的）</h2>
   <div class="card">
@@ -1432,6 +1507,42 @@ footer{margin-top:2.5rem;padding-top:1rem;border-top:1px solid var(--line);color
         row.push(id + ": " + (v || "(未答)"));
       });
       var lines = ["【邏輯字五題探測】", row.join("　")];
+      if (missing.length) lines.push("（尚未作答：" + missing.join("、") + "）");
+      out.value = lines.join("\n");
+      out.style.display = "block";
+      out.focus(); out.select();
+      try { document.execCommand("copy"); } catch(e){}
+      try { if (navigator.clipboard) navigator.clipboard.writeText(out.value); } catch(e){}
+    });
+  })();
+
+  // ---------- 邏輯字：第二輪（低冗餘 + 把握度） ----------
+  (function(){
+    var IDS = ["R1","R2","R3","R4","R5"], out = document.getElementById("round2Out");
+    if (!out) return;
+    var ALL = [];
+    IDS.forEach(function(id){ ALL.push(id); ALL.push(id + "c"); });
+    ALL.forEach(function(id){
+      var saved = store("er.r." + id), rs = document.getElementsByName(id);
+      for (var i = 0; i < rs.length; i++) {
+        if (saved && rs[i].value === saved) rs[i].checked = true;
+        (function(r){ r.addEventListener("change", function(){ store("er.r." + id, r.value); }); })(rs[i]);
+      }
+    });
+    function pick(id){
+      var rs = document.getElementsByName(id);
+      for (var j = 0; j < rs.length; j++) if (rs[j].checked) return rs[j].value;
+      return null;
+    }
+    document.getElementById("genRound2").addEventListener("click", function(){
+      var rows = [], missing = [];
+      IDS.forEach(function(id){
+        var v = pick(id), c = pick(id + "c");
+        if (!v) missing.push(id);
+        var conf = c === "sure" ? "有把握" : c === "guess" ? "用猜的" : "(未標把握)";
+        rows.push(id + ": " + (v || "(未答)") + "　" + conf);
+      });
+      var lines = ["【邏輯字 第二輪·低冗餘】"].concat(rows);
       if (missing.length) lines.push("（尚未作答：" + missing.join("、") + "）");
       out.value = lines.join("\n");
       out.style.display = "block";
