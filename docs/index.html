@@ -542,6 +542,79 @@ footer{margin-top:2.5rem;padding-top:1rem;border-top:1px solid var(--line);color
     <span class="zh">你在開演前 10 小時要退票。退得到嗎？</span><br>
     <span class="zh">回答格式：<b>「在 48 小時之前嗎？→ ___　結論：___」</b></span></div>
 
+  <h2>⑨ 第四輪：常識會騙你（5 題）</h2>
+  <div class="tip"><b>前三輪都白測了，是我出題的錯。</b>
+  第一、三輪的句子自己解釋了答案；第三輪雖然拿掉了，但常識就能猜對。<br><br>
+  <b>這一輪每題的常識都指向錯誤答案。</b>照常理答一定錯，
+  <b>只有真的讀懂那個粗體字才會對。</b><br>
+  請照格式回：<b>「代入：___　結論：___」</b>，並標有把握或用猜的。</div>
+
+  <div class="q" data-qid="Z1"><b>Z1.</b>
+    <span class="en">The service charge is <b>waived</b> <b>unless</b> you pay in cash.</span><br>
+    <span class="zh">（waived＝免收）你打算<b>付現金</b>。要付服務費嗎？</span>
+    <div class="opts">
+      <label><input type="radio" name="Z1" value="a"> (a) 要付</label>
+      <label><input type="radio" name="Z1" value="b"> (b) 不用付</label>
+    </div>
+    <div class="opts conf">
+      <label><input type="radio" name="Z1c" value="sure"> 有把握</label>
+      <label><input type="radio" name="Z1c" value="guess"> 用猜的</label>
+    </div></div>
+
+  <div class="q" data-qid="Z2"><b>Z2.</b>
+    <span class="en">The warranty remains valid, <b>provided</b> the device has been repaired
+    by an authorised centre.</span><br>
+    <span class="zh">你的手機<b>在原廠授權中心修過</b>。保固還有效嗎？</span>
+    <div class="opts">
+      <label><input type="radio" name="Z2" value="a"> (a) 還有效</label>
+      <label><input type="radio" name="Z2" value="b"> (b) 已失效</label>
+    </div>
+    <div class="opts conf">
+      <label><input type="radio" name="Z2c" value="sure"> 有把握</label>
+      <label><input type="radio" name="Z2c" value="guess"> 用猜的</label>
+    </div></div>
+
+  <div class="q" data-qid="Z3"><b>Z3.</b>
+    <span class="en">Parking costs 60 per hour for the first two hours.
+    <b>Thereafter</b>, it is free.</span><br>
+    <span class="zh">你停了 4 小時。<b>第 4 小時</b>要收費嗎？</span>
+    <div class="opts">
+      <label><input type="radio" name="Z3" value="a"> (a) 要收費</label>
+      <label><input type="radio" name="Z3" value="b"> (b) 不收費</label>
+    </div>
+    <div class="opts conf">
+      <label><input type="radio" name="Z3c" value="sure"> 有把握</label>
+      <label><input type="radio" name="Z3c" value="guess"> 用猜的</label>
+    </div></div>
+
+  <div class="q" data-qid="Z4"><b>Z4.</b>
+    <span class="en"><b>Where</b> payment is made in advance, an additional charge applies.</span><br>
+    <span class="zh">你選擇<b>預先付款</b>。要加收費用嗎？</span>
+    <div class="opts">
+      <label><input type="radio" name="Z4" value="a"> (a) 要加收</label>
+      <label><input type="radio" name="Z4" value="b"> (b) 不用加收</label>
+    </div>
+    <div class="opts conf">
+      <label><input type="radio" name="Z4c" value="sure"> 有把握</label>
+      <label><input type="radio" name="Z4c" value="guess"> 用猜的</label>
+    </div></div>
+
+  <div class="q" data-qid="Z5"><b>Z5.</b>
+    <span class="en">All bookings are confirmed immediately, <b>subject to</b> payment
+    clearing.</span><br>
+    <span class="zh">你剛下訂，<b>付款還在處理中</b>。訂位確認了嗎？</span>
+    <div class="opts">
+      <label><input type="radio" name="Z5" value="a"> (a) 已經確認了</label>
+      <label><input type="radio" name="Z5" value="b"> (b) 還沒確認</label>
+    </div>
+    <div class="opts conf">
+      <label><input type="radio" name="Z5c" value="sure"> 有把握</label>
+      <label><input type="radio" name="Z5c" value="guess"> 用猜的</label>
+    </div></div>
+
+  <button class="markdone" id="genRound4">產生答案 → 複製，貼回 Claude</button>
+  <textarea id="round4Out" rows="6" style="display:none" readonly></textarea>
+
   <h2>⭐ unless — 你漏掉的那個字</h2>
   <div class="card">
     <h3><code>unless</code>　字面：除非</h3>
@@ -1603,6 +1676,42 @@ footer{margin-top:2.5rem;padding-top:1rem;border-top:1px solid var(--line);color
         rows.push(id + ": " + (v || "(未答)") + "　" + conf);
       });
       var lines = ["【邏輯字 第二輪·低冗餘】"].concat(rows);
+      if (missing.length) lines.push("（尚未作答：" + missing.join("、") + "）");
+      out.value = lines.join("\n");
+      out.style.display = "block";
+      out.focus(); out.select();
+      try { document.execCommand("copy"); } catch(e){}
+      try { if (navigator.clipboard) navigator.clipboard.writeText(out.value); } catch(e){}
+    });
+  })();
+
+  // ---------- 邏輯字：第四輪（常識反向誘導） ----------
+  (function(){
+    var IDS = ["Z1","Z2","Z3","Z4","Z5"], out = document.getElementById("round4Out");
+    if (!out) return;
+    var ALL = [];
+    IDS.forEach(function(id){ ALL.push(id); ALL.push(id + "c"); });
+    ALL.forEach(function(id){
+      var saved = store("er.z." + id), rs = document.getElementsByName(id);
+      for (var i = 0; i < rs.length; i++) {
+        if (saved && rs[i].value === saved) rs[i].checked = true;
+        (function(r){ r.addEventListener("change", function(){ store("er.z." + id, r.value); }); })(rs[i]);
+      }
+    });
+    function pick(id){
+      var rs = document.getElementsByName(id);
+      for (var j = 0; j < rs.length; j++) if (rs[j].checked) return rs[j].value;
+      return null;
+    }
+    document.getElementById("genRound4").addEventListener("click", function(){
+      var rows = [], missing = [];
+      IDS.forEach(function(id){
+        var v = pick(id), c = pick(id + "c");
+        if (!v) missing.push(id);
+        var conf = c === "sure" ? "有把握" : c === "guess" ? "用猜的" : "(未標把握)";
+        rows.push(id + ": " + (v || "(未答)") + "　" + conf);
+      });
+      var lines = ["【邏輯字 第四輪·常識反向】"].concat(rows);
       if (missing.length) lines.push("（尚未作答：" + missing.join("、") + "）");
       out.value = lines.join("\n");
       out.style.display = "block";
