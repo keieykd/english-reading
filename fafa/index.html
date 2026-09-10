@@ -3,90 +3,176 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>發發的曼谷英文小卡</title>
+<title>發發的曼谷英文課</title>
 <style>
 :root{
   --bg:#F3F0EB; --surface:#FBF8F4; --line:#DFD8CE; --ink:#3E3A35; --muted:#8B857C;
   --accent:#B08968; --accent-soft:#F0E7DC; --accent-ink:#8A6A4F;
-  --calm:#7E9A8C; --calm-soft:#E4EAE5;
-  --say:#7C93A3; --say-soft:#E6EBEF;
+  --calm:#7E9A8C; --calm-soft:#E4EAE5; --calm-ink:#54705F;
+  --say:#7C93A3; --say-soft:#E6EBEF; --say-ink:#5A7183;
+  --bad:#A9635C; --bad-soft:#F3E4E2;
   --on-accent:#FBF8F4;
 }
 @media (prefers-color-scheme:dark){
   :root:not([data-theme="light"]){
     --bg:#2A2724; --surface:#34302B; --line:#48413A; --ink:#E4DFD6; --muted:#A29B90;
     --accent:#C9A87C; --accent-soft:#3C352B; --accent-ink:#DBBE96;
-    --calm:#9DB8AB; --calm-soft:#333E38;
-    --say:#9CB2C0; --say-soft:#303A40;
+    --calm:#9DB8AB; --calm-soft:#333E38; --calm-ink:#B4CCC0;
+    --say:#9CB2C0; --say-soft:#303A40; --say-ink:#B3C7D2;
+    --bad:#D08F87; --bad-soft:#3A2B29;
     --on-accent:#26231F;
   }
 }
 :root[data-theme="dark"]{
   --bg:#2A2724; --surface:#34302B; --line:#48413A; --ink:#E4DFD6; --muted:#A29B90;
   --accent:#C9A87C; --accent-soft:#3C352B; --accent-ink:#DBBE96;
-  --calm:#9DB8AB; --calm-soft:#333E38;
-  --say:#9CB2C0; --say-soft:#303A40;
+  --calm:#9DB8AB; --calm-soft:#333E38; --calm-ink:#B4CCC0;
+  --say:#9CB2C0; --say-soft:#303A40; --say-ink:#B3C7D2;
+  --bad:#D08F87; --bad-soft:#3A2B29;
   --on-accent:#26231F;
 }
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);
-  font:17.5px/1.85 "Segoe UI",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,"Microsoft JhengHei","微軟正黑體","PingFang TC","Noto Sans TC",sans-serif;-webkit-text-size-adjust:100%}
+  font:17.5px/1.85 "Segoe UI",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,
+    "Microsoft JhengHei","微軟正黑體","PingFang TC","Noto Sans TC",sans-serif;
+  -webkit-text-size-adjust:100%}
 .wrap{max-width:44rem;margin:0 auto;padding:0 1rem 4rem}
-header{padding:1.8rem 0 1rem;border-bottom:1px solid var(--line)}
-h1{font-size:1.5rem;margin:0 0 .3rem}
-.sub{color:var(--muted);font-size:.9rem;margin:0}
-h2{font-size:1.2rem;margin:2.2rem 0 .6rem;padding-bottom:.4rem;
-  border-bottom:2px solid var(--accent-soft)}
+.top{padding:.9rem 0 .5rem}
+.top .row{display:flex;justify-content:space-between;align-items:center;
+  font-size:.85rem;color:var(--muted)}
+.bar{height:6px;background:var(--line);border-radius:99px;margin-top:.45rem;overflow:hidden}
+.bar>i{display:block;height:100%;background:var(--accent);border-radius:99px;width:0}
+#menuBtn{min-width:42px;min-height:34px;border:1px solid var(--line);
+  background:var(--surface);color:var(--muted);border-radius:8px;font-size:1rem;
+  font-family:inherit;cursor:pointer;margin-left:.6rem}
+#menuBtn[aria-expanded="true"]{background:var(--accent-soft);color:var(--accent-ink);
+  border-color:var(--accent)}
+nav{display:flex;gap:.35rem;padding:.5rem 0;margin-bottom:1rem;overflow-x:auto;
+  border-bottom:1px solid var(--line)}
+nav[hidden]{display:none}
+nav button{flex:1 0 auto;min-width:5.5rem;min-height:46px;border:1px solid var(--line);
+  background:var(--surface);color:var(--muted);border-radius:9px;font-size:.95rem;
+  font-family:inherit;cursor:pointer;white-space:nowrap;padding:0 .8rem}
+nav button[aria-selected="true"]{background:var(--accent-soft);color:var(--accent-ink);
+  border-color:var(--accent);font-weight:700}
+.panel{display:none}.panel.on{display:block}
+h1{font-size:1.45rem;margin:0 0 .25rem}
+h2{font-size:1.18rem;margin:2rem 0 .6rem;padding-bottom:.4rem;
+  border-bottom:2px solid var(--accent-soft);scroll-margin-top:.8rem}
 h3{font-size:1rem;margin:1.3rem 0 .5rem;color:var(--accent-ink)}
+.runbar{display:flex;justify-content:space-between;align-items:center;
+  margin:.3rem 0 .7rem;font-size:.85rem;color:var(--muted)}
+#runPhase{font-weight:700;color:var(--accent-ink);background:var(--accent-soft);
+  padding:.25rem .75rem;border-radius:99px;font-size:.82rem}
+#runDots{letter-spacing:.3em;color:var(--line);font-size:.95rem}
+#runDots b{color:var(--accent)}
+#runTitle{font-size:.92rem;color:var(--muted);margin-bottom:.6rem}
+.runnav{margin-top:1.3rem;display:flex;flex-direction:column;gap:.5rem}
+#runNext{width:100%;min-height:56px;border-radius:11px;border:1px solid var(--accent);
+  background:var(--accent);color:var(--on-accent);font-size:1.08rem;font-weight:700;
+  font-family:inherit;cursor:pointer}
+#runPrev{align-self:center;background:none;border:0;color:var(--muted);
+  font-size:.85rem;min-height:40px;text-decoration:underline;cursor:pointer;
+  font-family:inherit}
 .card{background:var(--surface);border:1px solid var(--line);border-radius:12px;
   padding:.9rem 1rem;margin:.8rem 0}
 .hero{background:var(--calm-soft);border:1px solid var(--calm);border-radius:14px;
   padding:1.1rem 1rem;margin:1.2rem 0}
-.hero h3{color:var(--calm);margin-top:0;font-size:1.05rem}
+.hero h3{color:var(--calm-ink);margin-top:0;font-size:1.05rem}
 .say{background:var(--say-soft);border-left:4px solid var(--say);
-  padding:.6rem .9rem;border-radius:0 10px 10px 0;margin:.5rem 0;
-  font-weight:700;font-size:1.05rem}
-.say small{display:block;font-weight:400;font-size:.85rem;color:var(--muted);margin-top:.15rem}
+  padding:.55rem .9rem;border-radius:0 10px 10px 0;margin:.45rem 0;
+  font-weight:700;font-size:1.02rem}
+.say small{display:block;font-weight:400;font-size:.85rem;color:var(--muted);margin-top:.1rem}
+.say.adv{border-left-style:dashed}
 .read{background:var(--accent-soft);border-left:4px solid var(--accent);
-  padding:.6rem .9rem;border-radius:0 10px 10px 0;margin:.5rem 0;font-size:.95rem}
+  padding:.55rem .9rem;border-radius:0 10px 10px 0;margin:.5rem 0;font-size:.95rem}
 .read b{color:var(--accent-ink)}
+.nat{background:var(--calm-soft);border-left:4px solid var(--calm);
+  padding:.55rem .9rem;border-radius:0 10px 10px 0;margin:.6rem 0;font-size:.93rem}
+.nat b{color:var(--calm-ink)}
+.no{background:var(--bad-soft);border-left:4px solid var(--bad);
+  padding:.55rem .9rem;border-radius:0 10px 10px 0;margin:.5rem 0;font-size:.95rem}
+.no b{color:var(--bad)}
+.tip{background:var(--surface);border:1px dashed var(--line);border-radius:10px;
+  padding:.7rem .9rem;margin:.9rem 0;font-size:.95rem}
+.q{background:var(--surface);border:1px solid var(--line);border-radius:9px;
+  padding:.75rem .9rem;margin:.6rem 0;font-size:1rem}
+.q b{color:var(--accent-ink)}
+details{background:var(--surface);border:1px solid var(--line);border-radius:10px;
+  padding:.7rem 1rem;margin:.6rem 0}
+summary{cursor:pointer;font-weight:700;min-height:40px;display:flex;align-items:center}
 table{width:100%;border-collapse:collapse;font-size:.92rem;margin:.6rem 0}
-th,td{border:1px solid var(--line);padding:.4rem .55rem;text-align:left}
+th,td{border:1px solid var(--line);padding:.4rem .55rem;text-align:left;vertical-align:top}
 th{background:var(--accent-soft);color:var(--accent-ink);font-weight:700}
 .tablewrap{overflow-x:auto}
 ul,ol{padding-left:1.3rem;margin:.5rem 0}
 li{margin:.35rem 0}
 .en{font-weight:700}
 .zh{color:var(--muted);font-size:.92rem}
-.tip{background:var(--surface);border:1px dashed var(--line);border-radius:10px;
-  padding:.7rem .9rem;margin:.9rem 0;font-size:.95rem}
-.big{font-size:1.15rem;font-weight:700;color:var(--calm)}
+.big{font-size:1.15rem;font-weight:700;color:var(--calm-ink)}
+.idx{display:flex;flex-wrap:wrap;gap:.4rem;margin:1rem 0}
+.idx a{display:inline-block;padding:.35rem .7rem;background:var(--surface);
+  border:1px solid var(--line);border-radius:99px;font-size:.85rem;
+  color:var(--accent-ink);text-decoration:none}
+.lesson{background:var(--surface);border:1px solid var(--line);border-radius:11px;
+  padding:.75rem .9rem;margin:.55rem 0;display:flex;gap:.7rem;align-items:flex-start}
+.lesson .n{flex:0 0 2rem;height:2rem;border-radius:50%;background:var(--accent-soft);
+  color:var(--accent-ink);font-weight:700;font-size:.85rem;display:flex;
+  align-items:center;justify-content:center}
+.lesson.done .n{background:var(--calm-soft);color:var(--calm-ink)}
+.lesson h4{margin:0 0 .1rem;font-size:1rem}
+.lesson p{margin:0;font-size:.88rem;color:var(--muted)}
 footer{margin-top:3rem;padding-top:1rem;border-top:1px solid var(--line);
   color:var(--muted);font-size:.85rem;text-align:center}
-details{background:var(--surface);border:1px solid var(--line);border-radius:10px;
-  padding:.7rem 1rem;margin:.8rem 0}
-summary{cursor:pointer;font-weight:700;min-height:38px;display:flex;align-items:center}
-@media (min-width:820px){ .wrap{max-width:52rem} body{font-size:18px} }
+@media (min-width:820px){ .wrap{max-width:54rem} body{font-size:18px} }
 </style>
 </head>
 <body>
 <div class="wrap">
 
-<header>
-  <h1>發發的曼谷英文小卡</h1>
-  <p class="sub">2026.09.12 – 09.15 · 曼谷 4 天 · 五分鐘看完</p>
-</header>
-
-<div class="hero">
-  <h3>先講最重要的一件事</h3>
-  <p><b class="big">你的任務是「讀」，不是「講」。</b></p>
-  <p>你的單字量比 Eason 多，看得懂的東西也比他多。所以在曼谷，
-  <b>菜單、價目表、匯率牌、告示牌都交給你讀</b>——讀完告訴他，他負責開口。</p>
-  <p>你要說的英文，<b>每一句都是 1 到 3 個字</b>，短到不可能說錯 —— 那部分刻意做得簡單。</p>
-  <p>但<b>讀的部分不簡單</b>。後面有六題實戰測驗，取材自你們這幾天真的會拿在手上的
-  收據、藥品標示、船票規則與退稅辦法。<b>難度比 Eason 那份高</b>，因為那是你的強項。</p>
+<div class="top">
+  <div class="row">
+    <span id="pgLabel">還沒開始</span>
+    <span><span id="pgCount">0 / 6</span>
+      <button id="menuBtn" aria-expanded="false">&#9776;</button></span>
+  </div>
+  <div class="bar"><i id="pgBar"></i></div>
 </div>
 
+<nav id="nav0" hidden role="tablist">
+  <button role="tab" aria-selected="true" data-p="now">今天</button>
+  <button role="tab" aria-selected="false" data-p="all">六天課表</button>
+  <button role="tab" aria-selected="false" data-p="book">手冊</button>
+</nav>
+
+<section class="panel on" id="now">
+  <div id="runner" hidden>
+    <div class="runbar"><span id="runPhase"></span><span id="runDots"></span></div>
+    <div id="runTitle"></div>
+    <div id="runBody"></div>
+    <div class="runnav">
+      <button id="runNext">下一段 &rarr;</button>
+      <button id="runPrev">&larr; 上一步</button>
+    </div>
+  </div>
+  <div id="doneCard"></div>
+</section>
+
+<section class="panel" id="all">
+  <div class="hero">
+    <h3>六天課表</h3>
+    <p>出發前兩天 ＋ 旅途四天，每天照當天的<b>真實行程</b>安排。
+    每課大約 <b>10 分鐘</b>：先讀、再看句子、最後三題小測驗（附解答）。</p>
+    <p><b>不用照日期做</b> —— 有空就做下一課，做到哪算到哪。</p>
+  </div>
+  <div id="lessonList"></div>
+  <div class="tip"><b>想重來？</b>按下面可以把進度歸零，從第一課重新開始。</div>
+  <button id="resetAll" style="width:100%;min-height:44px;border-radius:9px;
+    border:1px solid var(--line);background:var(--surface);color:var(--muted);
+    font-family:inherit;cursor:pointer">進度歸零</button>
+</section>
+
+<section class="panel" id="book">
 <h2>① 換匯 · 機場 B 層</h2>
 <div class="read"><b>你讀這塊牌子。</b>換錢的時候會看到：</div>
 <div class="tablewrap">
@@ -325,11 +411,510 @@ Service charge is not included <b>unless</b> stated on your receipt.</span></p>
   你們兩個加起來剛好夠用——這不是妥協，這是分工。</p>
 </details>
 
-<footer>
-  你負責讀，他負責講。<br>
-  祝旅途愉快 🇹🇭
-</footer>
 
+</section>
+
+<footer>你負責讀，他負責講。<br>祝旅途愉快 &#127481;&#127469;</footer>
 </div>
+<div id="L1" hidden>
+  <div>
+    <h3>讀 · 匯率牌與車票</h3>
+    <p class="zh">D1 一下飛機就會遇到這兩樣。</p>
+    <div class="tablewrap"><table>
+      <tr><th>CURRENCY</th><th>WE BUY</th><th>WE SELL</th></tr>
+      <tr><td>TWD 100</td><td><b>10.05</b></td><td>10.65</td></tr>
+      <tr><td>USD 50-100</td><td>35.80</td><td>36.40</td></tr>
+    </table></div>
+    <div class="tip"><b>⚠ 最容易看錯：</b>你們拿台幣換泰銖＝<b>把台幣賣給他們</b>，
+    要看 <b>WE BUY</b> 那欄。TWD 100 → 10.05 就是「NT$100 換 THB 10.05」。</div>
+    <div class="read"><b>車站會看到的字：</b></div>
+    <div class="tablewrap"><table>
+      <tr><th>英文</th><th>意思</th><th>英文</th><th>意思</th></tr>
+      <tr><td>Single Journey</td><td>單程票</td><td>Top up</td><td>加值</td></tr>
+      <tr><td>Tap in / Tap out</td><td>進站／出站感應</td><td>Interchange</td><td>轉乘站</td></tr>
+      <tr><td>Platform 1</td><td>1 號月台</td><td>Towards Kheha</td><td>往 Kheha 方向</td></tr>
+      <tr><td>Exit 3</td><td>3 號出口</td><td>Concourse</td><td>穿堂層</td></tr>
+    </table></div>
+  </div>
+  <div>
+    <h3>說 · 這一課只要四句</h3>
+    <div class="say">Some hundreds, please.<small>請給我一些百元鈔。夜市、船票、小攤都要小鈔</small></div>
+    <div class="say">Two tickets, please.<small>兩張票</small></div>
+    <div class="say">To Phrom Phong.<small>到 Phrom Phong。<b>直接講站名最有效</b></small></div>
+    <div class="say adv">Is there any commission?<small>有手續費嗎？換錢時問。<b>commission</b> 才是手續費</small></div>
+    <div class="nat">💬 <b>母語者用法</b>：問路的自然開頭是
+    <span class="en">Excuse me, how do I get to…?</span>（請問…怎麼走）——
+    比 <span class="en">Where is…?</span> 更常聽到，因為你要的是「怎麼去」不是「在哪」。</div>
+  </div>
+  <div>
+    <h3>測驗 · 三題</h3>
+    <div class="q"><b>Q1.</b> 依上面那張牌子，NT$5,000 大約可以換到多少泰銖？</div>
+    <details><summary>看答案</summary>
+      <p><b>約 THB 502。</b>看 <b>WE BUY</b> 欄：TWD 100 → 10.05，
+      所以 5,000 ÷ 100 × 10.05 = 502.5。</p>
+      <p class="zh">如果看成 WE SELL（10.65）會算成 532，多算了 30 —— 那是店家<b>賣</b>台幣給你的價。</p>
+    </details>
+    <div class="q"><b>Q2.</b> 牌子上寫 <span class="en">No commission</span>，
+    但匯率比別家差 0.15。這樣划算嗎？</div>
+    <details><summary>看答案</summary>
+      <p><b>不一定，要算。</b>NT$5,000 的話，匯率差 0.15 等於差 THB 7.5
+      （5,000 ÷ 100 × 0.15）。如果別家收 THB 50 手續費，那這家還是划算。</p>
+      <p class="zh"><b>免手續費不等於便宜</b> —— 匯率差可以藏比手續費更多的錢。</p>
+    </details>
+    <div class="q"><b>Q3.</b> 月台標示寫 <span class="en">Platform 1 · Towards Kheha</span>。
+    這代表什麼？</div>
+    <details><summary>看答案</summary>
+      <p><b>1 號月台的車是往 Kheha 方向。</b><span class="en">towards</span> ＝ 往…方向。</p>
+      <p class="zh">BTS 看方向不看站名 —— 要確認你的目的地在那個方向的路線上。
+      Phrom Phong 在往 Kheha 的方向。</p>
+    </details>
+  </div>
+</div>
+
+<div id="L2" hidden>
+  <div>
+    <h3>讀 · 菜單與帳單</h3>
+    <div class="read"><b>菜單上最常出現的字：</b></div>
+    <div class="tablewrap"><table>
+      <tr><th>英文</th><th>意思</th><th>英文</th><th>意思</th></tr>
+      <tr><td>stir-fried</td><td>快炒</td><td>grilled</td><td>燒烤</td></tr>
+      <tr><td>steamed</td><td>清蒸</td><td>deep-fried</td><td>油炸</td></tr>
+      <tr><td>minced</td><td>絞肉</td><td>shredded</td><td>切絲</td></tr>
+      <tr><td>served with</td><td>附上…</td><td>topped with</td><td>上面放…</td></tr>
+      <tr><td>contains nuts</td><td>含堅果</td><td>mild / hot</td><td>小辣／大辣</td></tr>
+    </table></div>
+    <div class="tip"><b>看到 <span class="en">THB 350++</span> 的兩個加號</b>＝
+    服務費與稅<b>另計</b>，實付大約要再乘 1.177。</div>
+    <div class="read"><b>一張真實的帳單：</b></div>
+    <div class="tablewrap"><table>
+      <tr><td>Food &amp; drinks</td><td style="text-align:right">1,000.00</td></tr>
+      <tr><td>Service charge 10%</td><td style="text-align:right">100.00</td></tr>
+      <tr><td>Subtotal</td><td style="text-align:right">1,100.00</td></tr>
+      <tr><td>VAT 7%</td><td style="text-align:right">77.00</td></tr>
+      <tr><th>Total</th><th style="text-align:right">1,177.00</th></tr>
+    </table></div>
+  </div>
+  <div>
+    <h3>說 · 從入座到結帳</h3>
+    <div class="say">Two, please.<small>兩位</small></div>
+    <div class="say">This one, please.<small>指著菜單說。<b>手指比舌頭可靠</b></small></div>
+    <div class="say">No chilli, please.<small>不要辣</small></div>
+    <div class="say">We'll share.<small>我們一起吃。你們整趟都是共食</small></div>
+    <div class="say adv">Could we get one more plate?<small>可以再給一個盤子嗎？共食必用</small></div>
+    <div class="say adv">Could I have the bill, please?<small>請給我帳單</small></div>
+    <div class="say adv">Is service charge included?<small>服務費含了嗎？</small></div>
+    <div class="nat">💬 <b>母語者用法</b>：點餐開頭用
+    <span class="en">Can I get a…?</span> 或 <span class="en">Could I have a…?</span>，
+    <b>不要說 <span class="en">I want…</span></b> —— 那聽起來像命令。<br>
+    店員問還要不要加點：<span class="en">We're all set, thanks.</span>（我們好了）<br>
+    稱讚好吃：<span class="en">This is really good.</span> 比
+    <span class="en">Very delicious.</span> 自然得多。</div>
+  </div>
+  <div>
+    <h3>測驗 · 三題</h3>
+    <div class="q"><b>Q1.</b> 菜加起來 1,000，為什麼帳單是 1,177？</div>
+    <details><summary>看答案</summary>
+      <p>服務費 10%（100）＋ VAT 7%（77）。</p>
+      <p><b>關鍵：</b>VAT 不是對 1,000 課的，是對 <b>1,100（已含服務費）</b>課的
+      —— 1,100 × 7% = 77。只對 1,000 課會是 70。<b>服務費本身也會被課稅。</b></p>
+    </details>
+    <div class="q"><b>Q2.</b> 菜單寫 <span class="en">Green curry, served with jasmine rice.
+    Contains nuts.</span> 這道菜有什麼？</div>
+    <details><summary>看答案</summary>
+      <p><b>綠咖哩，附茉莉香米，含堅果。</b></p>
+      <p class="zh"><span class="en">served with</span>＝附上（是套餐的一部分，不用另外點）。
+      <span class="en">Contains nuts</span> 是過敏警告。</p>
+    </details>
+    <div class="q"><b>Q3.</b> 你說了 <span class="en">mild</span>，結果還是很辣。
+    下次該怎麼說？</div>
+    <details><summary>看答案</summary>
+      <p><b><span class="en">No chilli at all, please.</span></b></p>
+      <p class="zh">泰國的 <span class="en">mild</span> 是<b>對泰國人而言</b>的小辣。
+      真的不吃辣就要說「完全不要辣椒」，不要用程度詞。<br>
+      更保險的是泰文：<b>mai pet</b>（ไม่เผ็ด）—— 街邊攤的阿姨一定聽得懂。</p>
+    </details>
+  </div>
+</div>
+
+<div id="L3" hidden>
+  <div>
+    <h3>讀 · 機場指標與飯店</h3>
+    <div class="tablewrap"><table>
+      <tr><th>英文</th><th>意思</th></tr>
+      <tr><td>Immigration / Passport Control</td><td>查驗護照</td></tr>
+      <tr><td>Foreign Passports</td><td>外國護照（你們排這排）</td></tr>
+      <tr><td>Baggage Claim · Belt 12</td><td>行李轉盤 12 號</td></tr>
+      <tr><td>Nothing to Declare（綠）</td><td>沒有東西要申報</td></tr>
+      <tr><td>Goods to Declare（紅）</td><td>有東西要申報</td></tr>
+      <tr><td>Oversized Baggage</td><td>大型行李（另一個出口）</td></tr>
+    </table></div>
+    <div class="read"><b>官員會快速問這四句，而且不太重複：</b><br>
+    <span class="en">Purpose of visit?</span> 來做什麼 ·
+    <span class="en">How long will you be staying?</span> 待幾天<br>
+    <span class="en">Where are you staying?</span> 住哪 ·
+    <span class="en">Do you have a return ticket?</span> 有回程票嗎</div>
+    <div class="read"><b>按摩療程單：</b></div>
+    <div class="tablewrap"><table>
+      <tr><th>Treatment</th><th>60 min</th><th>90 min</th><th>120 min</th></tr>
+      <tr><td>Traditional Thai Massage</td><td>350</td><td>500</td><td>650</td></tr>
+      <tr><td><b>Aromatherapy Oil Massage</b></td><td>600</td><td><b>850</b></td><td>1,100</td></tr>
+      <tr><td>Foot Reflexology</td><td>300</td><td>450</td><td>—</td></tr>
+      <tr><td>Herbal Compress</td><td>—</td><td>900</td><td>1,200</td></tr>
+    </table></div>
+    <p class="zh"><span class="en">Aromatherapy Oil</span> ＝ 精油按摩，<b>你們要的是這個</b>。
+    <span class="en">Traditional Thai</span> 是古法，會拉筋、不上油。</p>
+  </div>
+  <div>
+    <h3>說 · 入境、入住、按摩</h3>
+    <div class="say">Tourism.<small>觀光。回答 Purpose of visit?</small></div>
+    <div class="say">Four nights.<small>四晚。回答待多久</small></div>
+    <div class="say">Mercure Sukhumvit 24.<small>回答住哪。講飯店名就好</small></div>
+    <div class="say">Here you go.<small>遞護照時說。<b>比 Give you 自然一百倍</b></small></div>
+    <div class="say">Checking in. Chen.<small>入住，姓 Chen。兩個字就夠</small></div>
+    <div class="say">Two, please.<small>按摩訂位：兩位</small></div>
+    <div class="say">Softer, please.<small>輕一點。<b>按太重不用忍</b></small></div>
+    <div class="say adv">Ninety minutes, aromatherapy, for two.<small>兩位，90 分鐘精油</small></div>
+    <div class="nat">💬 <b>小費慣例</b>：泰國按摩的小費<b>直接給技師</b>，不放帳單上，
+    90 分鐘常見 THB 100–200／人。給的時候說
+    <span class="en">This is for you.</span> 就好。<br>
+    帳單上的 <span class="en">service charge</span> 是店家收的，跟小費是<b>兩回事</b>。</div>
+  </div>
+  <div>
+    <h3>測驗 · 三題</h3>
+    <div class="q"><b>Q1.</b> 你們買了免稅酒和菸，超過免稅額度。走綠色還是紅色通道？</div>
+    <details><summary>看答案</summary>
+      <p><b>紅色 —— <span class="en">Goods to Declare</span>。</b></p>
+      <p class="zh"><span class="en">declare</span>＝申報。有超額物品走紅線；
+      <span class="en">Nothing to Declare</span>（綠線）是「沒有東西要申報」。<br>
+      走錯線被抽查到，罰則比誠實申報重得多。</p>
+    </details>
+    <div class="q"><b>Q2.</b> 兩個人都做 90 分鐘精油，總共多少錢？</div>
+    <details><summary>看答案</summary>
+      <p><b>THB 1,700。</b>Aromatherapy Oil 的 90 min 是 850，兩人 ×2。</p>
+      <p class="zh">再加小費 THB 100–200／人，實際帶 THB 2,000 比較保險。</p>
+    </details>
+    <div class="q"><b>Q3.</b> 櫃檯規則寫：<span class="en">Bookings are held for 15 minutes
+    after the appointed time. <b>Thereafter</b>, the slot may be released to walk-in guests.</span><br>
+    你訂 20:30，20:50 才到。位子還在嗎？</div>
+    <details><summary>看答案</summary>
+      <p><b>可能沒了。</b><span class="en">held for 15 minutes</span>＝只保留 15 分鐘；
+      <span class="en">thereafter</span>＝<b>在那之後</b>，就可能給現場客人。</p>
+      <p class="zh"><span class="en">thereafter</span> 是一條<b>分界線</b> ——
+      看到它就要問「分界點在哪？前面怎麼算？後面怎麼算？」</p>
+    </details>
+  </div>
+</div>
+
+<div id="L4" hidden>
+  <div>
+    <h3>讀 · 咖啡、夜市、酒吧</h3>
+    <div class="read"><b>咖啡菜單常見字：</b></div>
+    <div class="tablewrap"><table>
+      <tr><th>英文</th><th>是什麼</th></tr>
+      <tr><td>Dirty</td><td>冰牛奶上直接沖濃縮，上下分層</td></tr>
+      <tr><td>Spanish Latte</td><td>加煉乳的拿鐵，偏甜</td></tr>
+      <tr><td>Americano</td><td>美式</td></tr>
+      <tr><td>Cold brew</td><td>冷萃</td></tr>
+      <tr><td>Single origin</td><td>單品豆</td></tr>
+      <tr><td>Sparkling</td><td>氣泡飲</td></tr>
+    </table></div>
+    <div class="tip"><b>泰國飲料預設很甜。</b>幾乎每次都要說
+    <span class="en">Less sweet, please.</span></div>
+    <div class="read"><b>高空酒吧的服裝規定（AIRE Bar 會看到）：</b><br>
+    <span class="en">Smart casual. No flip-flops, sleeveless tops or sportswear.</span><br>
+    <span class="zh">半正式。不可穿夾腳拖、無袖上衣或運動服</span></div>
+    <div class="tip"><b>夜市看價格：</b>行程建議「先看明碼標價」。
+    看到 <span class="en">no price shown</span> 的海鮮攤就先問價再點，不要點了才問。</div>
+  </div>
+  <div>
+    <h3>說 · 這一天的句子</h3>
+    <div class="say">One iced latte, please.<small>一杯冰拿鐵</small></div>
+    <div class="say adv">Less sweet, please.<small>少糖。<b>這句幾乎每次都要說</b></small></div>
+    <div class="say adv">To go, please.<small>外帶。內用是 For here, please.</small></div>
+    <div class="say adv">Could we get one and share it?<small>我們點一杯共喝就好</small></div>
+    <div class="say adv">How much is this?<small>夜市問價。<b>先問再點</b></small></div>
+    <div class="say adv">Is service charge included?<small>酒吧帳單常有 service charge</small></div>
+    <div class="nat">💬 <b>母語者用法</b>：店員叫到你的飲料時，回一句
+    <span class="en">That's me.</span>（是我的）就好，不用講整句。<br>
+    外帶美式說 <span class="en">to go</span>，英式說 <span class="en">takeaway</span>，
+    泰國兩種都通。</div>
+  </div>
+  <div>
+    <h3>測驗 · 三題</h3>
+    <div class="q"><b>Q1.</b> 酒吧門口寫 <span class="en">No flip-flops, sleeveless tops or
+    sportswear.</span> 穿短褲配運動鞋和有袖 T 恤，可以進去嗎？</div>
+    <details><summary>看答案</summary>
+      <p><b>不一定，但風險高。</b>規則明文禁的是<b>夾腳拖、無袖、運動服</b> ——
+      短褲沒有被明文禁止，但 <span class="en">smart casual</span> 通常不包含短褲與運動鞋。</p>
+      <p class="zh">遇到這種「沒明講但可能被擋」的情況，最好的做法是<b>先問</b>：
+      <span class="en">Is this OK?</span> 指著自己的衣服問就好。</p>
+    </details>
+    <div class="q"><b>Q2.</b> 你點了 Spanish Latte 又說 <span class="en">Less sweet, please.</span>
+    店員問 <span class="en">Half sweet or no sugar?</span> 這是在問什麼？</div>
+    <details><summary>看答案</summary>
+      <p><b>半糖還是無糖。</b></p>
+      <p class="zh">但注意：Spanish Latte 的甜是來自<b>煉乳</b>，不是額外加的糖。
+      說 no sugar 可能還是很甜。想要真的不甜，直接點 Americano 或 Cold brew 比較實在。</p>
+    </details>
+    <div class="q"><b>Q3.</b> 夜市攤販說 <span class="en">Two hundred.</span>
+    但你只想買一份。要怎麼確認？</div>
+    <details><summary>看答案</summary>
+      <p><b><span class="en">Is that for one?</span></b>（那是一份的價格嗎？）</p>
+      <p class="zh">夜市常見報的是「兩份」或「一整份大的」價格。
+      問一句就能避免結帳時的誤會。<br>
+      也可以直接說 <span class="en">Just one, please.</span></p>
+    </details>
+  </div>
+</div>
+
+<div id="L5" hidden>
+  <div>
+    <h3>讀 · 大皇宮、河船、退稅</h3>
+    <div class="read"><b>大皇宮門口的服裝規定：</b><br>
+    <span class="en">Shoulders and knees must be covered.</span> 肩膀和膝蓋都要遮<br>
+    <span class="en">No sleeveless tops, shorts, or torn jeans.</span> 不可無袖、短褲、破洞褲<br>
+    <span class="en">Sarongs available for rent at the entrance.</span> 入口可租沙龍</div>
+    <div class="read"><b>河船票：</b><br>
+    <span class="en"><b>Chao Phraya Tourist Boat — Blue Flag</b><br>
+    Single trip: 30 THB<br>
+    One-day pass: 150 THB (unlimited rides until 18:30)<br>
+    Not valid on Orange, Green or Yellow Flag local boats.</span></div>
+    <div class="read"><b>退稅規則（買土產會用到）：</b>
+    <ul>
+      <li>單店單日 <b>至少 2,000 THB</b>（含稅）</li>
+      <li>全部加起來 <b>至少 5,000 THB</b></li>
+      <li>結帳時就要跟店家拿 <b>P.P.10 表格</b>與正本發票</li>
+      <li>購買後 <b>60 天內</b>離境</li>
+    </ul></div>
+  </div>
+  <div>
+    <h3>說 · 買票、問船、退稅</h3>
+    <div class="say">Two tickets, please.<small>兩張票。船票、門票都用這句</small></div>
+    <div class="say adv">Is my outfit OK?<small>我這樣穿可以嗎？<b>不確定就先問，別走到門口才被擋</b></small></div>
+    <div class="say adv">Where can I rent a sarong?<small>哪裡可以租沙龍？</small></div>
+    <div class="say adv">Does this boat go to ICONSIAM?<small>這班船到 ICONSIAM 嗎？</small></div>
+    <div class="say adv">VAT refund form, please.<small><b>請給我退稅表格。必須結帳當下就說</b></small></div>
+    <div class="nat">💬 <b>擺脫拉客</b>：碼頭和大皇宮外會有人推銷包船、寶石店。
+    說 <span class="en">No, thanks.</span> 的同時<b>繼續走、不要停、不要對到眼</b>。<br>
+    如果有人說「今天大皇宮關門了」—— <b>那幾乎都是假的</b>，經典騙術開場。
+    直接走到正門自己確認。</div>
+  </div>
+  <div>
+    <h3>測驗 · 三題</h3>
+    <div class="q"><b>Q1.</b> 那天只搭 3 趟船。買一日票（150）划算嗎？</div>
+    <details><summary>看答案</summary>
+      <p><b>不划算。</b>3 趟 × 30 = <b>90</b>，比 150 便宜。</p>
+      <p class="zh">一日票要搭滿 <b>5 趟</b>（150 ÷ 30）才回本。
+      「無限搭乘」聽起來划算，但要先算自己會搭幾趟。</p>
+    </details>
+    <div class="q"><b>Q2.</b> 你在 A 店買了 1,800、B 店買了 3,500，共 5,300。可以退稅嗎？</div>
+    <details><summary>看答案</summary>
+      <p><b>不行。</b>總額 5,300 是超過 5,000，但還有<b>另一個門檻</b>：
+      <span class="en">2,000 per store</span> —— A 店只有 1,800，<b>單店未達標</b>。
+      只有 B 店的 3,500 能算，那樣總額又不到 5,000。</p>
+      <p><b>實務上最重要的是：</b><span class="en">at the time of purchase</span> ——
+      P.P.10 <b>必須結帳當下就要</b>，事後拿收據回去補辦不行。</p>
+    </details>
+    <div class="q"><b>Q3.</b> 你穿了七分褲（過膝但露小腿），上衣有袖。
+    大皇宮進得去嗎？</div>
+    <details><summary>看答案</summary>
+      <p><b>應該可以。</b>規定是 <span class="en">shoulders and knees must be covered</span>
+      —— 要遮的是<b>肩膀和膝蓋</b>，不是整條腿。過膝就符合。</p>
+      <p class="zh">但現場執行寬嚴不一。不確定就在入口問
+      <span class="en">Is my outfit OK?</span>，或直接租一件沙龍，比被擋回去省時間。</p>
+    </details>
+  </div>
+</div>
+
+<div id="L6" hidden>
+  <div>
+    <h3>讀 · 退房、寄行李、機場</h3>
+    <div class="read"><b>飯店會聽到或看到的：</b><br>
+    <span class="en">Check-out is by 12:00.</span> 12 點前退房<br>
+    <span class="en">Luggage storage available at reception.</span> 櫃檯可寄放行李<br>
+    <span class="en">Late check-out is subject to availability.</span>
+    晚退房<b>看有沒有空房，不保證</b></div>
+    <div class="tip"><b><span class="en">subject to</span> ＝ 取決於 ＝ 不保證。</b>
+    看到這三個字，心裡直接翻成「不一定可以」。</div>
+    <div class="read"><b>機場標示：</b></div>
+    <div class="tablewrap"><table>
+      <tr><th>英文</th><th>意思</th></tr>
+      <tr><td>Check-in Row K</td><td>K 排報到櫃檯</td></tr>
+      <tr><td>Baggage Drop</td><td>行李託運（已網路報到）</td></tr>
+      <tr><td>Boarding Gate</td><td>登機門</td></tr>
+      <tr><td>Boarding時間 / Gate closes</td><td>登機時間／關艙門</td></tr>
+      <tr><td>VAT Refund</td><td>退稅櫃檯</td></tr>
+      <tr><td>Departure / Arrival</td><td>出境／入境</td></tr>
+    </table></div>
+  </div>
+  <div>
+    <h3>說 · 最後一天</h3>
+    <div class="say">Checking out.<small>退房</small></div>
+    <div class="say adv">Could we leave our bags here until one?
+      <small>行李可以寄放到一點嗎？<b>D4 按摩前一定用到</b></small></div>
+    <div class="say adv">We're back for our bags.<small>我們回來拿行李</small></div>
+    <div class="say adv">Where's the check-in counter for China Airlines?
+      <small>華航報到櫃檯在哪？</small></div>
+    <div class="say adv">Is this the queue for VAT refund?<small>退稅是排這裡嗎？</small></div>
+    <div class="nat">💬 <b>母語者用法</b>：排隊問「是不是這一排」，
+    英式說 <span class="en">Is this the queue for…?</span>，
+    美式說 <span class="en">Is this the line for…?</span> —— 泰國機場兩種都通。<br>
+    要插隊問一下時，先說 <span class="en">Sorry, quick question —</span> 對方通常會很客氣。</div>
+  </div>
+  <div>
+    <h3>測驗 · 三題</h3>
+    <div class="q"><b>Q1.</b> 你 09:35 退房，但按摩 11:30 才結束，13:15 才要去機場。
+    行李怎麼辦？該說什麼？</div>
+    <details><summary>看答案</summary>
+      <p><b>退房時寄放在櫃檯。</b>說
+      <span class="en">Could we leave our bags here until one?</span></p>
+      <p class="zh">先退房再寄行李，可以避開 12:00 退房尖峰排隊。
+      回來拿的時候說 <span class="en">We're back for our bags.</span></p>
+    </details>
+    <div class="q"><b>Q2.</b> 飯店說 <span class="en">Late check-out is subject to
+    availability.</span> 你可以晚點退房嗎？</div>
+    <details><summary>看答案</summary>
+      <p><b>不一定 —— 看當天有沒有空房。</b><span class="en">subject to availability</span>
+      ＝ 取決於是否有空，<b>等於不保證</b>。</p>
+      <p class="zh">這句話聽起來像同意，其實是「先別指望」。
+      真的需要就要當場問清楚：<span class="en">Can you confirm now?</span></p>
+    </details>
+    <div class="q"><b>Q3.</b> 退稅要在哪裡辦？出境前還是出境後？</div>
+    <details><summary>看答案</summary>
+      <p><b>兩段都有。</b>流程是：<br>
+      ① <b>報到前</b>先到海關蓋章（如果被要求驗貨）<br>
+      ② 過完安檢，到<b>出境區的 VAT Refund 櫃檯</b>領錢</p>
+      <p class="zh">所以退稅的東西<b>不要先託運</b> ——
+      萬一海關要看，行李已經進去就麻煩了。<br>
+      機場要多抓 <b>30 分鐘</b>辦這件事。</p>
+    </details>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  function $(id){ return document.getElementById(id); }
+  // localStorage 可能被擋（無痕視窗、瀏覽器封鎖網站資料）→ 退回記憶體，
+  // 至少單次開啟期間進度不會遺失。
+  var mem = {};
+  function store(k,v){
+    if (v === undefined){
+      try{ var r = localStorage.getItem(k); return r === null ? (k in mem ? mem[k] : null) : r; }
+      catch(e){ return k in mem ? mem[k] : null; }
+    }
+    mem[k] = v;
+    try{ localStorage.setItem(k,v); }catch(e){}
+  }
+
+  var LESSONS = [
+    { t:"出發前 A · 錢與交通", d:"9/10", src:"L1" },
+    { t:"出發前 B · 吃飯與帳單", d:"9/11", src:"L2" },
+    { t:"D1 抵達 · 入境、飯店、第一次按摩", d:"9/12", src:"L3" },
+    { t:"D2 · 咖啡、按摩、夜市、酒吧", d:"9/13", src:"L4" },
+    { t:"D3 · 大皇宮、河船、退稅", d:"9/14", src:"L5" },
+    { t:"D4 · 退房、寄行李、機場", d:"9/15", src:"L6" }
+  ];
+  var TOTAL = LESSONS.length;
+
+  function li(){ return parseInt(store("ff.lesson")||"0",10); }
+  function si(id){ return parseInt(store("ff.step."+id)||"0",10); }
+
+  function steps(src){
+    var box = $(src);
+    return box ? Array.prototype.slice.call(box.children) : [];
+  }
+
+  function paintProgress(){
+    var n = Math.min(li(), TOTAL);
+    $("pgCount").textContent = n + " / " + TOTAL;
+    $("pgBar").style.width = (n/TOTAL*100) + "%";
+    $("pgLabel").textContent = n===0 ? "還沒開始" : (n>=TOTAL ? "六課全部完成 🎉" : "已完成 "+n+" 課");
+  }
+
+  function render(){
+    var i = li(), R = $("runner"), card = $("doneCard");
+    card.innerHTML = "";
+    if (i >= TOTAL){
+      R.hidden = true;
+      card.innerHTML = '<div class="hero"><h3>六課都做完了 🎉</h3>'
+        + '<p>接下來就是實戰。手冊那一頁在曼谷隨時可以翻，<b>離線也能開</b>。</p>'
+        + '<p class="zh">想複習就到「六天課表」選一課重做。</p></div>';
+      paintProgress(); renderList(); return;
+    }
+    var L = LESSONS[i], st = steps(L.src), s = si(L.src);
+    if (s >= st.length) s = st.length - 1;
+    R.hidden = false;
+    $("runPhase").textContent = "第 " + (i+1) + " 課 · " + L.d;
+    $("runTitle").textContent = L.t;
+    var dots = "";
+    for (var k=0;k<st.length;k++) dots += (k===s ? "<b>●</b>" : "○");
+    $("runDots").innerHTML = dots;
+    var body = $("runBody"); body.innerHTML = "";
+    if (st[s]) body.appendChild(st[s].cloneNode(true));
+    $("runNext").textContent = (s === st.length-1) ? "這一課完成 ✓" : "下一段 →";
+    $("runPrev").hidden = (s === 0);
+    window.scrollTo(0,0);
+    paintProgress(); renderList();
+  }
+
+  function renderList(){
+    var box = $("lessonList"); if(!box) return;
+    box.innerHTML = "";
+    for (var i=0;i<TOTAL;i++){
+      (function(idx){
+        var L = LESSONS[idx], done = idx < li();
+        var d = document.createElement("div");
+        d.className = "lesson" + (done ? " done" : "");
+        d.innerHTML = '<div class="n">' + (done ? "✓" : idx+1) + '</div>'
+          + '<div><h4>' + L.t + '</h4><p>' + L.d + (done ? " · 已完成" : "") + '</p></div>';
+        d.style.cursor = "pointer";
+        d.addEventListener("click", function(){
+          store("ff.lesson", String(idx)); store("ff.step."+L.src, "0");
+          showTab("now"); render();
+        });
+        box.appendChild(d);
+      })(i);
+    }
+  }
+
+  $("runNext").addEventListener("click", function(){
+    var i = li(); if (i >= TOTAL) return;
+    var L = LESSONS[i], st = steps(L.src), s = si(L.src) + 1;
+    if (s >= st.length){ store("ff.lesson", String(i+1)); store("ff.step."+L.src, "0"); }
+    else store("ff.step."+L.src, String(s));
+    render();
+  });
+  $("runPrev").addEventListener("click", function(){
+    var i = li(); if (i >= TOTAL) return;
+    var L = LESSONS[i];
+    store("ff.step."+L.src, String(Math.max(0, si(L.src)-1)));
+    render();
+  });
+  $("resetAll").addEventListener("click", function(){
+    store("ff.lesson","0");
+    for (var i=0;i<TOTAL;i++) store("ff.step."+LESSONS[i].src, "0");
+    showTab("now"); render();
+  });
+
+  var tabs = document.querySelectorAll("nav button");
+  function showTab(id){
+    var ps = document.querySelectorAll(".panel");
+    for (var i=0;i<ps.length;i++) ps[i].classList.toggle("on", ps[i].id === id);
+    for (var j=0;j<tabs.length;j++) tabs[j].setAttribute("aria-selected", String(tabs[j].dataset.p===id));
+    $("nav0").hidden = true; $("menuBtn").setAttribute("aria-expanded","false");
+    window.scrollTo(0,0);
+  }
+  for (var t=0;t<tabs.length;t++)
+    (function(b){ b.addEventListener("click", function(){ showTab(b.dataset.p); }); })(tabs[t]);
+  $("menuBtn").addEventListener("click", function(){
+    var nv = $("nav0"), open = nv.hidden;
+    nv.hidden = !open;
+    this.setAttribute("aria-expanded", String(open));
+  });
+
+  render();
+})();
+</script>
 </body>
 </html>
