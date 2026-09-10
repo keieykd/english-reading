@@ -131,6 +131,14 @@ h3{font-size:1rem;margin:1.5rem 0 .5rem;color:var(--accent-ink)}
 .d.you{border-left-color:var(--you);background:var(--you-soft);color:var(--ink);font-weight:600;
   padding:.2rem .5rem .2rem .9rem;border-radius:0 6px 6px 0;margin:.3rem 0}
 .d.them{color:var(--muted)}
+.d.her{border-left-color:var(--warn);background:var(--warn-soft);color:var(--ink);
+  font-weight:600;padding:.2rem .5rem .2rem .9rem;border-radius:0 6px 6px 0;margin:.3rem 0}
+.who{display:inline-block;font-size:.72rem;font-weight:700;padding:.05rem .45rem;
+  border-radius:99px;margin-right:.4rem;vertical-align:.08em}
+.who.me{background:var(--you-soft);color:var(--you)}
+.who.her{background:var(--warn-soft);color:var(--warn)}
+.legend{display:flex;gap:.6rem;flex-wrap:wrap;font-size:.85rem;color:var(--muted);
+  margin:.5rem 0 .9rem}
 .card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:.75rem .9rem;margin:.6rem 0}
 .card h3{margin:0 0 .4rem}
 ol,ul{margin:.4rem 0;padding-left:1.3rem}
@@ -1084,98 +1092,134 @@ footer{margin-top:2.5rem;padding-top:1rem;border-top:1px solid var(--line);color
 
 <!-- ============ DAY 1 ============ -->
 <section class="panel" id="d1">
-  <h2>Day 1 — 9/10（四）抵達與移動</h2>
-  <div class="tip">通勤泛讀規則：<b>不查字典、不求全懂</b>。看不懂就跳過，把整塊讀完。</div>
+  <h2>Day 1 — 9/10（四）換匯與按摩</h2>
+  <div class="tip"><b>這一版照你的真實行程重寫。</b>D1 13:35 在 BKK B 層換 THB 5,000、
+  20:30 走進 ThaiThai 訂 90 分鐘精油 —— 就是這兩件事。<br>
+  計程車殺價那段刪掉了，你全程 ARL＋BTS＋MRT＋河船，用不到。</div>
+  <div class="legend">
+    <span><span class="who me">你</span>負責開口</span>
+    <span><span class="who her">發發</span>負責讀，只講短句</span>
+  </div>
 
   <div class="chunk">
     <div class="meta"><span>CHUNK 1 · 約 4 分鐘</span>
       <label class="done"><input type="checkbox" data-k="d1c1">讀過</label></div>
-    <h3>入境卡與海關</h3>
-    <p>Thailand no longer requires most visitors to complete a paper arrival card, but you
-    should still be ready to answer the same questions at the counter. Officers ask them
-    quickly and they rarely repeat themselves.</p>
-    <p class="d them">Purpose of visit?</p><p class="d you">Tourism.</p>
-    <p class="d them">How long will you be staying?</p><p class="d you">Four nights.</p>
-    <p class="d them">Where are you staying?</p>
-    <p class="d you">At the Ibis Bangkok Riverside. I have the booking here.</p>
+    <h3>① 換匯 — BKK B 層 SuperRich／Happy Rich</h3>
+    <p><b>發發先讀這塊牌子</b>（這是真實的匯率牌長相）：</p>
+    <table>
+      <tr><th>CURRENCY</th><th>WE BUY</th><th>WE SELL</th></tr>
+      <tr><td>TWD 100</td><td><b>10.05</b></td><td>10.65</td></tr>
+      <tr><td>USD 50-100</td><td>35.80</td><td>36.40</td></tr>
+    </table>
+    <div class="tip"><b>⚠ 最常搞錯的一件事：</b>你拿台幣換泰銖，是<b>把台幣賣給他們</b>，
+    所以要看 <code>WE BUY</code> 那一欄，不是 <code>WE SELL</code>。<br>
+    TWD 100 → 10.05 表示 <b>NT$100 換 THB 10.05</b>；NT$5,000 約 THB 502。</div>
+    <p class="d me"><span class="who me">你</span>What&rsquo;s your rate for Taiwan dollars?</p>
+    <p class="d them">Ten point zero five.</p>
+    <p class="d me"><span class="who me">你</span>Is there any commission?</p>
+    <p class="d them">No commission.</p>
+    <p class="d me"><span class="who me">你</span>Five thousand, please.</p>
+    <p class="d them">Passport, please.</p>
+    <p class="d me"><span class="who me">你</span>Could I have some smaller notes?</p>
+    <p class="d her"><span class="who her">發發</span>Some hundreds, please.</p>
     <ul>
-      <li><span class="en">Passport Control / Immigration</span> — <span class="zh">查驗護照</span></li>
-      <li><span class="en">Thai Nationals</span> vs <span class="en">Foreign Passports</span> — <span class="zh">站錯排會被請回去</span></li>
-      <li><span class="en">Baggage Claim</span> — <span class="zh">領行李</span></li>
-      <li><span class="en">Nothing to Declare</span>（綠）vs <span class="en">Goods to Declare</span>（紅）</li>
+      <li><span class="en">commission</span> — <span class="zh">手續費</span></li>
+      <li><span class="en">notes</span> — <span class="zh">紙鈔（英式用法，不是 bills）</span></li>
+      <li><span class="en">hundreds</span> — <span class="zh">百元鈔。夜市、船票、小攤都需要</span></li>
     </ul>
-    <div class="tip"><i>&ldquo;Please have your passport and boarding pass ready.&rdquo;</i><br>
-    <b>have something ready</b> = 先拿在手上，不是「擁有」。</div>
+    <div class="tip">牌價每差 0.01，NT$5,000 就差約 THB 50。
+    <b>B 層排超過 15 分鐘就直接刷 VISA 感應搭 ARL</b>，進城再換。</div>
   </div>
 
   <div class="chunk">
     <div class="meta"><span>CHUNK 2 · 約 5 分鐘</span>
       <label class="done"><input type="checkbox" data-k="d1c2">讀過</label></div>
-    <h3>訂房確認信 <span class="zh">（細節都藏在中段）</span></h3>
-    <blockquote>
-      Dear Mr Chen,<br><br>
-      Thank you for choosing Ibis Bangkok Riverside. Your reservation is confirmed.<br><br>
-      <b>Check-in:</b> from 14:00 on Saturday 12 September<br>
-      <b>Check-out:</b> by 12:00 on Tuesday 15 September<br>
-      <b>Room:</b> 1 Standard Twin, non-smoking, breakfast included<br><br>
-      Early check-in is subject to availability and cannot be guaranteed. If you expect to
-      arrive after 18:00, please inform us in advance; otherwise the room may be released.
-      A refundable deposit of THB 1,000 will be taken at check-in and returned on
-      departure, provided the room is left in good condition.<br><br>
-      Free cancellation until 23:59 on 10 September. After that, the first night will be
-      charged.
-    </blockquote>
-    <ul>
-      <li><span class="en">subject to availability</span> — <span class="zh">看有沒有空房 ＝ 不保證</span></li>
-      <li><span class="en">released</span> — <span class="zh">房間被釋出給別人，你的訂房沒了</span></li>
-      <li><span class="en">refundable deposit</span> — <span class="zh">押金，會退</span></li>
-    </ul>
+    <h3>② 走進去訂按摩 — ThaiThai Sukhumvit 24</h3>
+    <div class="tip"><b>你是 walk-in，沒有預約。</b>而且要指定 <b>1/7 一般分店</b>，
+    不是隔壁的 Signature —— 走錯店是這一晚最容易發生的錯。</div>
+    <p class="d me"><span class="who me">你</span>Hi, is this the Sukhumvit 24 branch?</p>
+    <p class="d them">Yes, this is it.</p>
+    <p class="d me"><span class="who me">你</span>Do you have anything for two people tonight?</p>
+    <p class="d them">What time would you like?</p>
+    <p class="d me"><span class="who me">你</span>Around eight thirty. Ninety minutes, aromatherapy.</p>
+    <p class="d them">Let me check… eight thirty is fine.</p>
+    <p class="d me"><span class="who me">你</span>Can we be in the same room?</p>
+    <p class="d them">Yes, we have a couple room.</p>
+    <p class="d her"><span class="who her">發發</span>Two, please.</p>
+    <p class="d me"><span class="who me">你</span>Great. We&rsquo;ll come back at eight twenty.</p>
+    <div class="tip"><b>訂不到的時候這樣問：</b><br>
+    <span class="en">What time is your earliest?</span> — 最早幾點有位<br>
+    <span class="en">Do you have anything later?</span> — 有沒有晚一點的<br>
+    <span class="en">Could you write the time down?</span> — 請他寫下來，避免聽錯</div>
   </div>
 
   <div class="chunk">
     <div class="meta"><span>CHUNK 3 · 約 4 分鐘</span>
       <label class="done"><input type="checkbox" data-k="d1c3">讀過</label></div>
-    <h3>從機場到市區</h3>
-    <p>Bangkok has two airports. <b>Suvarnabhumi (BKK)</b> is the main international one;
-    <b>Don Mueang (DMK)</b> mostly handles low-cost carriers. They are an hour apart, so
-    check which one you are landing at before you book anything.</p>
-    <p>From Suvarnabhumi, the <b>Airport Rail Link</b> runs to Phaya Thai station and
-    connects to the BTS Skytrain. It is cheap and avoids traffic, but it stops running
-    around midnight.</p>
-    <p class="d you">Could you use the meter, please?</p>
-    <p class="d you">How much to Sukhumvit, roughly?</p>
-    <p class="d you">I&rsquo;d rather take the meter, thanks.</p>
+    <h3>③ 療程中 — 力道與身體狀況</h3>
+    <p><b>這幾句是整趟最值得記的。</b>90 分鐘 × 3 次 × 2 人，說錯的代價最高。</p>
+    <p class="d me"><span class="who me">你</span>Softer, please.　<span class="zh">輕一點</span></p>
+    <p class="d me"><span class="who me">你</span>A bit stronger, please.　<span class="zh">重一點</span></p>
+    <p class="d her"><span class="who her">發發</span>Softer, please.　<span class="zh">她只要會這一句就夠了</span></p>
+    <p class="d me"><span class="who me">你</span>That&rsquo;s painful.　<span class="zh">會痛（比 "No!" 清楚也禮貌）</span></p>
+    <p class="d me"><span class="who me">你</span>That&rsquo;s perfect, thank you.</p>
+    <p class="d me"><span class="who me">你</span>Could you focus on my shoulders?</p>
+    <p class="d me"><span class="who me">你</span>Please avoid my lower back.　<span class="zh">避開下背</span></p>
+    <p class="d me"><span class="who me">你</span>Do you have a locker?</p>
+    <p class="d me"><span class="who me">你</span>Where can I change?</p>
+    <p class="d me"><span class="who me">你</span>Is service included?　<span class="zh">問小費是否已含</span></p>
+    <div class="tip"><b>小費慣例：</b>泰國按摩店的小費通常<b>直接給技師</b>，
+    不是放帳單上。90 分鐘常見 THB 100–200／人。
+    帳單若寫 <code>service charge</code> 那是店家的，跟技師小費是兩回事。</div>
   </div>
 
   <div class="chunk">
-    <div class="meta"><span>CHUNK 4 · 約 4 分鐘</span>
+    <div class="meta"><span>CHUNK 4 · 約 5 分鐘</span>
       <label class="done"><input type="checkbox" data-k="d1c4">讀過</label></div>
-    <h3>飯店櫃檯</h3>
-    <p class="d you">Hi, I have a reservation under the name Chen.</p>
-    <p class="d them">Certainly. May I see your passport, please?</p>
-    <p class="d you">Here you go.</p>
-    <p class="d them">Thank you. We have you in a twin room for three nights, checking out on Tuesday.</p>
-    <p class="d you">That&rsquo;s right. Is breakfast included?</p>
-    <p class="d them">Yes, from 6:30 to 10:00 on the second floor.</p>
-    <p class="d you">Great. And what time do I need to check out?</p>
-    <p class="d them">By midday. If you need a late check-out, let us know the night before.</p>
-    <p class="d you">One more thing — could I leave my bags here after check-out?</p>
-    <p class="d them">Of course. The luggage room is just behind you.</p>
-    <div class="tip"><b>Here you go.</b> — 遞東西給對方最自然的一句，比 &ldquo;Give you.&rdquo; 自然一百倍。</div>
+    <h3>④ 療程單 — 發發的主場</h3>
+    <p class="zh">這一塊你不用開口，<b>發發讀完告訴你點哪個</b>就好。</p>
+    <table>
+      <tr><th>Treatment</th><th>60 min</th><th>90 min</th><th>120 min</th></tr>
+      <tr><td>Traditional Thai Massage</td><td>350</td><td>500</td><td>650</td></tr>
+      <tr><td><b>Aromatherapy Oil Massage</b></td><td>600</td><td><b>850</b></td><td>1,100</td></tr>
+      <tr><td>Foot Reflexology</td><td>300</td><td>450</td><td>—</td></tr>
+      <tr><td>Herbal Compress</td><td>—</td><td>900</td><td>1,200</td></tr>
+    </table>
+    <ul>
+      <li><span class="en">Traditional Thai</span> — <span class="zh">泰式古法，會拉筋、不上油、穿店家衣服</span></li>
+      <li><span class="en">Aromatherapy Oil</span> — <span class="zh">精油按摩 ← <b>你們要的就是這個</b></span></li>
+      <li><span class="en">Reflexology</span> — <span class="zh">足部反射</span></li>
+      <li><span class="en">Herbal Compress</span> — <span class="zh">草藥球熱敷</span></li>
+    </ul>
+    <div class="tip"><b>發發只要挑出這一格：</b>Aromatherapy Oil Massage → 90 min。
+    然後你說 <span class="en">Ninety minutes, aromatherapy, for two.</span></div>
   </div>
 
   <div id="d1desk">
-  <h2>💻 公司電腦精讀（30 分鐘）</h2>
-  <div class="tip">先把 <b>Chunk 2 的訂房確認信</b>再讀一次，這次慢慢讀、拆句子。<br>今天學過的 <code>provided</code>（只要…就）和 <code>subject to</code>（不保證）就在裡面。</div>
-  <div class="q"><b>Q1.</b> 班機延誤，預計 20:30 才到飯店。根據信件，你<b>必須</b>做什麼？不做會怎樣？</div>
-  <div class="q"><b>Q2.</b> 你 9/11 下午取消訂房。要付錢嗎？付多少？</div>
-  <div class="q"><b>Q3.</b> &ldquo;A refundable deposit … provided the room is left in good condition.&rdquo;
-    主要子句是哪一段？<code>provided</code> 在這裡什麼意思？</div>
-  <div class="q"><b>Q4.</b> &ldquo;Early check-in is subject to availability and cannot be guaranteed.&rdquo; 等於：<br>
-    (a) 提早入住要加錢　(b) 不一定可以，看有沒有空房　(c) 需要事先申請　(d) 只限特定房型</div>
-  <div class="q"><b>D1.</b> 不認識或不確定的字，全部列出（沒有寫「無」）<br>
-    <b>D2.</b> 四個 chunk 實際讀了幾分鐘？哪一塊最吃力？</div>
-  <div class="tip">貼回對話我會批改，並針對每題追問「你怎麼判斷的」。<b>答錯不是問題，靠猜對才是。</b></div>
+  <h2>💻 公司電腦精讀（25 分鐘）</h2>
+  <div class="tip"><b>昨天學的四個字，今天全部出現在同一段裡。</b>
+  這是真實 spa 會貼在櫃檯的規則，讀懂它就不會在門口吃虧。</div>
+  <blockquote>
+    <b>Booking &amp; Cancellation</b><br><br>
+    Bookings are held for 15 minutes after the appointed time.
+    <b>Thereafter</b>, the slot may be released to walk-in guests.<br><br>
+    A same-day change is permitted without charge, <b>provided</b> at least two hours&rsquo;
+    notice is given.<br><br>
+    Rooms for two are <b>subject to</b> availability and cannot be guaranteed for walk-in
+    bookings.<br><br>
+    Service charge is not included <b>unless</b> stated on your receipt.
+  </blockquote>
+  <div class="q"><b>Q1.</b> 你訂 20:30，結果 20:50 才到。位子還在嗎？
+    哪一個字決定了答案？</div>
+  <div class="q"><b>Q2.</b> 你 20:30 的訂位想改成 21:00，<b>20:00</b> 打去說。要加錢嗎？</div>
+  <div class="q"><b>Q3.</b> 你是 walk-in，想要雙人房。店家保證得了嗎？哪一句支持你的判斷？</div>
+  <div class="q"><b>Q4.</b> 帳單上<b>沒有</b>寫 service charge。這代表服務費已經含了，還是沒含？</div>
+  <div class="q"><b>Q5.</b>（發發可以一起答）療程單上 <code>Aromatherapy Oil Massage</code>
+    的 90 分鐘是多少錢？兩人共多少？</div>
+  <div class="q"><b>D1.</b> 這四塊裡不認識或不確定的字，全部列出（沒有寫「無」）<br>
+    <b>D2.</b> 哪幾句你覺得今晚真的說得出口？哪幾句看得懂但一定卡住？</div>
+  <div class="tip">貼回對話我會批改，並針對每題追問「你怎麼判斷的」。
+  <b>Q1–Q4 全部只靠昨天那四個字決定，答錯就是那個字還沒穩。</b></div>
   </div>
 </section>
 
@@ -1383,17 +1427,17 @@ footer{margin-top:2.5rem;padding-top:1rem;border-top:1px solid var(--line);color
   // 課程佇列：不卡日期。永遠顯示「還沒做完的下一課」，有空就做。
   // 日期只用來顯示提示（假日、排休）與計算出席，不當門檻。
   var LESSONS = [
-    { id:"d1", title:"泰國實戰 D1 — 抵達與移動", steps:[
+    { id:"d1", title:"泰國實戰 D1 — 換匯與按摩", steps:[
       {p:"通勤 · 約 4 分鐘", src:'[data-k="d1c1"]', chunk:true},
       {p:"通勤 · 約 5 分鐘", src:'[data-k="d1c2"]', chunk:true},
       {p:"通勤 · 約 4 分鐘", src:'[data-k="d1c3"]', chunk:true},
-      {p:"通勤 · 約 4 分鐘", src:'[data-k="d1c4"]', chunk:true, next:"通勤讀完了 ✓"},
+      {p:"通勤 · 約 5 分鐘", src:'[data-k="d1c4"]', chunk:true, next:"通勤讀完了 ✓"},
       {p:"公司 · 25 分鐘", src:'#d1desk', next:"寫完了 →"},
       {p:"最後一步", next:"今天完成 ✓", html:
         '<h3>把答案貼回 Claude 對話</h3>'
         + '<p>Q1–Q4，加上：</p><ul>'
         + '<li><b>D1</b> 不認識或不確定的字，全部列出（沒有寫「無」）</li>'
-        + '<li><b>D2</b> 四段實際讀了幾分鐘？哪一段最吃力？</li></ul>'
+        + '<li><b>D2</b> 哪幾句今晚真的說得出口？哪幾句看得懂但一定卡住？</li></ul>'
         + '<p class="zh">我會批改，並針對每題追問「你怎麼判斷的」。'
         + '<b>答錯不是問題，靠猜對才是。</b></p>'}
     ]},
